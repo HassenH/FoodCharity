@@ -12,6 +12,7 @@ h1{
 
 h2{
   font-family: 'Lalezar', cursive;
+  color: #93A37D;
 }
 
 /* Navbar */
@@ -354,6 +355,22 @@ nav.fill ul li a:hover:after {
 */
 }
 
+/*COMMENT CA MARCHE*/
+.btn {
+   color: white;
+   background-color: #d84b6b;
+   border-radius: 20px;
+   border: none;
+   width: 150px;
+   display: block;
+   margin: 0 auto;
+   margin-top: 10px;
+   line-height: 25px;
+}
+
+.numberHowItWorks {
+  height: 7.5rem;
+}
 /* Formulaire */
 .btn-success{
    background-color: #D84B6B;
@@ -371,6 +388,17 @@ nav.fill ul li a:hover:after {
   font-weight: bold;
   color: #93A37D;
 }
+
+.usersCard{
+  padding-top: 2rem;
+  transition: all .2s ease-in-out;
+}
+
+.usersCard:hover {
+  transform: scale(1.1);
+}
+/* Inscription */
+
 /*Footer*/
 
 .cardTitle{
@@ -489,12 +517,12 @@ nav.fill ul li a:hover:after {
    height : 75px;
 }
 
-.banner{
-   background-image: url("../img/banner2.png");
-   height: 35rem;
-   background-repeat: no-repeat
-}
-
-hr{
- color: green;
+.number-circle {
+font-size: 100px;
+margin: 40px;
+width: 150px;
+color: #ddd;
+border: 5px solid #ddd;
+border-radius: 100%;
+display: inline-block
 }

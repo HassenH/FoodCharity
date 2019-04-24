@@ -55,7 +55,7 @@
                      <a class="nav-link" href="#">Blog</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="/inscription.php">Inscription</a>
+                     <a class="nav-link" href="/registrationCategory.php">Inscription</a>
                   </li>
                   <li class="nav-item">
                      <a class="nav-link" href="">Connexion</a>
