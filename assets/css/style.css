@@ -378,6 +378,21 @@ nav.fill ul li a:hover:after {
    text-align: center;
 }
 
+.imgHowItWorks{
+  height: 16rem;
+  width: 28rem;
+}
+
+.tableHowItWorks{
+  height: 16rem;
+  width: 28rem;
+}
+
+.eatHowItWorks{
+  height: 16rem;
+  width: 28rem;
+}
+
 /* Vision */
 .vision{
    margin-top: 1.1rem;

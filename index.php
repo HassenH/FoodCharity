@@ -6,7 +6,6 @@ include 'navbar.php';
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 banner">
-      <img class="img-responsive" src="assets/img/banner3.png" alt="">
     </div>
   </div>
 </div>
@@ -100,7 +99,7 @@ include 'navbar.php';
         <a href="">En savoir plus</a>
       </div>
       <div class="col-12 col-sm-6 col-md-6 col-lg-6 embed-responsive embed-responsive-16by9">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/MTw67wSCVWU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/KugQ8RqIdXE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
       <div class="col-12 col-sm-12 col-md-12 col-lg-12">
         <h1>Grâce à vous, nous avons aidé à sauver : </h1>

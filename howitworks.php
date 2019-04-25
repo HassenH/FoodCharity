@@ -37,12 +37,12 @@ include 'navbar.php'
       <button type="button" class="btn btn-default">Inscrivez-vous</button>
     </div>
     <div class="col-12 col-sm-5 col-md-5 col-lg-5">
-      <img src="" alt="">
+      <img src="assets/img/shareimage.jpg" class="imgHowItWorks"alt="">
     </div>
   </div>
   <div class="row">
     <div class="col-12 col-sm-5 col-md-5 col-lg-5">
-      <img src="" alt="">
+      <img src="assets/img/tableimage.jpg" class="tableHowItWorks" alt="">
     </div>
     <div class="col-12 col-sm-7 col-md-7 col-lg-7">
       <h3>FoodCharity pour les commerces</h3>
@@ -57,7 +57,7 @@ include 'navbar.php'
       <button type="button" class="btn btn-default">Inscrivez-vous</button>
       </div>
       <div class="col-12 col-sm-5 col-md-5 col-lg-5">
-        <img src="" alt="">
+        <img src="assets/img/repas.jpg" class="eatHowItWorks" alt="">
       </div>
     </div>
   </div>
