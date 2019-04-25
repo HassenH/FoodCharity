@@ -366,6 +366,7 @@ nav.fill ul li a:hover:after {
    margin: 0 auto;
    margin-top: 10px;
    line-height: 25px;
+   font-family: 'Lalezar', cursive;
 }
 
 .numberHowItWorks {
