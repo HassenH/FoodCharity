@@ -100,8 +100,8 @@ include 'navbar.php';
         <a href="">En savoir plus</a>
       </div>
       <div class="col-12 col-sm-6 col-md-6 col-lg-6 embed-responsive embed-responsive-16by9">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/MTw67wSCVWU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/KugQ8RqIdXE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
       <div class="col-12 col-sm-12 col-md-12 col-lg-12">
         <h1>Grâce à vous, nous avons aidé à sauver : </h1>
       </div>
@@ -111,7 +111,7 @@ include 'navbar.php';
       </div>
       <div class="col-12 col-sm-5 offset-sm-1 col-md-5 offset-md-1 text-center">
         <h5>Produits sauvés :</h5>
-        <p class="number">380.000</p>
+        <p class="number">10000</p>
       </div>
     </div>
   </div>
