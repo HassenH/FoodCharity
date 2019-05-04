@@ -28,3 +28,9 @@ $('#carousel-example').on('slide.bs.carousel', function (e) {
  * On lui applique la fonction mask à laquelle on donne en paramètre le nombre de chiffres représentés par des 0 et ce qui les sépare
  */
 $('#phoneNumber').mask('00 00 00 00 00');
+
+// Je déclare une fonction, je sélectionne la méthode tooltip()
+$(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="popover"]').popover();
+});

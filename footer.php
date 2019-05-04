@@ -32,6 +32,7 @@
                <li><a href="#">Nous contacter</a></li>
                <li><a href="#">Newsletter</a></li>
                <li><a href="#">FAQ</a></li>
+               <li><a href="#">Mentions légales</a></li>
             </ul>
          </div>
          <div class="col-12 col-sm-12 col-md-3 col-lg-3">
