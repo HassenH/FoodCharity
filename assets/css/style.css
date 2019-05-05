@@ -3,6 +3,10 @@
   background: #F9F7F7;
 }
 
+.multistep {
+  height: 85px;
+}
+
 .lol1{
   background-image: url("../img/banner2.png");
   background-position: center;
@@ -13,6 +17,7 @@
 body {
   font-family: 'Crimson Text', serif !important;
   font-size: 1.12rem;
+  background: #F6F6F6;
 }
 
 h1{

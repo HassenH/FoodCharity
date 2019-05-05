@@ -33,6 +33,17 @@ if (count($_POST) > 0) {
     $formErrors['titleDonation'] = 'Merci de renseigner un titre';
   }
 
+  if (!empty($_POST['categoryDonation'])) {
+    if ($_POST['categoryDonation'] === 'Fruits et légumes' || $_POST['categoryDonation'] === 'Produits frais' || $_POST['categoryDonation'] === 'Produits secs' || $_POST['categoryDonation'] === 'Produits congelés' || $_POST['categoryDonation'] === 'Boissons' || $_POST['categoryDonation'] === '
+    Autres aliments') {
+      $categoryDonation = $_POST['categoryDonation'];
+    } else {
+      $formErrors['categoryDonation'] = 'Merci de sélectionner une réponse';
+    }
+  } else {
+    $formErrors['categoryDonation'] = 'Merci de répondre à cette question';
+  }
+
   if (!empty($_POST['detailsDonation'])) {
     //Ici on utilise htmlspecialchars car on veut garder MAIS désactiver les éventuelles balises html (attention : différent de strip_tags)
     $detailsDonation = htmlspecialchars($_POST['detailsDonation']);
@@ -41,9 +52,9 @@ if (count($_POST) > 0) {
   }
 
   if (!empty($_POST['numberDonation'])) {
-    if (preg_match($regexName, $_POST['numberDonation'])) {
+    if (preg_match($regexNumberDonation, $_POST['numberDonation'])) {
       //On utilise la fonction strip_tags pour supprimer les éventuelles balises html => on a aucun intérêt à garder une balise html dans ce champs
-      $lastName = strip_tags($_POST['numberDonation']);
+      $numberDonation = strip_tags($_POST['numberDonation']);
     } else {
       $formErrors['numberDonation'] = 'Merci de renseigner un nombre de colis valide';
     }
@@ -52,171 +63,227 @@ if (count($_POST) > 0) {
   }
 
   if (!empty($_POST['packagesDonation'])) {
-   if ($_POST['packagesDonation'] === 'Sac(s)' || $_POST['packagesDonation'] === 'Sac(s) isotherme' || $_POST['packagesDonation'] === 'Caisse(s)' || $_POST['packagesDonation'] === 'Palette(s)' || $_POST['packagesDonation'] === 'Sans contenant') {
-     $packagesDonation = $_POST['packagesDonation'];
-   } else {
-     $formErrors['packagesDonation'] = 'Merci de sélectionner une réponse';
-   }
- } else {
-   $formErrors['packagesDonation'] = 'Merci de répondre à cette question';
- }
-
- if (!empty($_POST['weightDonation'])) {
-   if (preg_match($regexName, $_POST['weightDonation'])) {
-     //On utilise la fonction strip_tags pour supprimer les éventuelles balises html => on a aucun intérêt à garder une balise html dans ce champs
-     $weightDonation = strip_tags($_POST['weightDonation']);
-   } else {
-     $formErrors['weightDonation'] = 'Merci de renseigner un poids valide';
-   }
- } else {
-   $formErrors['weightDonation'] = 'Merci de renseigner un poids';
- }
-
- if (!empty($_POST[''])) {
-  if ($_POST[''] === 'Sac(s)' || $_POST[''] === 'Sac(s) isotherme' || $_POST[''] === 'Caisse(s)') {
-    $packagesDonation = $_POST['packagesDonation'];
+    if ($_POST['packagesDonation'] === 'Sac(s)' || $_POST['packagesDonation'] === 'Sac(s) isotherme' || $_POST['packagesDonation'] === 'Caisse(s)' || $_POST['packagesDonation'] === 'Palette(s)' || $_POST['packagesDonation'] === 'Sans contenant') {
+      $packagesDonation = $_POST['packagesDonation'];
+    } else {
+      $formErrors['packagesDonation'] = 'Merci de sélectionner une réponse';
+    }
   } else {
-    $formErrors['packagesDonation'] = 'Merci de sélectionner une réponse';
+    $formErrors['packagesDonation'] = 'Merci de répondre à cette question';
   }
-} else {
-  $formErrors['packagesDonation'] = 'Merci de répondre à cette question';
-}
 
- if (!empty($_POST['deliveryDonation'])) {
-  if ($_POST['deliveryDonation'] === 'Demande de collecte par une association' || $_POST['deliveryDonation'] === 'Dépôt dans une association') {
-    $deliveryDonation = $_POST['deliveryDonation'];
+  if (!empty($_POST['weightNumberDonation'])) {
+    if (preg_match($regexNumberWeight, $_POST['weightNumberDonation'])) {
+      //On utilise la fonction strip_tags pour supprimer les éventuelles balises html => on a aucun intérêt à garder une balise html dans ce champs
+      $weightNumberDonation = strip_tags($_POST['weightNumberDonation']);
+    } else {
+      $formErrors['weightNumberDonation'] = 'Merci de renseigner un poids valide';
+    }
   } else {
-    $formErrors['deliveryDonation'] = 'Merci de sélectionner une option de remise';
+    $formErrors['weightNumberDonation'] = 'Merci de renseigner un poids';
   }
-} else {
-  $formErrors['deliveryDonation'] = 'Merci de répondre à cette question';
+
+  if (!empty($_POST['weightTypeDonation'])) {
+    if ($_POST['weightTypeDonation'] === 'Kg' || $_POST['weightTypeDonation'] === 'g') {
+      $weightTypeDonation = $_POST['weightTypeDonation'];
+    } else {
+      $formErrors['weightTypeDonation'] = 'Merci de sélectionner le type de poids';
+    }
+  } else {
+    $formErrors['weightTypeDonation'] = 'Merci de renseigner le type poids';
+  }
+
+  if (!empty($_POST['deliveryDonation'])) {
+    if ($_POST['deliveryDonation'] === 'Demande de collecte par une association' || $_POST['deliveryDonation'] === 'Dépôt dans une association') {
+      $deliveryDonation = $_POST['deliveryDonation'];
+    } else {
+      $formErrors['deliveryDonation'] = 'Merci de sélectionner une option de remise';
+    }
+  } else {
+    $formErrors['deliveryDonation'] = 'Merci de renseigner une option de remise';
+  }
 }
-}
-  ?>
+?>
 
 <div class="container">
-  <?php if (count($_POST) == 0 || count($formErrors) > 0) { ?>
-  <form action="donation.php" method="POST">
-    <div class="form-group row">
-      <div class="col-12 col-sm-8 col-md-8 col-lg-8 mt-4">
-        <label for="titleDonation" class="font-weight-bold">Titre de l'annonce* : </label>
-        <?php
-        /*
-         * On garde dans la value, $_POST['lastName'] qui est la saisie de l'utilisateur
-         * Permet d'éviter à l'utilisateur de resaisir ses informations
-         *
-         * On ajoute la classe is-invalid si $formErrors['lastName'] existe car cette variable n'existe qu'en cas d'erreur
-         * On ajoute la classe is-valid si $lastName existe car cette variable n'existe qu'en cas de saisie valide
-         *
-         * En cas d'erreur on crée une div invalid-feedback pour afficher le texte de l'erreur
-         */
-        ?>
-        <input type="text" name="titleDonation" value="" class="form-control" id="titleDonation" placeholder="Titre :" required />
-      </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-12 mt-2">
-        <div class="form-check form-check-inline text-center category-checkbox">
-          <img src="assets/img/fruitlegume1.png" alt="Fruits et légumes" class="img-thumbnail" width="130" data-toggle="tooltip" data-placement="bottom" title="(pomme, fraise, salade...)">
-          <label for="form-check-label">Fruits et légumes</label>
-          <input type="checkbox" name="fruitsAndVegetables" value="1" id="fruitsAndVegetables">
+  <div class="row justify-content-center" id="makeDonationPage">
+    <div class="col-12">
+      <div class="card border-0">
+        <div class="card-header bg-red text-white text-center p-0 border-bottom-0 mt-4">
+          <h1 class="card-title mb-3">Faire un don</h1>
         </div>
-        <div class="form-check form-check-inline text-center category-checkbox">
-          <img src="assets/img/refregirateur.png" alt="Produits frais" class="img-thumbnail" width="130" data-toggle="tooltip" data-placement="bottom" title="(viande,fromage,poisson...)">
-          <label for="form-check-label">
-            <input type="checkbox" name="coldProduct" value="3" id="coldProduct">Produits frais</label>
+        <div class="card-body p-0">
+        <div class="row justify-content-center my-4">
+          <img src="assets/img/multistep2.png" class="multistep" alt="">
+        </div>
+        <div class="col-12 card border-0">
+          <div class="form-group row card-body p-0 pt-2">
+            <div class="col-12 col-sm-8 col-md-8 col-lg-8 mt-4">
+              <?php if (count($_POST) == 0 || count($formErrors) > 0) { ?>
+                <form action="donation.php" method="POST">
+                  <label for="titleDonation" class="font-weight-bold">Titre de l'annonce* : </label>
+                  <?php
+                  /*
+                  * Dans la value nous allons utiliser une condition ternaire
+                  * Grâce a la condition ternaire nous allons déterminé si $_POST['titleDonation'] est définie  (isset($_POST['titleDonation']) ? valeur à retourner si true : valeur à retourner si false).
+                  * On garde dans la value, $_POST['titleDonation'] qui est la saisie de l'utilisateur
+                  * Permet d'éviter à l'utilisateur de resaisir ses informations
+                  *
+                  * On ajoute la classe is-invalid si $formErrors['titleDonation'] existe car cette variable n'existe qu'en cas d'erreur
+                  * On ajoute la classe is-valid si $titleDonation existe car cette variable n'existe qu'en cas de saisie valide
+                  *
+                  * En cas d'erreur on crée une div invalid-feedback pour afficher le texte de l'erreur
+                  */
+                  ?>
+                  <input type="text" name="titleDonation" value="<?= isset($_POST['titleDonation']) ? $_POST['titleDonation'] : '' ?>" class="form-control <?= isset($formErrors['titleDonation']) ? 'is-invalid' : (isset($titleDonation) ? 'is-valid' : '') ?>" id="titleDonation" placeholder="Titre :" required />
+                  <?php if (isset($formErrors['titleDonation'])) { ?>
+                    <div class="invalid-feedback"><?= $formErrors['titleDonation'] ?></div>
+                  <?php } ?>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-12 mt-2">
+                  <label for="categoryDonation" class="font-weight-bold">Catégories* (les produits ne doivent pas être périmés) : </label>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class=" col-12 mt-2">
+                  <div class="form-check form-check-inline text-center category-checkbox">
+                    <?php
+                    /*
+                    * Pour garder la saisie utilisateur, on ajoute l'attribut checked s'il a coché l'input
+                    */
+                    ?>
+                    <img src="assets/img/fruitlegume1.png" alt="Fruits et légumes" class="img-thumbnail" width="130" data-toggle="tooltip" data-placement="bottom" title="(pomme, fraise, salade...)" />
+                    <label for="form-check-label">Fruits et légumes</label>
+                    <input type="checkbox" name="categoryDonation" value="Fruits et légumes" <?= isset($_POST['categoryDonation']) && $_POST['categoryDonation'] == 'Fruits et légumes' ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['categoryDonation']) ? 'is-invalid' : (isset($categoryDonation) ? 'is-valid' : '') ?>" id="fruitsAndVegetables">
+                  </div>
+                  <div class="form-check form-check-inline text-center category-checkbox">
+                    <img src="assets/img/refregirateur.png" alt="Produits frais" class="img-thumbnail" width="130" data-toggle="tooltip" data-placement="bottom" title="(viande,fromage,poisson...)" />
+                    <label for="form-check-label">Produits frais</label>
+                    <input type="checkbox" name="categoryDonation" value="Produits frais" <?= isset($_POST['categoryDonation']) && $_POST['categoryDonation'] == 'Produits frais' ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['categoryDonation']) ? 'is-invalid' : (isset($categoryDonation) ? 'is-valid' : '') ?>" id="coldProduct">
+                  </div>
+                  <div class="form-check form-check-inline text-center category-checkbox">
+                    <img src="assets/img/farine.png" alt="Produits secs" class="img-thumbnail" width="130" data-toggle="tooltip" data-placement="bottom" title="(farine,riz...)" />
+                    <label for="form-check-label">Produits secs</label>
+                    <input type="checkbox" name="categoryDonation" value="Produits secs" <?= isset($_POST['categoryDonation']) && $_POST['categoryDonation'] == 'Produits secs' ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['categoryDonation']) ? 'is-invalid' : (isset($categoryDonation) ? 'is-valid' : '') ?>" id="dryProduct">
+                  </div>
+                  <div class="form-check form-check-inline text-center category-checkbox">
+                    <img src="assets/img/frozen.png" alt="Produits congelés" class="img-thumbnail" width="130" data-toggle="tooltip" data-placement="bottom" title="(produit congelés)" />
+                    <label for="form-check-label">Produits congelés</label>
+                    <input type="checkbox" name="categoryDonation" value="Produits congelés" <?= isset($_POST['categoryDonation']) && $_POST['categoryDonation'] == 'Produits congelés' ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['categoryDonation']) ? 'is-invalid' : (isset($categoryDonation) ? 'is-valid' : '') ?>" id="frozenProduct">
+                  </div>
+                  <div class="form-check form-check-inline text-center category-checkbox">
+                    <label for="form-check-label">Boissons</label>
+                    <img src="assets/img/boissons1.png" alt="Boissons" class="img-thumbnail" width="130" data-toggle="tooltip" data-placement="bottom" title="(boissons)" />
+                    <input type="checkbox" name="categoryDonation" value="Boissons" <?= isset($_POST['categoryDonation']) && $_POST['categoryDonation'] == 'Boissons' ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['categoryDonation']) ? 'is-invalid' : (isset($categoryDonation) ? 'is-valid' : '') ?>" id="drinkProduct">
+                  </div>
+                  <div class="form-check form-check-inline text-center category-checkbox">
+                    <label for="form-check-label">Autres aliments</label>
+                    <img src="assets/img/autresaliments.png" alt="Produits congelés" class="img-thumbnail" width="130" data-toggle="tooltip" data-placement="bottom" title="(boîtes de conserve, gâteaux)" />
+                    <input type="checkbox" name="categoryDonation" value="Autres aliments" <?= isset($_POST['categoryDonation']) && $_POST['categoryDonation'] == 'Autres aliments' ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['categoryDonation']) ? 'is-invalid' : (isset($categoryDonation) ? 'is-valid' : '') ?>" id="otherProduct">
+                  </div>
+                </div>
+                <?php if (isset($formErrors['categoryDonation'])) { ?>
+                  <div class="invalid-feedback d-block"><?= $formErrors['categoryDonation'] ?></div>
+                <?php } ?>
+              </div>
+              <div class="form-group row">
+                <div class="col-12 mt-2">
+                  <label for="detailsDonation" class="font-weight-bold">Texte de l'annonce :</label>
+                  <textarea name="detailsDonation" class="form-control <?= isset($formErrors['detailsDonation']) ? 'is-invalid' : (isset($detailsDonation) ? 'is-valid' : '') ?>" id="detailsDonation" rows="5" required placeholder="Votre texte"><?= isset($_POST['detailsDonation']) ? $_POST['detailsDonation'] : '' ?></textarea>
+                  <?php if (isset($formErrors['detailsDonation'])) { ?>
+                    <div class="invalid-feedback"><?= $formErrors['detailsDonation'] ?></div>
+                  <?php } ?>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-12">
+                  <label for="numberDonation" class="font-weight-bold">Nombre de colis* : </label>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+                  <input type="number" name="numberDonation" value="<?= isset($_POST['numberDonation']) ? $_POST['numberDonation'] : '' ?>" class="form-control <?= isset($formErrors['numberDonation']) ? 'is-invalid' : (isset($numberDonation) ? 'is-valid' : '') ?>" id="numberDonation" min="0" required placeholder="0">
+                  <?php if (isset($formErrors['numberDonation'])) { ?>
+                    <div class="invalid-feedback"><?= $formErrors['numberDonation'] ?></div>
+                  <?php } ?>
+                </div>
+                <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+                  <select class="form-control <?= isset($formErrors['packagesDonation']) ? 'is-invalid' : (isset($packagesDonation) ? 'is-valid' : '') ?>" name="packagesDonation" id="packagesDonation" />
+                    <option selected disabled>---Choix---</option>
+                    <option value="Sac(s)" <?= isset($_POST['packagesDonation']) && $_POST['packagesDonation'] == 'Sac(s)' ? 'selected' : '' ?>>Sac(s)</option>
+                    <option value="Sac(s) isotherme" <?= isset($_POST['packagesDonation']) && $_POST['packagesDonation'] == 'Sac(s) isotherme' ? 'selected' : '' ?>>Sac(s) isotherme</option>
+                    <option value="Caisse(s)" <?= isset($_POST['packagesDonation']) && $_POST['packagesDonation'] == 'Caisse(s)' ? 'selected' : '' ?>>Caisse(s)</option>
+                    <option value="Palette(s)" <?= isset($_POST['packagesDonation']) && $_POST['packagesDonation'] == 'Palette(s)' ? 'selected' : '' ?>>Palette(s)</option>
+                    <option value="Sans contenant" <?= isset($_POST['packagesDonation']) && $_POST['packagesDonation'] == 'Sans contenant' ? 'selected' : '' ?>>Sans contenant</option>
+                  </select>
+                  <?php if (isset($formErrors['packagesDonation'])) { ?>
+                    <div class="invalid-feedback"><?= $formErrors['packagesDonation'] ?></div>
+                  <?php } ?>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-12 mt-2">
+                  <label for="weightNumberDonation" class="font-weight-bold">Estimation du poids total* : </label>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+                  <input type="number" name="weightNumberDonation" value="<?= isset($_POST['weightNumberDonation']) ? $_POST['weightNumberDonation'] : '' ?>" class="form-control <?= isset($formErrors['weightNumberDonation']) ? 'is-invalid' : (isset($weightNumberDonation) ? 'is-valid' : '') ?>" step="0.1" id="weightNumberDonation" min="0" required placeholder="0">
+                  <?php if (isset($formErrors['weightNumberDonation'])) { ?>
+                    <div class="invalid-feedback"><?= $formErrors['weightNumberDonation'] ?></div>
+                  <?php } ?>
+                </div>
+                <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+                  <select class="form-control" id="weightTypeDonation" name="weightTypeDonation">
+                    <option selected disabled>---Choix---</option>
+                    <option value="Kg" <?= isset($_POST['weightTypeDonation']) && $_POST['weightTypeDonation'] == 'Kg' ? 'selected' : '' ?>>Kg</option>
+                    <option value="g" <?= isset($_POST['weightTypeDonation']) && $_POST['weightTypeDonation'] == 'g' ? 'selected' : '' ?>>g</option>
+                  </select>
+                  <?php if (isset($formErrors['weighTypeDonation'])) { ?>
+                    <div class="invalid-feedback"><?= $formErrors['weightTypeDonation'] ?></div>
+                  <?php } ?>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-12 mt-2">
+                  <label for="photoDonation" class="font-weight-bold">Photo :  </label>
+                  <div class="border border-secondary p-2 rounded text-center">
+                    <label>minimum 315px en largeur et 315px en hauteur</label>
+                    <div id="make_donation_photo" class="d-none"><div><label> </label><div id="make_donation_photo_imageFile"><div><label for="make_donation_photo_imageFile_file"> </label><input type="file" id="make_donation_photo_imageFile_file" name="make_donation[photo][imageFile][file]" /></div>
+                  </div></div>
+                </div>
+                <div class="w-100"></div>
+                <img src="/bundles/app/img/addImage.png" alt="Photo de profil" height="50" class="manage-image mb-2" />
+              </div>
+            </div>
           </div>
-          <div class="form-check form-check-inline text-center category-checkbox">
-            <img src="assets/img/farine.png" alt="Produits secs" class="img-thumbnail" width="130" data-toggle="tooltip" data-placement="bottom" title="(farine,riz...)">
-            <label for="form-check-label">Produits secs</label>
-            <input type="checkbox" name="dryProduct" value="4" id="dryProduct">
+          <div class="form-group row">
+            <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+              <label for="deliveryDonation" class="font-weight-bold">Option de remise* :</label>
+            </div>
+            <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+              <select class="form-control <?= isset($formErrors['deliveryDonation']) ? 'is-invalid' : (isset($deliveryDonation) ? 'is-valid' : '') ?>" name="deliveryDonation" id="deliveryDonation" />
+                <option selected disabled>---Choix---</option>
+                <option value="Demande de collecte par une association" <?= isset($_POST['deliveryDonation']) && $_POST['deliveryDonation'] == 'Demande de collecte par une association' ? 'selected' : '' ?>>Demande de collecte par une association</option>
+                <option value="Dépôt dans une association" <?= isset($_POST['deliveryDonation']) && $_POST['deliveryDonation'] == 'Dépôt dans une association' ? 'selected' : '' ?>>Dépôt dans une association</option>
+              </select>
+              <?php if (isset($formErrors['deliveryDonation'])) { ?>
+                <div class="invalid-feedback"><?= $formErrors['deliveryDonation'] ?></div>
+              <?php } ?>
+            </div>
           </div>
-          <div class="form-check form-check-inline text-center category-checkbox">
-            <label for="form-check-label">Produits congelés</label>
-            <img src="assets/img/frozen.png" alt="Produits congelés" class="img-thumbnail" width="130" data-toggle="tooltip" data-placement="bottom" title="(produit congelés)">
-            <input type="checkbox" name="frozenProduct" value="5" id="frozenProduct">
-          </div>
-          <div class="form-check form-check-inline text-center category-checkbox">
-            <label for="form-check-label">Boissons</label>
-            <img src="assets/img/boissons1.png" alt="Boissons" class="img-thumbnail" width="130" data-toggle="tooltip" data-placement="bottom" title="(boissons)">
-            <input type="checkbox" name="drinkProduct" value="6" id="drinkProduct">
-          </div>
-          <div class="form-check form-check-inline text-center category-checkbox">
-            <label for="form-check-label">Autres aliments</label>
-            <img src="assets/img/autresaliments.png" alt="Produits congelés" class="img-thumbnail" width="130" data-toggle="tooltip" data-placement="bottom" title="(boîtes de conserve, gâteaux)">
-            <input type="checkbox" name="otherProduct" value="7" id="otherProduct">
-          </div>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-12 mt-2">
-          <label for="detailsDonation" class="font-weight-bold">Texte de l'annonce :</label>
-          <textarea name="detailsDonation" class="form-control" id="detailsDonation" rows="5" required placeholder="Votre texte"></textarea>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-12">
-          <label for="numberDonation" class="font-weight-bold">Nombre de colis* : </label>
-        </div>
-        <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-          <input type="number" name="numberDonation" value="" id="numberDonation" min="0" required placeholder="1">
-        </div>
-        <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-          <select class="form-control" id="packagesDonation" name="packagesDonation">
-            <option selected disabled>---Choix---</option>
-            <option value="">Sac(s)</option>
-            <option value="">Sac(s) isotherme</option>
-            <option value="">Caisse(s)</option>
-            <option value="">Palette(s)</option>
-            <option value="">Sans contenant</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-12 mt-2">
-          <label for="weightDonation" class="font-weight-bold">Estimation du poids total* : </label>
-        </div>
-        <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-          <input type="number" name="weightDonation" value="" id="weightDonation" min="0" required placeholder="1">
-        </div>
-        <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-          <select class="form-control" id="wDonation" name="wDonation">
-            <option selected disabled>---Choix---</option>
-            <option value="">Kg</option>
-            <option value="">g</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-12 mt-2">
-          <label for="photoDonation" class="font-weight-bold">Photo :  </label>
-          <div class="border border-secondary p-2 rounded text-center">
-            <label>minimum 315px en largeur et 315px en hauteur</label>
-            <div id="make_donation_photo" class="d-none"><div><label> </label><div id="make_donation_photo_imageFile"><div><label for="make_donation_photo_imageFile_file"> </label><input type="file" id="make_donation_photo_imageFile_file" name="make_donation[photo][imageFile][file]" /></div>
-          </div></div>
-        </div>
-        <div class="w-100"></div>
-        <img src="/bundles/app/img/addImage.png" alt="Photo de profil" height="50" class="manage-image mb-2" />
-      </div>
+          <input type="submit" name="btn btn-success" value="Etape suivante: adresse de remise">
+        </form>
+      <?php } ?>
     </div>
   </div>
-  <div class="form-group row">
-    <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-      <label for="deliveryDonation" class="font-weight-bold">Option de remise* :</label>
-    </div>
-    <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-      <select class="form-control" id="" name="deliveryDonation">
-        <option selected disabled>---Choix---</option>
-        <option value="">Demande de collecte par une association</option>
-        <option value="">Dépôt dans une association</option>
-      </select>
-    </div>
   </div>
-  <input type="submit" name="btn btn-success" value="Etape suivante: adresse de remise">
-</form>
+</div>
 </div>
 
 <?php
-var_dump();
+var_dump($_POST);
 include 'footer.php'
 ?>
