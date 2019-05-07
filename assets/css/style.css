@@ -580,9 +580,10 @@ Attribution required
 /* DONATION */
 .bg-red, .btn-bg-outline-red:hover, .btn-bg-red {
     color: #fff;
-    background-color: #c11;
-    border-color: #c11;
+    background-color: #d84b6b;
+    border-color: #d84b6b;
 }
+
 /*Footer*/
 
 .cardTitle{

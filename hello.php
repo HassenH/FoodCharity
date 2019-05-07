@@ -87,10 +87,10 @@ if (count($_POST) > 0) {
     if ($_POST['weightTypeDonation'] === 'Kg' || $_POST['weightTypeDonation'] === 'g') {
       $weightTypeDonation = $_POST['weightTypeDonation'];
     } else {
-      $formErrors['weightTypeDonation'] = 'Merci de sélectionner le type de poids';
+      $formErrors['weightTypeDonation'] = 'Merci de sélectionner une option de remise';
     }
   } else {
-    $formErrors['weightTypeDonation'] = 'Merci de renseigner le type poids';
+    $formErrors['weightTypeDonation'] = 'Merci de renseigner une option de remise';
   }
 
   if (!empty($_POST['deliveryDonation'])) {
@@ -247,12 +247,12 @@ if (count($_POST) > 0) {
                   <?php } ?>
                 </div>
                 <div class="col-12 col-sm-4 col-md-4 col-lg-4 px-5">
-                  <select class="form-control" id="weightTypeDonation" name="weightTypeDonation">
+                  <select class="form-control <?= isset($formErrors['weightTypeDonation']) ? 'is-invalid' : (isset($weightTypeDonation) ? 'is-valid' : '') ?>" id="weightTypeDonation" name="weightTypeDonation">
                     <option selected disabled>---Choix---</option>
                     <option value="Kg" <?= isset($_POST['weightTypeDonation']) && $_POST['weightTypeDonation'] == 'Kg' ? 'selected' : '' ?>>Kg</option>
                     <option value="g" <?= isset($_POST['weightTypeDonation']) && $_POST['weightTypeDonation'] == 'g' ? 'selected' : '' ?>>g</option>
                   </select>
-                  <?php if (isset($formErrors['weighTypeDonation'])) { ?>
+                  <?php if (isset($formErrors['weightTypeDonation'])) { ?>
                     <div class="invalid-feedback"><?= $formErrors['weightTypeDonation'] ?></div>
                   <?php } ?>
                 </div>
