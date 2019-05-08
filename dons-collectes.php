@@ -8,7 +8,7 @@ include 'navbar.php'
     <div class="col-12 col-sm-12 col-md-9 col-lg-9">
       <div class="card border-0">
         <div class="card-header text-white text-center p-0 border-bottom-0 ">
-          <h1 class="card-title mb-3">Mes dons réalisés</h1>
+          <h1 class="card-title mb-3">Mes dons collectés</h1>
         </div>
         <div class="row">
           <div class="col-12 col-sm-12 col-md-12 col-lg-12">

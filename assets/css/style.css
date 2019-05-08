@@ -584,6 +584,19 @@ Attribution required
     border-color: #d84b6b;
 }
 
+/* PAGE DONATION */
+.imgProfil {
+  height : 12rem;
+}
+
+.rankDonation {
+  background-color: #90A87D;
+}
+
+.rankTitle{
+  font-family: 'Schoolbell', cursive;
+  font-size: 1.8rem;
+}
 /*Footer*/
 
 .cardTitle{

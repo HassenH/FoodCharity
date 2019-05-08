@@ -15,7 +15,7 @@ include 'navbar.php'
               <h2 class="card-title">Hassen Hadhri</h2>
               <p class="card-text">Email : </strong> hadhri-h@live.fr</p>
               <p class="card-text">Téléphone mobile : </strong> 06 09 72 29 16</p>
-              <a class="btn btn-md btn-block btn-profil text-white" href="/profil/modification" title="Modification du compte"><i class="fas fa-pencil-alt"></i> Modifier vos informations</a>
+              <a class="btn btn-md btn-block btn-profil text-white" href="/modifier.php" title="Modification du compte"><i class="fas fa-pencil-alt"></i> Modifier vos informations</a>
             </div>
           </div>
         </div>

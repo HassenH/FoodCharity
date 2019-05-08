@@ -37,17 +37,17 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="#">Qu'est-ce que c'est ?</a>
-              <a class="dropdown-item" href="#">Pourquoi, pour qui ?</a>
-              <a class="dropdown-item" href="#">Comment ça marche ?</a>
+              <a class="dropdown-item" href="/pourquoi.php">Pourquoi, pour qui ?</a>
+              <a class="dropdown-item" href="/howitworks.php">Comment ça marche ?</a>
             </div>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">L'aventure</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Notre histoire</a>
+              <a class="dropdown-item" href="/notrehistoire.php">Notre histoire</a>
               <a class="dropdown-item" href="#">Notre vision</a>
               <a class="dropdown-item" href="#">Nos engagements</a>
-              <a class="dropdown-item" href="#">Nos valeurs</a>
+              <a class="dropdown-item" href="">Nos valeurs</a>
               <a class="dropdown-item" href="#">Nos partenaires</a>
             </div>
           </li>
