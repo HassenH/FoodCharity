@@ -13,7 +13,7 @@ require_once('navbar.php');
                <div class="row align-items-center">
                  <div class="col-sm-6 text-center">
                  <img src="assets/img/48.jpg" class="img-fluid rounded-circle imgProfil mt-2" alt="">
-                 <h2 class="mt-2">Hassen Hadhri</h2>
+                 <h2 class="mt-2s">Hassen Hadhri</h2>
                  </div>
                  <div class="col-sm-6">
                    <ul class="list-unstyled ml-3">

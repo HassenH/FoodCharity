@@ -1,10 +1,11 @@
 /* GENERAL STYLE */
 
-.lol1{
-  background-image: url("../img/banner2.png");
+.imgHeaderRegistration {
+  background-image: url("../img/BanniereInscription.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  min-height: 17rem;
 }
 
 body {
@@ -14,10 +15,6 @@ body {
 
 h1{
   font-family: 'Schoolbell', cursive;
-}
-
-h2{
-
 }
 
 a {
@@ -547,7 +544,7 @@ Attribution required
 }
 
 .usersCard{
-  padding-top: 2rem;
+  padding-top: 10rem;
   transition: all .2s ease-in-out;
 }
 
