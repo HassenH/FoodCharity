@@ -17,14 +17,14 @@ if (count($_POST) > 0) {
    * S'il est vide => on stocke l'erreur dans le tableau $formErrors
    * S'il n'est pas vide => on stocke dans la variable $title qui nous servira à afficher
    */
-  if (!empty($_POST['title'])) {
-      if ($_POST['title'] === 'Madame' || $_POST['title'] === 'Monsieur') {
-          $title = $_POST['title'];
+  if (!empty($_POST['civility'])) {
+      if ($_POST['civility'] === 'Madame' || $_POST['civility'] === 'Monsieur') {
+          $user->civility = $_POST['civility'];
       } else {
-          $formErrors['title'] = 'Votre civilité est incorrecte';
+          $formErrors['civility'] = 'Votre civilité est incorrecte';
       }
   } else {
-      $formErrors['title'] = 'Merci de renseigner votre civilité';
+      $formErrors['civility'] = 'Merci de renseigner votre civilité';
   }
   /*
    * On vérifie que $_POST['lastName'] n'est pas vide

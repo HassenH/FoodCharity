@@ -1,11 +1,11 @@
 /* GENERAL STYLE */
 
 .imgHeaderRegistration {
-  background-image: url("../img/BanniereInscription.png");
+  background-image: url("../img/banniereInscription.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 17rem;
+  min-height: 18rem;
 }
 
 body {
@@ -544,7 +544,6 @@ Attribution required
 }
 
 .usersCard{
-  padding-top: 10rem;
   transition: all .2s ease-in-out;
 }
 

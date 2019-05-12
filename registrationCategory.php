@@ -10,7 +10,7 @@ include 'navbar.php';
   </div>
 </div>
     <div class="container">
-    <div class="row">
+    <div class="row my-4">
       <div class="text-center col-12 col-sm-6 col-md-6 col-lg-6 usersCard">
         <div class="shadow p-5 mb-5 bg-white rounded">
           <i class="fas fa-user fa-3x"></i>

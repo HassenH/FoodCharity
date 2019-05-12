@@ -1,183 +1,13 @@
 <?php
 include 'navbar.php';
 
-//On inclut le fichier qui contient les regex avec un require car on en a besoin pour faire les vérification
-require_once 'regex.php';
+require_once 'models/users.php';
+require_once 'controllers/usersCtrl.php';
 
-//On initialise un tableau d'erreurs vide
-$formErrors = array();
-/*
- * On vérifie si le tableau $_POST est vide
- * S'il est vide => le formulaire n'a pas été envoyé
- * S'il a au moins une ligne => le formulaire a été envoyé, on peut commencer les vérifications
- */
-if (count($_POST) > 0) {
-  /*
-   * On vérifie que $_POST['title'] n'est pas vide
-   * S'il est vide => on stocke l'erreur dans le tableau $formErrors
-   * S'il n'est pas vide => on stocke dans la variable $title qui nous servira à afficher
-   */
-  if (!empty($_POST['title'])) {
-      if ($_POST['title'] === 'Madame' || $_POST['title'] === 'Monsieur') {
-          $title = $_POST['title'];
-      } else {
-          $formErrors['title'] = 'Votre civilité est incorrecte';
-      }
-  } else {
-      $formErrors['title'] = 'Merci de renseigner votre civilité';
-  }
-  /*
-   * On vérifie que $_POST['lastName'] n'est pas vide
-   * S'il est vide => on stocke l'erreur dans le tableau $formErrors
-   * S'il n'est pas vide => on vérifie si la saisie utilisateur correspond à la regex
-   */
-  if (!empty($_POST['lastName'])) {
-    /*
-     * On vérifie si la saisie utilisateur correspond à la regex
-     * Si tout va bien => on stocke dans la variable qui nous servira à afficher
-     * Sinon => on stocke l'erreur dans le tableau $formErrors
-     */
-    if (preg_match($regexName, $_POST['lastName'])) {
-      //On utilise la fonction strip_tags pour supprimer les éventuelles balises html => on a aucun intérêt à garder une balise html dans ce champs
-      $lastName = strip_tags($_POST['lastName']);
-    } else {
-      $formErrors['lastName'] = 'Merci de renseigner un nom de famille valide';
-    }
-  } else {
-    $formErrors['lastName'] = 'Merci de renseigner votre nom de famille';
-  }
-
-  if (!empty($_POST['firstName'])) {
-    if (preg_match($regexName, $_POST['firstName'])) {
-      $firstName = strip_tags($_POST['firstName']);
-    } else {
-      $formErrors['firstName'] = 'Merci de renseigner un prénom valide';
-    }
-  } else {
-    $formErrors['firstName'] = 'Merci de renseigner votre prénom';
-  }
-
-  if (!empty($_POST['birthDate'])) {
-    if (preg_match($regexBirthDate, $_POST['birthDate'])) {
-      $birthDate = strip_tags($_POST['birthDate']);
-    } else {
-      $formErrors['birthDate'] = 'Merci de renseigner une date de naissance valide';
-    }
-  } else {
-    $formErrors['birthDate'] = 'Merci de renseigner votre date de naissance';
-  }
-
-  if (!empty($_POST['address'])) {
-    if (preg_match($regexAddress, $_POST['address'])) {
-      $address = strip_tags($_POST['address']);
-    } else {
-      $formErrors['address'] = 'Merci de renseigner une adresse valide';
-    }
-  } else {
-    $formErrors['address'] = 'Merci de renseigner votre adresse';
-  }
-
-  if (!empty($_POST['country'])) {
-    if (preg_match($regexCountryAndNationnality, $_POST['country'])) {
-      $country = strip_tags($_POST['country']);
-    } else {
-      $formErrors['country'] = 'Merci de renseigner une adresse valide';
-    }
-  } else {
-    $formErrors['country'] = 'Merci de renseigner votre adresse';
-  }
-
-  if (!empty($_POST['region'])) {
-    if (preg_match($regexCountryAndNationnality, $_POST['region'])) {
-      $region = strip_tags($_POST['region']);
-    } else {
-      $formErrors['region'] = 'Merci de renseigner une région valide';
-    }
-  } else {
-    $formErrors['region'] = 'Merci de renseigner votre région';
-  }
-
-  if (!empty($_POST['city'])) {
-    if (preg_match($regexCountryAndNationnality, $_POST['city'])) {
-      $city = strip_tags($_POST['city']);
-    } else {
-      $formErrors['city'] = 'Merci de renseigner une ville valide';
-    }
-  } else {
-    $formErrors['city'] = 'Merci de renseigner votre ville';
-  }
-
-  if (!empty($_POST['postalCode'])) {
-    if (preg_match($regexZipCode, $_POST['postalCode'])) {
-      $postalCode = strip_tags($_POST['postalCode']);
-    } else {
-      $formErrors['postalCode'] = 'Merci de renseigner un code postal valide';
-    }
-  } else {
-    $formErrors['postalCode'] = 'Merci de renseigner votre code postal';
-  }
-
-  if (!empty($_POST['phoneNumber'])) {
-    if (preg_match($regexPhoneNumber, $_POST['phoneNumber'])) {
-      $phoneNumber = strip_tags($_POST['phoneNumber']);
-    } else {
-      $formErrors['phoneNumber'] = 'Merci de renseigner un numéro de téléphone valide';
-    }
-  } else {
-    $formErrors['phoneNumber'] = 'Merci de renseigner votre numéro de téléphone';
-  }
-
-  if (!empty($_POST['mail'])) {
-    if (preg_match($regexMail, $_POST['mail'])) {
-      if($_POST['mail'] == $_POST['mailConfirm']){
-        $mail = strip_tags($_POST['mail']);
-      }else{
-        $formErrors['mail'] = 'Les deux adresse email ne correspondent pas';
-      }
-    } else {
-      $formErrors['mail'] = 'Merci de renseigner une adresse email valide';
-    }
-  } else {
-    $formErrors['mail'] = 'Veuillez entrer une adresse email';
-  }
-
-  if (!empty($_POST['mailConfirm'])) {
-    if (preg_match($regexMail, $_POST['mailConfirm'])) {
-      if($_POST['mailConfirm'] == $_POST['mail']){
-        $mail = strip_tags($_POST['mailConfirm']);
-      }else{
-        $formErrors['mailConfirm'] = 'Les deux adresse email ne correspondent pas';
-      }
-    } else {
-      $formErrors['mailConfirm'] = 'Merci de renseigner une adresse email valide';
-    }
-  } else {
-    $formErrors['mailConfirm'] = 'Veuillez entrer une adresse email';
-  }
-
-  if(!empty($_POST['password'])){
-   if($_POST['password'] == $_POST['passwordConfirm']){
-     $password = $_POST['password'];
-   }else{
-     $formErrors['password'] = 'Les deux mot de passe ne correspondent pas';
-   }
- }else{
-   $formErrors['password'] = 'Veuillez entrer un mot de passe';
- }
-
- if(!empty($_POST['passwordConfirm'])){
-   if($_POST['password'] == $_POST['passwordConfirm']){
-     $password = $_POST['passwordConfirm'];
-   }else{
-     $formErrors['passwordConfirm'] = 'Les deux mot de passe ne correspondent pas';
-   }
- }else{
-   $formErrors['passwordConfirm'] = 'Veuillez entrer un mot de passe';
- }
-}
+var_dump($_POST);
+var_dump($user);
 
 ?>
-
 <div class="container">
   <div class="row my-5">
     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
@@ -200,13 +30,13 @@ if (count($_POST) > 0) {
                           <label for="title mr-2">Civilité*</label>
                           <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                           <span class="input-group-text"><i class="fas fa-user"></i></span>
-                          <select class="form-control <?= isset($formErrors['title']) ? 'is-invalid' : (isset($title) ? 'is-valid' : '') ?>" id="title" name="title">
+                          <select class="form-control <?= isset($formErrors['civility']) ? 'is-invalid' : (isset($civility) ? 'is-valid' : '') ?>" id="civility" name="civility">
                     <option selected disabled>---Choix---</option>
-                    <option value="Madame" <?= isset($_POST['title']) && $_POST['title'] == 'Madame' ? 'selected' : '' ?>>Madame</option>
-                    <option value="Monsieur" <?= isset($_POST['title']) && $_POST['title'] == 'Monsieur' ? 'selected' : '' ?>>Monsieur</option>
+                    <option value="Madame" <?= isset($_POST['civility']) && $_POST['civility'] == 'Madame' ? 'selected' : '' ?>>Madame</option>
+                    <option value="Monsieur" <?= isset($_POST['civility']) && $_POST['civility'] == 'Monsieur' ? 'selected' : '' ?>>Monsieur</option>
                   </select>
-                  <?php if (isset($formErrors['title'])) { ?>
-                    <div class="invalid-feedback"><?= $formErrors['title'] ?></div>
+                  <?php if (isset($formErrors['civility'])) { ?>
+                    <div class="invalid-feedback"><?= $formErrors['civility'] ?></div>
                   <?php } ?>
                         </div>
                         </div>
@@ -253,12 +83,12 @@ if (count($_POST) > 0) {
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="nameEnterprise">Nom du commerce</label>
+                        <label for="enterprise">Nom du commerce</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                           <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
-                          <input type="text" name="nameEnterprise" value="<?= isset($_POST['nameEnterprise']) ? $_POST['nameEnterprise'] : '' ?>" class="form-control <?= isset($formErrors['nameEnterprise']) ? 'is-invalid' : (isset($nameEnterprise) ? 'is-valid' : '') ?>" id="nameEnterprise" placeholder="" />
-                          <?php if (isset($formErrors['nameEnterprise'])) { ?>
-                            <div class="invalid-feedback"><?= $formErrors['nameEnterprise'] ?></div>
+                          <input type="text" name="enterprise" value="<?= isset($_POST['enterprise']) ? $_POST['enterprise'] : '' ?>" class="form-control <?= isset($formErrors['enterprise']) ? 'is-invalid' : (isset($enterprise) ? 'is-valid' : '') ?>" id="enterprise" placeholder="" />
+                          <?php if (isset($formErrors['enterprise'])) { ?>
+                            <div class="invalid-feedback"><?= $formErrors['enterprise'] ?></div>
                           <?php } ?>
                         </div>
                         <small><i class="fa fa-info-circle" aria-hidden="true"></i>
