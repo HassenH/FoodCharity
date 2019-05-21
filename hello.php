@@ -148,16 +148,16 @@ if (count($_POST) > 0) {
               </div>
               <div class="form-group row px-5">
                 <div class="col-12 col-sm-2 col-md-2 col-lg-2">
-                  <div class="form-check text-center category-checkbox">
+                  <div class="form-check-inline text-center category-checkbox">
                     <?php
                     /*
                     * Pour garder la saisie utilisateur, on ajoute l'attribut checked s'il a coché l'input
                     */
                     ?>
-                    <img src="assets/img/fruitlegume1.png" alt="Fruits et légumes" width="130" data-toggle="tooltip" data-placement="bottom" title="(pomme, fraise, salade...)" />
-                    <label for="form-check-label"></label>
+                    <img src="assets/img/fruitlegume1.png" class="img-thumbnail" alt="Fruits et légumes" data-toggle="tooltip" data-placement="bottom" title="(pomme, fraise, salade...)" />
+                    <label for="form-check-label">
                     <input type="checkbox" name="categoryDonation" value="Fruits et légumes" <?= isset($_POST['categoryDonation']) && $_POST['categoryDonation'] == 'Fruits et légumes' ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['categoryDonation']) ? 'is-invalid' : (isset($categoryDonation) ? 'is-valid' : '') ?>" id="fruitsAndVegetables">
-                    <p>Fruits et légumes</p>
+                    <p>Fruits et légumes</p></label>
                   </div>
                 </div>
                 <div class="col-12 col-sm-2 col-md-2 col-lg-2">

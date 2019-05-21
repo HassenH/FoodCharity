@@ -1,11 +1,12 @@
 <?php
 
-// On instancie la classe users
-$users = new users();
+$user = new users();
 
-//On initialise un tableau d'erreurs vide pour les erreurs
+if (isset($_GET['id'])) {
+    $user->id = $_GET['id'];
+}
+//On initialise un tableau d'erreurs vide
 $formErrors = array();
-$formSuccess = array();
 /*
  * On vérifie si le tableau $_POST est vide
  * S'il est vide => le formulaire n'a pas été envoyé
@@ -19,7 +20,7 @@ if (count($_POST) > 0) {
      */
     if (!empty($_POST['civility'])) {
         if ($_POST['civility'] === 'Madame' || $_POST['civility'] === 'Monsieur') {
-            $users->civility = $_POST['civility'];
+            $user->civility = $_POST['civility'];
         } else {
             $formErrors['civility'] = 'Votre civilité est incorrecte';
         }
@@ -39,7 +40,7 @@ if (count($_POST) > 0) {
          */
         if (preg_match($regexName, $_POST['lastname'])) {
             //On utilise la fonction htmlspecialchars pour supprimer les éventuelles balises html => on a aucun intérêt à garder une balise html dans ce champs
-            $users->lastname = htmlspecialchars($_POST['lastname']);
+            $user->lastname = htmlspecialchars($_POST['lastname']);
         } else {
             $formErrors['lastname'] = 'Merci de renseigner un nom de famille valide';
         }
@@ -49,7 +50,7 @@ if (count($_POST) > 0) {
 
     if (!empty($_POST['firstname'])) {
         if (preg_match($regexName, $_POST['firstname'])) {
-            $users->firstname = htmlspecialchars($_POST['firstname']);
+            $user->firstname = htmlspecialchars($_POST['firstname']);
         } else {
             $formErrors['firstname'] = 'Merci de renseigner un prénom valide';
         }
@@ -59,7 +60,7 @@ if (count($_POST) > 0) {
 
     if (!empty($_POST['address'])) {
         if (preg_match($regexAddress, $_POST['address'])) {
-            $users->address = htmlspecialchars($_POST['address']);
+            $user->address = htmlspecialchars($_POST['address']);
         } else {
             $formErrors['address'] = 'Merci de renseigner une adresse valide';
         }
@@ -69,7 +70,7 @@ if (count($_POST) > 0) {
 
     if (!empty($_POST['region'])) {
         if (preg_match($regexCountryAndNationnality, $_POST['region'])) {
-            $users->region = htmlspecialchars($_POST['region']);
+            $user->region = htmlspecialchars($_POST['region']);
         } else {
             $formErrors['region'] = 'Merci de renseigner une région valide';
         }
@@ -79,7 +80,7 @@ if (count($_POST) > 0) {
 
     if (!empty($_POST['city'])) {
         if (preg_match($regexCountryAndNationnality, $_POST['city'])) {
-            $users->city = htmlspecialchars($_POST['city']);
+            $user->city = htmlspecialchars($_POST['city']);
         } else {
             $formErrors['city'] = 'Merci de renseigner une ville valide';
         }
@@ -89,7 +90,7 @@ if (count($_POST) > 0) {
 
     if (!empty($_POST['postalCode'])) {
         if (preg_match($regexZipCode, $_POST['postalCode'])) {
-            $users->postalCode = htmlspecialchars($_POST['postalCode']);
+            $user->postalCode = htmlspecialchars($_POST['postalCode']);
         } else {
             $formErrors['postalCode'] = 'Merci de renseigner un code postal valide';
         }
@@ -99,7 +100,7 @@ if (count($_POST) > 0) {
 
     if (!empty($_POST['phoneNumber'])) {
         if (preg_match($regexPhoneNumber, $_POST['phoneNumber'])) {
-            $users->phoneNumber = htmlspecialchars($_POST['phoneNumber']);
+            $user->phoneNumber = htmlspecialchars($_POST['phoneNumber']);
         } else {
             $formErrors['phoneNumber'] = 'Merci de renseigner un numéro de téléphone valide';
         }
@@ -110,7 +111,7 @@ if (count($_POST) > 0) {
     if (!empty($_POST['mail'])) {
         if (preg_match($regexMail, $_POST['mail'])) {
             if ($_POST['mail'] == $_POST['mailConfirm']) {
-                $users->mail = htmlspecialchars($_POST['mail']);
+                $user->mail = htmlspecialchars($_POST['mail']);
             } else {
                 $formErrors['mail'] = 'Les deux adresse email ne correspondent pas';
             }
@@ -124,7 +125,7 @@ if (count($_POST) > 0) {
     if (!empty($_POST['mailConfirm'])) {
         if (preg_match($regexMail, $_POST['mailConfirm'])) {
             if ($_POST['mailConfirm'] == $_POST['mail']) {
-                $users->mail = htmlspecialchars($_POST['mailConfirm']);
+                $user->mail = htmlspecialchars($_POST['mailConfirm']);
             } else {
                 $formErrors['mailConfirm'] = 'Les deux adresse email ne correspondent pas';
             }
@@ -137,7 +138,7 @@ if (count($_POST) > 0) {
 
     if (!empty($_POST['password'])) {
         if ($_POST['password'] == $_POST['passwordConfirm']) {
-            $users->password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $user->password = hash('sha512', $_POST['password']);
         } else {
             $formErrors['password'] = 'Les deux mot de passe ne correspondent pas';
         }
@@ -147,7 +148,7 @@ if (count($_POST) > 0) {
 
     if (!empty($_POST['passwordConfirm'])) {
         if ($_POST['password'] == $_POST['passwordConfirm']) {
-            $users->password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $user->password = hash('sha512', $_POST['password']);
         } else {
             $formErrors['passwordConfirm'] = 'Les deux mot de passe ne correspondent pas';
         }
@@ -155,7 +156,7 @@ if (count($_POST) > 0) {
         $formErrors['passwordConfirm'] = 'Veuillez entrer un mot de passe';
     }
     if (count($formErrors) == 0) {
-        if ($users->addUsers()) {
+        if ($user->addUsers()) {
             $formSuccess = 'Votre inscription a été validé';
         } else {
             $formErrors['add'] = 'Une erreur est survenue';
@@ -163,3 +164,4 @@ if (count($_POST) > 0) {
     }
 }
 ?>
+

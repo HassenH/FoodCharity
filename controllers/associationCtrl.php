@@ -1,9 +1,10 @@
 <?php
 
-// On instancie la classe users
 $users = new users();
+$association = new association();
+$resultCount = $user->checkIfUsersIsFree();
 
-//On initialise un tableau d'erreurs vide pour les erreurs
+//On initialise un tableau d'erreurs vide
 $formErrors = array();
 $formSuccess = array();
 /*
@@ -19,7 +20,7 @@ if (count($_POST) > 0) {
      */
     if (!empty($_POST['civility'])) {
         if ($_POST['civility'] === 'Madame' || $_POST['civility'] === 'Monsieur') {
-            $users->civility = $_POST['civility'];
+            $association->civility = $_POST['civility'];
         } else {
             $formErrors['civility'] = 'Votre civilité est incorrecte';
         }
@@ -55,6 +56,16 @@ if (count($_POST) > 0) {
         }
     } else {
         $formErrors['firstname'] = 'Merci de renseigner votre prénom';
+    }
+
+    if (!empty($_POST['name'])) {
+        if (preg_match($regexName, $_POST['name'])) {
+            $association->name = htmlspecialchars($_POST['name']);
+        } else {
+            $formErrors['name'] = 'Merci de renseigner une association valide';
+        }
+    } else {
+        $formErrors['name'] = 'Merci de renseigner votre association';
     }
 
     if (!empty($_POST['address'])) {
@@ -154,8 +165,10 @@ if (count($_POST) > 0) {
     } else {
         $formErrors['passwordConfirm'] = 'Veuillez entrer un mot de passe';
     }
-    if (count($formErrors) == 0) {
-        if ($users->addUsers()) {
+    if (count($formErrors) == 0 && $resultCount == 0) {
+        $database = dataBaseSingleton::getInstance();
+        $database->db->beginTransaction();
+        if ($users->addAssociation()) {
             $formSuccess = 'Votre inscription a été validé';
         } else {
             $formErrors['add'] = 'Une erreur est survenue';
