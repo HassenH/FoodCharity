@@ -2,25 +2,20 @@
 //On inclut le fichier qui contient les regex avec un require car on en a besoin pour faire les vérification
 require_once 'regex.php';
 require_once 'models/models_users.php';
-require_once 'models/models_city.php';
-require_once 'controllers/usersCtrl.php';
+require_once 'models/models_association.php';
+require_once 'models/models_commerce.php';
+require_once 'controllers/profilCtrl.php';
 require_once 'navbar.php';
 var_dump($_POST);
 var_dump($users);
+var_dump($_SESSION);
 ?>
-<!-- BANNER -->
-<?php if (count($_POST) == 0 || count($formErrors) > 0) { ?>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 imgHeaderCategoryRegistration d-flex justify-content-center align-items-center">
-                <h1 class="display-3">Rejoignez-nous maintenant</h1>
-            </div>
-        </div>
-    </div>
-<?php } ?>
+
+
 <div class="container">
     <div class="row my-5">
-        <div class="col-12">
+        <?php include 'profilList.php' ?>
+        <div class="col-12 col-sm-9 col-md-9 col-lg-9">
             <div class="border-0">
                 <div class="card-header text-white text-center p-0 ">
                     <h1 class="card-title mb-3">Inscription particulier</h1>
@@ -51,25 +46,46 @@ var_dump($users);
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <?php
-                                                /*
-                                                 * Pour garder la saisie utilisateur, on ajoute l'attribut checked s'il a coché l'input
-                                                 */
-                                                ?>
-                                                <p>Etes-vous un particulier ?*</p>
-                                                <div class="form-check form-check-inline">
-                                                    <input type="radio" id="roleYes" name="role" value="2" <?= isset($_POST['role']) && $_POST['role'] == '2' ? 'checked' : '' ?> class="form-check-input <?= isset($formErrors['role']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>">
-                                                    <label class="form-check-label" for="roleYes">Oui</label>
+                                            <?php if ($_SESSION['id_ag4fc_usersGroup'] == 3) { ?>
+                                                <div class="form-group">
+                                                    <label for="name">Nom de votre commerce*</label>
+                                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                        <input type="text" required name="name" value="<?= isset($_POST['name']) ? $_POST['name'] : $listCommerce->name ?>"  class="form-control <?= isset($formErrors['name']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="name" placeholder="" />
+                                                        <?php if (isset($formErrors['name'])) { ?>
+                                                            <div class="invalid-feedback"><?= $formErrors['name'] ?></div>
+                                                        <?php } ?>
+                                                    </div>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input type="radio" id="roleNo" name="role" value="non" <?= isset($_POST['role']) && $_POST['role'] == 'non' ? 'checked' : '' ?> class="form-check-input <?= isset($formErrors['role']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>">
-                                                    <label class="form-check-label" for="roleNo">Non</label>
+                                                <div class="form-group">
+                                                    <label for="siretNumber">Numéro SIRET</label>
+                                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                        <input type="text" required name="siretNumber" value="<?= isset($_POST['siretNumber']) ? $_POST['siretNumber'] : $listCommerce->siretNumber ?>"  class="form-control <?= isset($formErrors['siretNumber']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="siretNumber" placeholder="" />
+                                                        <?php if (isset($formErrors['siretNumber'])) { ?>
+                                                            <div class="invalid-feedback"><?= $formErrors['siretNumber'] ?></div>
+                                                        <?php } ?>
+                                                    </div>
+                                                    <small><i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                        <em>Le numéro SIRET est composé de 14 chiffres</em>
+                                                    </small>
                                                 </div>
-                                                <?php if (isset($formErrors['role'])) { ?>
-                                                    <div class="invalid-feedback d-block"><?= $formErrors['role'] ?></div>
-                                                <?php } ?>
-                                            </div>
+                                            <?php } ?>
+                                            <?php if ($_SESSION['id_ag4fc_usersGroup'] == 4) { ?>
+                                                <div class="form-group">
+                                                    <label for="name">Nom de votre association*</label>
+                                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                        <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                                        <input type="text" required name="name" value="<?= isset($_POST['name']) ? $_POST['name'] : '' ?>" class="form-control <?= isset($formErrors['name']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="name" placeholder="" />
+                                                        <?php if (isset($formErrors['name'])) { ?>
+                                                            <div class="invalid-feedback"><?= $formErrors['name'] ?></div>
+                                                        <?php } ?>
+                                                    </div>
+                                                    <small><i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                        <em>Si vous avez une association veuillez l'indiquez ci-dessus.</em>
+                                                    </small>
+                                                </div>
+                                            <?php } ?>
                                             <div class="form-group">
                                                 <label for="lastname">Nom de famille*</label>
                                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
@@ -85,7 +101,7 @@ var_dump($users);
                                                      */
                                                     ?>
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                                    <input type="text" required name="lastname" value="<?= isset($_POST['lastname']) ? $_POST['lastname'] : '' ?>" class="form-control <?= isset($formErrors['lastname']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="lastname" placeholder="Dupont" />
+                                                    <input type="text" required name="lastname" value="<?= isset($_POST['lastname']) ? $_POST['lastname'] : $listUser->lastname ?>" class="form-control <?= isset($formErrors['lastname']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="lastname" placeholder="Dupont" />
                                                     <?php if (isset($formErrors['lastname'])) { ?>
                                                         <div class="invalid-feedback"><?= $formErrors['lastname'] ?></div>
                                                     <?php } ?>
@@ -95,7 +111,7 @@ var_dump($users);
                                                 <label for="firstname">Prénom*</label>
                                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                                    <input type="text" required name="firstname" value="<?= isset($_POST['firstname']) ? $_POST['firstname'] : '' ?>"  class="form-control <?= isset($formErrors['firstname']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="firstname" placeholder="Jean" />
+                                                    <input type="text" required name="firstname" value="<?= isset($_POST['firstname']) ? $_POST['firstname'] : $listUser->firstname ?>"  class="form-control <?= isset($formErrors['firstname']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="firstname" placeholder="Jean" />
                                                     <?php if (isset($formErrors['firstname'])) { ?>
                                                         <div class="invalid-feedback"><?= $formErrors['firstname'] ?></div>
                                                     <?php } ?>
@@ -105,7 +121,7 @@ var_dump($users);
                                                 <label for="address">Adresse*</label>
                                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                                     <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                                    <input type="text" required name="address" value="<?= isset($_POST['address']) ? $_POST['address'] : '' ?>" class="form-control <?= isset($formErrors['address']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="address" placeholder="28 rue Alfred de Musset" />
+                                                    <input type="text" required name="address" value="<?= isset($_POST['address']) ? $_POST['address'] : $listUser->address ?>" class="form-control <?= isset($formErrors['address']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="address" placeholder="28 rue Alfred de Musset" />
                                                     <?php if (isset($formErrors['address'])) { ?>
                                                         <div class="invalid-feedback"><?= $formErrors['address'] ?></div>
                                                     <?php } ?>
@@ -115,7 +131,7 @@ var_dump($users);
                                                 <label for="postalCode">Code Postal*</label>
                                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                                     <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                                    <input type="text" required name="postalCode" value="<?= isset($_POST['postalCode']) ? $_POST['postalCode'] : '' ?>" class="form-control <?= isset($formErrors['postalCode']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="search" placeholder="60100" />
+                                                    <input type="text" required name="postalCode" value="<?= isset($_POST['postalCode']) ? $_POST['postalCode'] : $listUser->postalCode ?>" class="form-control <?= isset($formErrors['postalCode']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="search" placeholder="60100" />
                                                     <?php if (isset($formErrors['postalCode'])) { ?>
                                                         <div class="invalid-feedback"><?= $formErrors['postalCode'] ?></div>
                                                     <?php } ?>
@@ -137,7 +153,7 @@ var_dump($users);
                                                 <label for="phoneNumber">Numéro de téléphone*</label>
                                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                                    <input type="text" required name="phoneNumber" value="<?= isset($_POST['phoneNumber']) ? $_POST['phoneNumber'] : '' ?>" class="form-control <?= isset($formErrors['phoneNumber']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="phoneNumber" placeholder="01 02 03 04 05" />
+                                                    <input type="text" required name="phoneNumber" value="<?= isset($_POST['phoneNumber']) ? $_POST['phoneNumber'] : $listUser->phoneNumber ?>" class="form-control <?= isset($formErrors['phoneNumber']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="phoneNumber" placeholder="01 02 03 04 05" />
                                                     <?php if (isset($formErrors['phoneNumber'])) { ?>
                                                         <div class="invalid-feedback"><?= $formErrors['phoneNumber'] ?></div>
                                                     <?php } ?>
@@ -147,7 +163,7 @@ var_dump($users);
                                                 <label for="mail">Adresse mail*</label>
                                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                                     <span class="input-group-text"><i class="fas fa-at"></i></span>
-                                                    <input type="mail" required name="mail" value="<?= isset($_POST['mail']) ? $_POST['mail'] : '' ?>" class="form-control <?= isset($formErrors['mail']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="mail" placeholder="adresse@mail.com" />
+                                                    <input type="mail" required name="mail" value="<?= isset($_POST['mail']) ? $_POST['mail'] : $listUser->mail ?>" class="form-control <?= isset($formErrors['mail']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="mail" placeholder="adresse@mail.com" />
                                                     <?php if (isset($formErrors['mail'])) { ?>
                                                         <div class="invalid-feedback"><?= $formErrors['mail'] ?></div>
                                                     <?php } ?>
@@ -157,7 +173,7 @@ var_dump($users);
                                                 <label for="mailConfirm">Confirmer votre adresse mail*</label>
                                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                                     <span class="input-group-text"><i class="fas fa-at"></i></span>
-                                                    <input type="mail" required name="mailConfirm" value="<?= isset($_POST['mailConfirm']) ? $_POST['mailConfirm'] : '' ?>" class="form-control <?= isset($formErrors['mailConfirm']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="mailConfirm" placeholder="adresse@mail.com" />
+                                                    <input type="mail" required name="mailConfirm" value="<?= isset($_POST['mailConfirm']) ? $_POST['mailConfirm'] : $listUser->mail ?>" class="form-control <?= isset($formErrors['mailConfirm']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="mailConfirm" placeholder="adresse@mail.com" />
                                                     <?php if (isset($formErrors['mailConfirm'])) { ?>
                                                         <div class="invalid-feedback"><?= $formErrors['mailConfirm'] ?></div>
                                                     <?php } ?>
@@ -183,17 +199,6 @@ var_dump($users);
                                                     <?php } ?>
                                                 </div>
                                             </div>
-                                            <hr />
-                                            <div class="form-group border border-secondary p-2 rounded">
-                                                <label for="file">Photo de profil</label>
-                                                <input class="form-control" type="file" name="file" id="file" />
-                                            </div>
-                                            <div class="w-100"></div>
-                                            <?php if (isset($formErrors['file'])) { ?>
-                                                <div class="alert-danger">
-                                                    <p><?= $formErrors['file'] ?></p>
-                                                </div>
-                                            <?php } ?>
                                         </div>
                                         <div class="col-12">
                                             <hr />

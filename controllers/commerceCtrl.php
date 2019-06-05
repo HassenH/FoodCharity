@@ -1,14 +1,13 @@
 <?php
 
+session_start();
+
 if (isset($_POST['search'])) {
     //je ne charge pas l'autoloader car il risque de rentrer en conflit
     //avec les chemins pour l'appel à Ajax
 //appel à la database qui est le singleton
     require_once '../models/database.php';
-    // appel
-    require_once '../models/models_city.php';
 
-    require_once '../regex.php';
     $city = new city();
 
     if (preg_match($regexSearch, $_POST['search'])) {
@@ -17,8 +16,11 @@ if (isset($_POST['search'])) {
         echo $_POST['search'];
     }
 } else {
+
     $users = new users();
-//On initialise un tableau d'erreurs vide pour les erreurs
+    $commerce = new commerce();
+
+//On initialise un tableau d'erreurs vide
     $formErrors = array();
     /*
      * On vérifie si le tableau $_POST est vide
@@ -47,13 +49,33 @@ if (isset($_POST['search'])) {
          */
 
         if (!empty($_POST['role'])) {
-            if ($_POST['role'] === '2') {
+            if ($_POST['role'] === '3') {
                 $users->id_ag4fc_usersGroup = $_POST['role'];
             } else {
-                $formErrors['role'] = 'Veuillez changez de formulaire si vous n\'êtes pas un particulier';
+                $formErrors['role'] = 'Veuillez changez de formulaire si vous n\'êtes pas une association';
             }
         } else {
             $formErrors['role'] = 'Merci de répondre à cette question';
+        }
+
+        if (!empty($_POST['name'])) {
+            if (preg_match($regexName, $_POST['name'])) {
+                $commerce->name = htmlspecialchars($_POST['name']);
+            } else {
+                $formErrors['name'] = 'Merci de renseigner une association valide';
+            }
+        } else {
+            $formErrors['name'] = 'Merci de renseigner votre association';
+        }
+
+        if (!empty($_POST['siretNumber'])) {
+            if (preg_match($regexSiret, $_POST['siretNumber'])) {
+                $commerce->siretNumber = htmlspecialchars($_POST['siretNumber']);
+            } else {
+                $formErrors['siretNumber'] = 'Merci de renseigner un numéro SIRET valide';
+            }
+        } else {
+            $formErrors['siretNumber'] = 'Merci de renseigner votre numéro SIRET';
         }
 
         if (!empty($_POST['lastname'])) {
@@ -94,12 +116,12 @@ if (isset($_POST['search'])) {
 
         if (!empty($_POST['postalCode'])) {
             if (preg_match($regexZipCode, $_POST['postalCode'])) {
-                $postalCode = htmlspecialchars($_POST['postalCode']);
+                $users->postalCode = htmlspecialchars($_POST['postalCode']);
             } else {
-                $formErrors['postalCode'] = 'Merci de renseigner une adresse valide';
+                $formErrors['postalCode'] = 'Merci de renseigner un code postal valide';
             }
         } else {
-            $formErrors['postalCode'] = 'Merci de renseigner votre adresse';
+            $formErrors['postalCode'] = 'Merci de renseigner votre code postal';
         }
 
         if (!empty($_POST['city'])) {
@@ -128,7 +150,7 @@ if (isset($_POST['search'])) {
                     $users->mail = htmlspecialchars($_POST['mail']);
                     /**
                      * Je vérifie si l'utilisateur existe dans la base de données
-                     * On stocke le résultat de la méthode checkUserExist qui permet de vérifier
+                     * On stocke le résultat de la méthode checkIfUserExist qui permet de vérifier
                      * si l'adresse mail (login) de l'utilisateur a déjà été enregistré dans la base de donnée
                      */
                     $resultCount = $users->checkIfUserExist();
@@ -224,8 +246,22 @@ if (isset($_POST['search'])) {
         }
 
         if (count($formErrors) == 0) {
-            if ($users->addUsers()) {
+            // On appelle la méthode getInstance, qui se trouve dans la classe database
+            // Puisque cette methode est static il n'est pas nécessaire de l'instancier un nouvel objet par rapport a la classe database
+            // getInstance() me retourne l'objet instancié de la classe Database
+            $database = Database::getInstance();
+            // On fais appelle a setAttribute qui est une méthode de PDO, pour gérer les erreurs
+            $database->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            try {
+                $database->db->beginTransaction();
+                $users->addUsers();
+                $commerce->id_ag4fc_users = $database->db->lastInsertId();
+                $registerCommerce = $commerce->addCommerce();
                 $formSuccess = 'Votre inscription a été validé';
+                $database->db->commit();
+            } catch (\Exception $e) {
+                $database->db->rollback();
+                die('error : ' . $e->getMessage());
             }
         }
     }

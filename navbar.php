@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
     <head>
@@ -11,6 +8,7 @@ session_start();
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <link rel="Stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" />
         <link href="https://fonts.googleapis.com/css?family=Lalezar" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Schoolbell" rel="stylesheet">
@@ -60,9 +58,15 @@ session_start();
                         <?= isset($_SESSION['id']) ? ' ' : '<li class="nav-item">
                             <a class="nav-link" href="/inscriptionCategory.php">Inscription</a>
                         </li> ' ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login.php"><?= isset($_SESSION['id']) ? 'Mon Compte' : 'Connexion' ?></a>
-                        </li>
+                        <?php if (isset($_SESSION['id'])) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/profil.php">Mon compte</a>
+                            </li>
+                        <?php } else { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login.php">Connexion</a>
+                            </li>
+                        <?php } ?>
                         <div class="searchbar">
                             <input class="search_input" type="text" name="" placeholder="Recherche...">
                             <a href="#" class="search_icon"><i class="fas fa-search"></i></a>

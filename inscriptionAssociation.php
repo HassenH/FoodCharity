@@ -2,13 +2,14 @@
 //On inclut le fichier qui contient les regex avec un require car on en a besoin pour faire les vérification
 require_once 'regex.php';
 require_once 'models/models_users.php';
-require_once 'models/models_city.php';
-require_once 'controllers/usersCtrl.php';
+require_once 'models/models_association.php';
+require_once 'controllers/associationCtrl.php';
 require_once 'navbar.php';
+
 var_dump($_POST);
+var_dump($association);
 var_dump($users);
 ?>
-<!-- BANNER -->
 <?php if (count($_POST) == 0 || count($formErrors) > 0) { ?>
     <div class="container-fluid">
         <div class="row">
@@ -23,7 +24,7 @@ var_dump($users);
         <div class="col-12">
             <div class="border-0">
                 <div class="card-header text-white text-center p-0 ">
-                    <h1 class="card-title mb-3">Inscription particulier</h1>
+                    <h1 class="card-title mb-3">Inscription association</h1>
                 </div>
                 <div class="card-body p0">
                     <div class="row">
@@ -57,9 +58,9 @@ var_dump($users);
                                                  * Pour garder la saisie utilisateur, on ajoute l'attribut checked s'il a coché l'input
                                                  */
                                                 ?>
-                                                <p>Etes-vous un particulier ?*</p>
+                                                <p>Etes-vous une association ?*</p>
                                                 <div class="form-check form-check-inline">
-                                                    <input type="radio" id="roleYes" name="role" value="2" <?= isset($_POST['role']) && $_POST['role'] == '2' ? 'checked' : '' ?> class="form-check-input <?= isset($formErrors['role']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>">
+                                                    <input type="radio" id="roleYes" name="role" value="4" <?= isset($_POST['role']) && $_POST['role'] == '4' ? 'checked' : '' ?> class="form-check-input <?= isset($formErrors['role']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>">
                                                     <label class="form-check-label" for="roleYes">Oui</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
@@ -69,6 +70,19 @@ var_dump($users);
                                                 <?php if (isset($formErrors['role'])) { ?>
                                                     <div class="invalid-feedback d-block"><?= $formErrors['role'] ?></div>
                                                 <?php } ?>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name">Nom de votre association*</label>
+                                                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                    <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                                    <input type="text" required name="name" value="<?= isset($_POST['name']) ? $_POST['name'] : '' ?>" class="form-control <?= isset($formErrors['name']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="name" placeholder="" />
+                                                    <?php if (isset($formErrors['name'])) { ?>
+                                                        <div class="invalid-feedback"><?= $formErrors['name'] ?></div>
+                                                    <?php } ?>
+                                                </div>
+                                                <small><i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                    <em>Si vous avez une association veuillez l'indiquez ci-dessus.</em>
+                                                </small>
                                             </div>
                                             <div class="form-group">
                                                 <label for="lastname">Nom de famille*</label>
@@ -212,7 +226,7 @@ var_dump($users);
                                             </div>
                                             <div class="col-12 text-center">
                                                 <img src="assets/img/donateme.png" height="400px" alt="donateme">
-                                                <a href="login.php" class="btn largeButton my-2" role="button"><h2><u>Faites votre premiers dons !</u></h2></a>
+                                                <a href="login.php" class="btn largeButton my-2" role="button"><h2><u>Collecter votre premiers dons !</u></h2></a>
                                             </div>
                                         <?php } ?>
                                     <?php }

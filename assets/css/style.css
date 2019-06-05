@@ -1,229 +1,266 @@
 /* GENERAL STYLE */
 
-.imgHeaderRegistration {
-  background-image: url("../img/banniereInscription.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 18rem;
-}
+
 
 body {
-  font-family: 'Crimson Text', serif !important;
-  font-size: 1.12rem;
+    font-family: 'Crimson Text', serif !important;
+    font-size: 1.12rem;
 }
 
 h1{
-  font-family: 'Schoolbell', cursive;
+    font-family: 'Schoolbell', cursive;
 }
 
 a {
-  font-size: 1.12rem !important;
+    font-size: 1.12rem !important;
 }
 
 .no-gutter {
-  padding-right:0;
-  padding-left:0;
+    padding-right:0;
+    padding-left:0;
 }
 
 .card-body {
-  background-color: #F6F6F6;
+    background-color: #F6F6F6;
 }
 
 .roundButton {
-  color: white;
-  background-color: #d84b6b;
-  border-radius: 1.5rem;
-  border: none;
-  width: 150px;
-  display: block;
-  margin: 0 auto;
-  margin-top: 10px;
-  line-height: 25px;
-  font-family: 'Lalezar', cursive;
+    color: white;
+    background-color: #d84b6b;
+    border-radius: 1.5rem;
+    border: none;
+    width: 150px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    line-height: 25px;
+    font-family: 'Lalezar', cursive;
 }
 
+.largeButton {
+    color: white;
+    background-color: #d84b6b;
+    border: none;
+    width: 500px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    line-height: 25px;
+    font-family: 'Lalezar', cursive;
+}
+
+/* Image */
 img {
-  max-width : 100%;
-  heigth: auto;
+    max-width : 100%;
+    heigth: auto;
+}
+
+.imgHeaderRegistration {
+    background-image: url("../img/banniereInscription.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 18rem;
+}
+
+.imgHeaderConnect {
+    background-image: url("../img/connecter.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 18rem;
+}
+
+.imgHeaderCategoryRegistration {
+    background-image: url("../img/donatenow.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 18rem;
 }
 
 
 /* Navbar */
 .navbar {
-  background-color : #3C3D41;
-  font-family: 'Lalezar', cursive;
+    background-color : #3C3D41;
+    font-family: 'Lalezar', cursive;
 }
 
 .logo{
-  height: 4.2rem;
+    height: 4.2rem;
 }
 
 body .navbar-dark .navbar-nav .nav-link{
-  color: white;
-  font-size : 18px;
+    color: white;
+    font-size : 18px;
 }
 
 .searchbar{
-  margin-bottom: auto;
-  margin-top: auto;
-  height: 60px;
-  background-color: #D84B6B;
-  border-radius: 30px;
-  padding: 10px;
+    margin-bottom: auto;
+    margin-top: auto;
+    height: 60px;
+    background-color: #D84B6B;
+    border-radius: 30px;
+    padding: 10px;
 }
 
 .search_input{
-  color: white;
-  border: 0;
-  outline: 0;
-  background: none;
-  width: 0;
-  caret-color:transparent;
-  line-height: 40px;
-  transition: width 0.4s linear;
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color:transparent;
+    line-height: 40px;
+    transition: width 0.4s linear;
 }
 
 .searchbar:hover > .search_input{
-  padding: 0 10px;
-  width: 150px;
-  caret-color:white;
-  transition: width 0.4s linear;
+    padding: 0 10px;
+    width: 150px;
+    caret-color:white;
+    transition: width 0.4s linear;
 }
 
 .searchbar:hover > .search_icon{
-  background: white;
-  color: #576574;
+    background: white;
+    color: #576574;
 }
 
 .search_icon{
-  height: 40px;
-  width: 40px;
-  float: right;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  color:white;
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color:white;
 }
 
 /* NAVBAR Sign-in*/
 .modal-login {
-  width: 350px;
+    width: 350px;
 }
 .modal-login .modal-content {
-  padding: 20px;
-  border-radius: 5px;
-  border: none;
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
 }
 .modal-login .modal-header {
-  border-bottom: none;
-  position: relative;
-  justify-content: center;
+    border-bottom: none;
+    position: relative;
+    justify-content: center;
 }
 .modal-login .close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 .modal-login h4 {
-  color: #636363;
-  text-align: center;
-  font-size: 26px;
-  margin-top: 0;
+    color: #636363;
+    text-align: center;
+    font-size: 26px;
+    margin-top: 0;
 }
 .modal-login .modal-content {
-  color: #999;
-  border-radius: 1px;
-  margin-bottom: 15px;
-  background: #fff;
-  border: 1px solid #f3f3f3;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  padding: 25px;
+    color: #999;
+    border-radius: 1px;
+    margin-bottom: 15px;
+    background: #fff;
+    border: 1px solid #f3f3f3;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 25px;
 }
 .modal-login .form-group {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 .modal-login label {
-  font-weight: normal;
-  font-size: 13px;
+    font-weight: normal;
+    font-size: 13px;
 }
 .modal-login .form-control {
-  min-height: 38px;
-  padding-left: 5px;
-  box-shadow: none !important;
-  border-width: 0 0 1px 0;
-  border-radius: 0;
+    min-height: 38px;
+    padding-left: 5px;
+    box-shadow: none !important;
+    border-width: 0 0 1px 0;
+    border-radius: 0;
 }
 .modal-login .form-control:focus {
-  border-color: #ccc;
+    border-color: #ccc;
 }
 .modal-login .input-group-addon {
-  max-width: 42px;
-  text-align: center;
-  background: none;
-  border-width: 0 0 1px 0;
-  padding-left: 5px;
-  border-radius: 0;
+    max-width: 42px;
+    text-align: center;
+    background: none;
+    border-width: 0 0 1px 0;
+    padding-left: 5px;
+    border-radius: 0;
 }
 .modal-login .btn {
-  font-size: 16px;
-  font-weight: bold;
-  background: #19aa8d;
-  border-radius: 3px;
-  border: none;
-  min-width: 140px;
-  outline: none !important;
+    font-size: 16px;
+    font-weight: bold;
+    background: #19aa8d;
+    border-radius: 3px;
+    border: none;
+    min-width: 140px;
+    outline: none !important;
 }
 .modal-login .btn:hover, .modal-login .btn:focus {
-  background: #179b81;
+    background: #179b81;
 }
 .modal-login .hint-text {
-  text-align: center;
-  padding-top: 5px;
-  font-size: 13px;
+    text-align: center;
+    padding-top: 5px;
+    font-size: 13px;
 }
 .modal-login .modal-footer {
-  color: #999;
-  border-color: #dee4e7;
-  text-align: center;
-  margin: 0 -25px -25px;
-  font-size: 13px;
-  justify-content: center;
+    color: #999;
+    border-color: #dee4e7;
+    text-align: center;
+    margin: 0 -25px -25px;
+    font-size: 13px;
+    justify-content: center;
 }
 .modal-login a {
-  color: #fff;
-  text-decoration: underline;
+    color: #fff;
+    text-decoration: underline;
 }
 .modal-login a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 .modal-login a {
-  color: #19aa8d;
-  text-decoration: none;
+    color: #19aa8d;
+    text-decoration: none;
 }
 .modal-login a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 .modal-login .fa {
-  font-size: 21px;
+    font-size: 21px;
 }
 .trigger-btn {
-  display: inline-block;
-  margin: 100px auto;
+    display: inline-block;
+    margin: 100px auto;
+}
+
+/*SE CONNECTER */
+.btn-login {
+    background-color : #3C3D41;
+    border: #3C3D41;
 }
 
 /*PAGE D'ACCUEIL*/
 
 .keywordIndex{
-  padding-top: 1rem;
-  font-size: 1.4rem;
-  color: #d84b6b;
+    padding-top: 1rem;
+    font-size: 1.4rem;
+    color: #d84b6b;
 }
- /* Banner */
+/* Banner */
 
 .learnMore{
-   padding-top: 1.1rem;
+    padding-top: 1.1rem;
 }
 /*Shortcut Register*/
 
@@ -242,14 +279,14 @@ body .navbar-dark .navbar-nav .nav-link{
 /*   Carousel partners */
 
 .partners{
-   margin-top: 2rem;
-   background-color: #F9F7F7;
-   height: 18rem;
+    margin-top: 2rem;
+    background-color: #F9F7F7;
+    height: 18rem;
 }
 
 .carouselPartners{
-   background-color: #F9F7F7;
-   opacity: 0.7;
+    background-color: #F9F7F7;
+    opacity: 0.7;
 }
 
 /*
@@ -261,7 +298,7 @@ Attribution required
 
 
 @media (min-width: 768px) and (max-width: 991px) {
-  /* Show 4th slide on md  if col-md-4*/
+    /* Show 4th slide on md  if col-md-4*/
     .carousel-inner .active.col-md-4.carousel-item + .carousel-item + .carousel-item + .carousel-item {
         position: absolute;
         top: 0;
@@ -274,7 +311,7 @@ Attribution required
 }
 
 @media (min-width: 576px) and (max-width: 768px) {
-  /* Show 3rd slide on sm  if col-sm-6*/
+    /* Show 3rd slide on sm  if col-sm-6*/
     .carousel-inner .active.col-sm-6.carousel-item + .carousel-item + .carousel-item {
         position: absolute;
         top: 0;
@@ -302,8 +339,8 @@ Attribution required
     }
 
     .carousel-inner .carousel-item-next {
-      position: relative;
-      transform: translate3d(0, 0, 0);
+        position: relative;
+        transform: translate3d(0, 0, 0);
     }
 
     /* left or forward direction */
@@ -342,7 +379,7 @@ Attribution required
 @media (min-width: 768px) {
 
     /* show 3rd of 3 item slide */
-  .carousel-inner .active + .carousel-item + .carousel-item {
+    .carousel-inner .active + .carousel-item + .carousel-item {
         display: block;
     }
 
@@ -352,8 +389,8 @@ Attribution required
 
 
     .carousel-inner .carousel-item-next {
-      position: relative;
-      transform: translate3d(0, 0, 0);
+        position: relative;
+        transform: translate3d(0, 0, 0);
     }
 
 
@@ -419,156 +456,156 @@ Attribution required
 /*LG 6th  -  if you want a carousel with 6 slides */
 @media (min-width: 991px) {
 
-        /* show 5th and 6th item */
- /*   .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item + .carousel-item,
-  .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
-        display: block;
-    }
+    /* show 5th and 6th item */
+    /*   .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item + .carousel-item,
+     .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+           display: block;
+       }
 
 
 
-    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item + .carousel-item,
-  .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
-      transition: none;
-    }
-*/
+       .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item + .carousel-item,
+     .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+         transition: none;
+       }
+    */
 
 
-  /*show 7th slide for animation when its a 6 slides carousel */
- /*      .carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item  + .carousel-item {
-        position: absolute;
-        top: 0;
-        right: -16.666666666%;
-        z-index: -1;
-        display: block;
-        visibility: visible;
-  }
-  */
+    /*show 7th slide for animation when its a 6 slides carousel */
+    /*      .carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item  + .carousel-item {
+           position: absolute;
+           top: 0;
+           right: -16.666666666%;
+           z-index: -1;
+           display: block;
+           visibility: visible;
+     }
+    */
 
-      /* forward direction > */
- /*   .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item,
-  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
-        position: relative;
-        transform: translate3d(-100%, 0, 0);
-        visibility: visible;
-    }
-  */
-      /* prev direction < last item animation fix */
- /*   .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item,
-    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
-        position: relative;
-        transform: translate3d(100%, 0, 0);
-        visibility: visible;
-        display: block;
-        visibility: visible;
-    }
-*/
+    /* forward direction > */
+    /*   .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item,
+     .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+           position: relative;
+           transform: translate3d(-100%, 0, 0);
+           visibility: visible;
+       }
+    */
+    /* prev direction < last item animation fix */
+    /*   .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item,
+       .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+           position: relative;
+           transform: translate3d(100%, 0, 0);
+           visibility: visible;
+           display: block;
+           visibility: visible;
+       }
+    */
 }
 /*COMMENT CA MARCHE*/
 .suscribeHowItWorks{
-  padding-top: 2rem;
-  padding-bottom: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
 }
 
 .numberHowItWorks {
-  padding-top: 1rem;
-  height: 7.5rem;
+    padding-top: 1rem;
+    height: 7.5rem;
 }
 
 .keywordHowItworks{
-  padding-top: 1rem;
-  font-size: 1.7rem;
-  color: #d84b6b;
+    padding-top: 1rem;
+    font-size: 1.7rem;
+    color: #d84b6b;
 }
 
 /*POURQUOI, POUR QUI ?*/
 .donate{
-  height: 16rem;
-  width: 26rem;
+    height: 16rem;
+    width: 26rem;
 }
 
 .situation{
-  height : 30rem;
+    height : 30rem;
 }
 
 .coeur{
-  height : 20rem;
+    height : 20rem;
 }
 
 .underTitle{
-  font-size: 2.2rem;
-  font-family: 'Lalezar', cursive;
-  color: #595959;
+    font-size: 2.2rem;
+    font-family: 'Lalezar', cursive;
+    color: #595959;
 }
 
 /* NOTRE HISTOIRE*/
 .imgKawaiiLove {
-  height : 20rem;
+    height : 20rem;
 }
 
 .imgHistory {
-  height: 15rem;
+    height: 15rem;
 }
 
 /* NOS VALEURS*/
 .numberValue {
-  height: 6.5rem;
+    height: 6.5rem;
 }
 
 .value{
-  height: 26rem;
+    height: 26rem;
 }
 
 
 /* FORMULAIRE */
 .btn-success{
-   background-color: #D84B6B;
-   border: #D84B6B;
-   text-align: center;
+    background-color: #D84B6B;
+    border: #D84B6B;
+    text-align: center;
 }
 
 .imgHowItWorks{
-  height: 16rem;
-  width: 28rem;
+    height: 16rem;
+    width: 28rem;
 }
 
 /* VISION */
 .vision{
-   margin-top: 1.1rem;
+    margin-top: 1.1rem;
 }
 
 .number {
-  font-size: 4rem;
-  font-weight: bold;
-  color: #93A37D;
+    font-size: 4rem;
+    font-weight: bold;
+    color: #93A37D;
 }
 
 .usersCard{
-  transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 .usersCard:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 /* Inscription */
 
 /* PROFIL */
 #nav-profile .list-group-item.active {
-  background-color: #d84b6b;
-  border-color: #d84b6b;
-  padding-right: 15px;
+    background-color: #d84b6b;
+    border-color: #d84b6b;
+    padding-right: 15px;
 }
 
 .table-responsive {
-  display: inline-table;
+    display: inline-table;
 }
 
 .card-header:first-child {
-  background: #3C3D41;
+    background: #3C3D41;
 }
 
 .btn-profil{
-  background: #3C3D41;
+    background: #3C3D41;
 }
 /* GUIDE DES DONS */
 
@@ -582,141 +619,141 @@ Attribution required
 
 /* PAGE DONATION */
 .imgProfil {
-  height : 12rem;
+    height : 12rem;
 }
 
 .rankDonation {
-  background-color: #90A87D;
+    background-color: #90A87D;
 }
 
 .rankTitle{
-  font-family: 'Schoolbell', cursive;
-  font-size: 1.8rem;
+    font-family: 'Schoolbell', cursive;
+    font-size: 1.8rem;
 }
 /*Footer*/
 
 .cardTitle{
-   text-align: center;
+    text-align: center;
 }
 
 .card-img{
-   height: 13rem;
-   width: 13rem;
+    height: 13rem;
+    width: 13rem;
 }
 
 #myFooter {
-   background-color: #3c3d41;
-   color: white;
-   padding-top: 30px;
-   font-family: 'Lalezar', cursive;
+    background-color: #3c3d41;
+    color: white;
+    padding-top: 30px;
+    font-family: 'Lalezar', cursive;
 }
 
 #myFooter .footer-copyright {
-   background-color: #333333;
-   padding-top: 3px;
-   padding-bottom: 3px;
-   text-align: center;
+    background-color: #333333;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
 }
 
 #myFooter .row {
-   margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 #myFooter .navbar-brand {
-   margin-top: 45px;
-   height: 65px;
+    margin-top: 45px;
+    height: 65px;
 }
 
 #myFooter .footer-copyright p {
-   margin: 10px;
-   color: #ccc;
+    margin: 10px;
+    color: #ccc;
 }
 
 #myFooter ul {
-   list-style-type: none;
-   padding-left: 0;
-   line-height: 1.7;
+    list-style-type: none;
+    padding-left: 0;
+    line-height: 1.7;
 }
 
 #myFooter h5 {
-   font-size: 18px;
-   color: white;
-   font-weight: bold;
-   margin-top: 30px;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-top: 30px;
 }
 
 #myFooter h2 a{
-   font-size: 50px;
-   text-align: center;
-   color: #fff;
+    font-size: 50px;
+    text-align: center;
+    color: #fff;
 }
 
 #myFooter a {
-   color: #d2d1d1;
-   text-decoration: none;
+    color: #d2d1d1;
+    text-decoration: none;
 }
 
 #myFooter a:hover {
-   color: white;
+    color: white;
 }
 
 #myFooter .social-networks {
-   text-align: center;
-   padding-top: 30px;
-   padding-bottom: 16px;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 16px;
 }
 
 #myFooter .social-networks a {
-   font-size: 32px;
-   color: #f9f9f9;
-   padding: 10px;
+    font-size: 32px;
+    color: #f9f9f9;
+    padding: 10px;
 
 }
 
 #myFooter .facebook:hover{
-   color: #0077e2;
+    color: #0077e2;
 }
 
 #myFooter .twitter:hover{
-   color: #0077e2;
+    color: #0077e2;
 }
 
 #myFooter .google:hover{
-   color: #0077e2;
+    color: #0077e2;
 }
 
 #myFooter .instagram:hover{
-   color: #0077e2;
+    color: #0077e2;
 }
 
 #myFooter .btn {
-   color: white;
-   background-color: #d84b6b;
-   border-radius: 20px;
-   border: none;
-   width: 150px;
-   display: block;
-   margin: 0 auto;
-   margin-top: 10px;
-   line-height: 25px;
+    color: white;
+    background-color: #d84b6b;
+    border-radius: 20px;
+    border: none;
+    width: 150px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    line-height: 25px;
 }
 
 @media screen and (max-width: 767px) {
-   #myFooter {
-      text-align: center;
-   }
+    #myFooter {
+        text-align: center;
+    }
 }
 
 .logoFooter{
-   height : 75px;
+    height : 75px;
 }
 
 .number-circle {
-font-size: 100px;
-margin: 40px;
-width: 150px;
-color: #ddd;
-border: 5px solid #ddd;
-border-radius: 100%;
-display: inline-block
+    font-size: 100px;
+    margin: 40px;
+    width: 150px;
+    color: #ddd;
+    border: 5px solid #ddd;
+    border-radius: 100%;
+    display: inline-block
 }

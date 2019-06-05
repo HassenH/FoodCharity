@@ -1,10 +1,8 @@
 <?php
-require_once'navbar.php';
+
+//La session se détruit, on est déconnecté
+session_start();
 session_destroy();
-?>
-<h1>Vous êtes maintenant déconnecté</h1>
 
-
-<?php
-require_once'footer.php';
+header('location:/index.php');
 ?>

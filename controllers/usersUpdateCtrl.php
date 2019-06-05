@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 $user = new users();
 
 if (isset($_GET['id'])) {

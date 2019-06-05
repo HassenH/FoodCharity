@@ -2,11 +2,12 @@
 //On inclut le fichier qui contient les regex avec un require car on en a besoin pour faire les vérification
 require_once 'regex.php';
 require_once 'models/models_users.php';
-require_once 'models/models_city.php';
-require_once 'controllers/usersCtrl.php';
+require_once 'models/models_commerce.php';
+require_once 'controllers/commerceCtrl.php';
 require_once 'navbar.php';
+
 var_dump($_POST);
-var_dump($users);
+var_dump($commerce);
 ?>
 <!-- BANNER -->
 <?php if (count($_POST) == 0 || count($formErrors) > 0) { ?>
@@ -23,7 +24,7 @@ var_dump($users);
         <div class="col-12">
             <div class="border-0">
                 <div class="card-header text-white text-center p-0 ">
-                    <h1 class="card-title mb-3">Inscription particulier</h1>
+                    <h1 class="card-title mb-3">Inscription commerce</h1>
                 </div>
                 <div class="card-body p0">
                     <div class="row">
@@ -57,9 +58,9 @@ var_dump($users);
                                                  * Pour garder la saisie utilisateur, on ajoute l'attribut checked s'il a coché l'input
                                                  */
                                                 ?>
-                                                <p>Etes-vous un particulier ?*</p>
+                                                <p>Etes-vous un commerce ?*</p>
                                                 <div class="form-check form-check-inline">
-                                                    <input type="radio" id="roleYes" name="role" value="2" <?= isset($_POST['role']) && $_POST['role'] == '2' ? 'checked' : '' ?> class="form-check-input <?= isset($formErrors['role']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>">
+                                                    <input type="radio" id="roleYes" name="role" value="3" <?= isset($_POST['role']) && $_POST['role'] == '3' ? 'checked' : '' ?> class="form-check-input <?= isset($formErrors['role']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>">
                                                     <label class="form-check-label" for="roleYes">Oui</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
@@ -69,6 +70,29 @@ var_dump($users);
                                                 <?php if (isset($formErrors['role'])) { ?>
                                                     <div class="invalid-feedback d-block"><?= $formErrors['role'] ?></div>
                                                 <?php } ?>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name">Nom de votre commerce*</label>
+                                                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                    <input type="text" required name="name" value="<?= isset($_POST['name']) ? $_POST['name'] : '' ?>"  class="form-control <?= isset($formErrors['name']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="name" placeholder="" />
+                                                    <?php if (isset($formErrors['name'])) { ?>
+                                                        <div class="invalid-feedback"><?= $formErrors['name'] ?></div>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="siretNumber">Numéro SIRET</label>
+                                                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                    <input type="text" required name="siretNumber" value="<?= isset($_POST['siretNumber']) ? $_POST['siretNumber'] : '' ?>"  class="form-control <?= isset($formErrors['siretNumber']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="siretNumber" placeholder="" />
+                                                    <?php if (isset($formErrors['siretNumber'])) { ?>
+                                                        <div class="invalid-feedback"><?= $formErrors['siretNumber'] ?></div>
+                                                    <?php } ?>
+                                                </div>
+                                                <small><i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                    <em>Le numéro SIRET est composé de 14 chiffres</em>
+                                                </small>
                                             </div>
                                             <div class="form-group">
                                                 <label for="lastname">Nom de famille*</label>
@@ -197,7 +221,7 @@ var_dump($users);
                                         </div>
                                         <div class="col-12">
                                             <hr />
-                                            <span class="text-danger">Vos données nominatives ne seront ni vendues ni communiquées à un tiers. Elles seront uniquement utilisées par notre site (exemple  : votre adresse sera reprise dans la fiche de don par défaut avec possibilité d’en changer…).</span>
+                                            <span class="text-danger">Vos données nominatives ne seront ni vendues ni communiquées à un tiers. Elles seront uniquement utilisées par notre association (exemple  : votre adresse sera reprise dans la fiche de don par défaut avec possibilité d’en changer…).</span>
                                         </div>
                                         <div class="col-12 form-group justify-content-end my-4">
                                             <input class="btn btn-bg-red btn-lg btn-block text-wrap-xs" type="submit" value="Valider" />
@@ -212,7 +236,7 @@ var_dump($users);
                                             </div>
                                             <div class="col-12 text-center">
                                                 <img src="assets/img/donateme.png" height="400px" alt="donateme">
-                                                <a href="login.php" class="btn largeButton my-2" role="button"><h2><u>Faites votre premiers dons !</u></h2></a>
+                                                <a href="login.php" class="btn largeButton my-2" role="button"><h2 class="font-italic">Faites votre premiers dons !</h2></a>
                                             </div>
                                         <?php } ?>
                                     <?php }
@@ -229,3 +253,4 @@ var_dump($users);
 <?php
 include 'footer.php';
 ?>
+

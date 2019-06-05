@@ -6,6 +6,7 @@ class association {
 
     private $db;
     public $name = '';
+    public $id_ag4fc_users = '';
 
     //La méthode magique contruct s'éxecute à l'instanciation de l'objet ($clients = new clients())
     public function __construct() {
@@ -38,13 +39,14 @@ class association {
          * Je prépare ma requête et je la stocke dans une variable
          * Attention : ne pas oublier l'espace à la fin de ma première ligne
          */
-        $query = 'INSERT INTO `ag4_association`(`name` `id_ag4_users) '
-                . 'VALUES(:name, 2)';
+        $query = 'INSERT INTO `ag4fc_association`(`name`, `id_ag4fc_users`) '
+                . 'VALUES(:name, :id_ag4fc_users)';
         //$this->db->query($query) me permet d'executer ma requête (query($query)) dans ma base de données ($this->db)
         $queryExecute = $this->db->prepare($query);
         // Bindvalue associe une valeur a un paramétre, ici a nos marqueurs nominatif
         // PDO::PARAM_STR, sa force le PDO, a considérer les entrées utilisateur en chaine de caractére, sécurise contre les injection SQL
         $queryExecute->bindValue(':name', $this->name, PDO::PARAM_STR);
+        $queryExecute->bindValue(':id_ag4fc_users', $this->id_ag4fc_users, PDO::PARAM_INT);
 
         return $queryExecute->execute();
         /*
@@ -53,8 +55,36 @@ class association {
          */
     }
 
-    public function __destruct() {
-        $this->db = NULL;
+    public function getAssociation() {
+        $query = 'SELECT ag4fc_association.name '
+                . 'FROM ag4fc_association '
+                . 'INNER JOIN ag4fc_users '
+                . 'ON ag4fc_association.id_ag4fc_users = ag4fc_users.id '
+                . 'WHERE ag4fc_users.id = :id';
+        $queryExecute = $this->db->prepare($query);
+
+        $queryExecute->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
+
+        $queryExecute->execute();
+
+        return $queryExecute->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function updateAssociation() {
+        $query = 'UPDATE ag4fc_association SET `name` = :name, `id_ag4fc_users` = :id_ag4fc_users ';
+        $queryExecute = $this->db->prepare($query);
+        $queryExecute->bindValue(':name', $this->name, PDO::PARAM_STR);
+        $queryExecute->bindValue(':id_ag4fc_users', $_SESSION['id'], PDO::PARAM_INT);
+
+        return $queryExecute->execute();
+    }
+
+    public function getAssociationList() {
+        $query = 'SELECT ag4fc_association.id, ag4fc_association.name '
+                . 'FROM ag4fc_association ';
+        $queryExecute = $this->db->query($query);
+
+        return $queryExecute->fetchAll(PDO::FETCH_OBJ);
     }
 
 }

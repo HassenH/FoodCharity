@@ -1,23 +1,20 @@
 <?php
 
-// J'instancie ma classe users
+session_start();
+/**
+ * On instancie l'objet $user
+ */
 $user = new users();
 
 $formErrors = array();
 
 if (count($_POST) > 0) {
-    /*
-     * On vérifie que $_POST['mail'] n'est pas vide
-     * S'il est vide => on stocke l'erreur dans le tableau $formErrors
-     * S'il n'est pas vide => on stocke dans la variable $user->mail
+    /**
+     * Si $_POST['email'] existe et n'est pas vide, on protège des injections sql avec htmlspecialchars et on met le résultat dans l'objet $user->mail
+     * Sinon on enregistre un message dans le tableau des erreurs
      */
-
     if (!empty($_POST['mail'])) {
-        /*
-         * On vérifie si la saisie utilisateur correspond à la regex
-         * Si tout va bien => on stocke dans la variable qui nous servira à afficher
-         * Sinon => on stocke l'erreur dans le tableau $formErrors
-         */
+
         if (preg_match($regexMail, $_POST['mail'])) {
             //On utilise la fonction htmlspecialchars pour supprimer les éventuelles balises html => on a aucun intérêt à garder une balise html dans ce champs
             $user->mail = htmlspecialchars($_POST['mail']);
@@ -27,6 +24,7 @@ if (count($_POST) > 0) {
     } else {
         $formErrors['mail'] = 'Merci de renseigner votre mail';
     }
+    // Comme on enregistre pas de données dans la BDD, il n'est  pas nécessaire d'utiliser le password_hash pour la connexion
     if (!empty($_POST['password'])) {
         $user->password = $_POST['password'];
     } else {
@@ -35,11 +33,10 @@ if (count($_POST) > 0) {
 }
 
 if (count($_POST) > 0 && count($formErrors) == 0) {
-    // J'appelle ma méthode readUserByMail
-    // Je stock les informations dans $dataUser
-    $dataUser = $user->readUserByMail();
-    $password = $dataUser->password;
-    //Si les informations on été stocké dans DataUser alors il est égal à true, sinon a False
+    /*
+     * On appelle la méthode readUserByMail, et on stock les informations dans la variable $dataUser
+     */
+    $dataUser = $user->userConnect();
     if ($dataUser) {
         /**
          * password_verify — Vérifie qu'un mot de passe correspond à un hachage
@@ -47,6 +44,10 @@ if (count($_POST) > 0 && count($formErrors) == 0) {
         if (password_verify($user->password, $dataUser->password)) {
             $_SESSION['id'] = $dataUser->id;
             $_SESSION['mail'] = $dataUser->mail;
+            $_SESSION['id_ag4fc_usersGroup'] = $dataUser->idGroup;
+            $_SESSION['id_ag4fc_association'] = $dataUser->idAssociation;
+
+            header('location:profil.php');
         } else {
             $formErrors['password'] = 'Votre mot de passe n\'est pas disponible dans notre base de données';
         }

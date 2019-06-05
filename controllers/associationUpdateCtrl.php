@@ -1,14 +1,13 @@
 <?php
 
+session_start();
+
 if (isset($_POST['search'])) {
     //je ne charge pas l'autoloader car il risque de rentrer en conflit
     //avec les chemins pour l'appel à Ajax
 //appel à la database qui est le singleton
     require_once '../models/database.php';
-    // appel
-    require_once '../models/models_city.php';
 
-    require_once '../regex.php';
     $city = new city();
 
     if (preg_match($regexSearch, $_POST['search'])) {
@@ -18,7 +17,11 @@ if (isset($_POST['search'])) {
     }
 } else {
     $users = new users();
-//On initialise un tableau d'erreurs vide pour les erreurs
+    $ListUser = $users->getUserList();
+    $association = new association();
+    $listAssociation = $association->getAssociation();
+
+//On initialise un tableau d'erreurs vide
     $formErrors = array();
     /*
      * On vérifie si le tableau $_POST est vide
@@ -31,6 +34,8 @@ if (isset($_POST['search'])) {
          * S'il est vide => on stocke l'erreur dans le tableau $formErrors
          * S'il n'est pas vide => on stocke dans la variable $title qui nous servira à afficher
          */
+        $users->id_ag4fc_usersGroup = 4;
+
         if (!empty($_POST['civility'])) {
             if ($_POST['civility'] === 'Madame' || $_POST['civility'] === 'Monsieur') {
                 $users->civility = $_POST['civility'];
@@ -46,14 +51,14 @@ if (isset($_POST['search'])) {
          * S'il n'est pas vide => on vérifie si la saisie utilisateur correspond à la regex
          */
 
-        if (!empty($_POST['role'])) {
-            if ($_POST['role'] === '2') {
-                $users->id_ag4fc_usersGroup = $_POST['role'];
+        if (!empty($_POST['name'])) {
+            if (preg_match($regexName, $_POST['name'])) {
+                $association->name = htmlspecialchars($_POST['name']);
             } else {
-                $formErrors['role'] = 'Veuillez changez de formulaire si vous n\'êtes pas un particulier';
+                $formErrors['name'] = 'Merci de renseigner une association valide';
             }
         } else {
-            $formErrors['role'] = 'Merci de répondre à cette question';
+            $formErrors['name'] = 'Merci de renseigner votre association';
         }
 
         if (!empty($_POST['lastname'])) {
@@ -94,12 +99,12 @@ if (isset($_POST['search'])) {
 
         if (!empty($_POST['postalCode'])) {
             if (preg_match($regexZipCode, $_POST['postalCode'])) {
-                $postalCode = htmlspecialchars($_POST['postalCode']);
+                $users->postalCode = htmlspecialchars($_POST['postalCode']);
             } else {
-                $formErrors['postalCode'] = 'Merci de renseigner une adresse valide';
+                $formErrors['postalCode'] = 'Merci de renseigner un code postal valide';
             }
         } else {
-            $formErrors['postalCode'] = 'Merci de renseigner votre adresse';
+            $formErrors['postalCode'] = 'Merci de renseigner votre code postal';
         }
 
         if (!empty($_POST['city'])) {
@@ -128,13 +133,9 @@ if (isset($_POST['search'])) {
                     $users->mail = htmlspecialchars($_POST['mail']);
                     /**
                      * Je vérifie si l'utilisateur existe dans la base de données
-                     * On stocke le résultat de la méthode checkUserExist qui permet de vérifier
+                     * On stocke le résultat de la méthode checkIfUserExist qui permet de vérifier
                      * si l'adresse mail (login) de l'utilisateur a déjà été enregistré dans la base de donnée
                      */
-                    $resultCount = $users->checkIfUserExist();
-                    if ($resultCount > 0) {
-                        $formErrors['mail'] = 'Un compte avec ce mail existe déjà. Veuillez modifier l\'adresse mail';
-                    }
                 } else {
                     $formErrors['mail'] = 'Les deux adresse email ne correspondent pas';
                 }
@@ -179,53 +180,25 @@ if (isset($_POST['search'])) {
             $formErrors['passwordConfirm'] = 'Veuillez entrer un mot de passe';
         }
 
-        if (isset($_FILES['file'])) {
-            $target_dir = "uploads/";
-            $target_file = $target_dir . basename($_FILES["file"]["name"]);
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-//Vérifie si le fichier image est une image réelle ou une image factice
-            if (isset($_POST["submit"])) {
-                $check = getimagesize($_FILES["file"]["tmp_name"]);
-                if ($check !== false) {
-                    $formErrors['file'] = "Le fichier est une image - " . $check["mime"] . ".";
-                    $uploadOk = 1;
-                } else {
-                    $formErrors['file'] = "Le fichier n'est pas une image.";
-                    $uploadOk = 0;
-                }
-            }
-// Vérifie si le fichier existe déjà
-            if (file_exists($target_file)) {
-                $formErrors['file'] = "Désolé, le fichier existe déjà.";
-                $uploadOk = 0;
-            }
-// Vérifie la taille du fichier
-            if ($_FILES["file"]["size"] > 5000000) {
-                $formErrors['file'] = "Désolé, votre fichier est trop volumineux.";
-                $uploadOk = 0;
-            }
-// Autoriser certains formats de fichier
-            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-                $formErrors['file'] = "Désolé, seuls les fichiers JPG, JPEG, PNG et GIF sont autorisés.";
-                $uploadOk = 0;
-            }
-// Vérifie si $ uploadOk est défini sur 0 par une erreur
-            if ($uploadOk == 0) {
-                $formErrors['img'] = "Désolé, votre fichier n'a pas été téléchargé.";
-// Si tout va bien, l'upload du fichier peut commencé
-            } else {
-                if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-                    $users->photo = basename($_FILES["file"]["name"]);
-                } else {
-                    $formErrors['file'] = "Désolé, une erreur s'est produite lors de l'envoi de votre fichier.";
-                }
-            }
-        }
-
         if (count($formErrors) == 0) {
-            if ($users->addUsers()) {
+            // On appelle la méthode getInstance, qui se trouve dans la classe database
+            // Puisque cette methode est static il n'est pas nécessaire de l'instancier un nouvel objet par rapport a la classe database
+            // getInstance() me retourne l'objet instancié de la classe Database
+            $database = Database::getInstance();
+            // On fais appelle a setAttribute qui est une méthode de PDO, pour gérer les erreurs
+            $database->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            try {
+                $database->db->beginTransaction();
+
+                $users->updateUsers();
+                $association->id_ag4fc_users = $database->db->lastInsertId();
+                $updateAssociation = $association->updateAssociation();
                 $formSuccess = 'Votre inscription a été validé';
+
+                $database->db->commit();
+            } catch (\Exception $e) {
+                $database->db->rollback();
+                die('error : ' . $e->getMessage());
             }
         }
     }

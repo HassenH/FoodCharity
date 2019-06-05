@@ -1,7 +1,10 @@
 <?php
-include 'navbar.php';
 require_once 'models/models_users.php';
+require_once 'models/models_association.php';
+require_once 'models/models_commerce.php';
 require_once 'controllers/profilCtrl.php';
+require_once 'navbar.php';
+var_dump($_SESSION);
 ?>
 <div class="container">
     <div class="row my-5">
@@ -13,11 +16,29 @@ require_once 'controllers/profilCtrl.php';
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="card-body">
-                            <h2 class="card-title"><?= $showListUsers->lastname ?></h2>
-                            <p class="card-text">Email : </strong> <?= $showListUsers->mail ?></p>
-                            <p class="card-text">Téléphone mobile : </strong> 06 09 72 29 16</p>
-                            <a class="btn btn-md btn-block btn-profil text-white" href="/modifier.php" title="Modification du compte"><i class="fas fa-pencil-alt"></i> Modifier vos informations</a>
+                        <div class="card-body text-center">
+                            <img src="/uploads/<?= $listUser->photo ?>" class="img-fluid rounded-circle imgProfil mt-2" alt="">
+                            <h2 class="card-title"><?= $listUser->lastname . ' ' . $listUser->firstname ?></h2>
+                            <?php if ($_SESSION['id_ag4fc_usersGroup'] == 4) { ?>
+                                <p class = "card-text"><span class = "font-weight-bold">Nom de votre association : </span> <?= $listAssociation->name ?></p>
+                            <?php } ?>
+                            <?php if ($_SESSION['id_ag4fc_usersGroup'] == 3) { ?>
+                                <p class = "card-text"><span class = "font-weight-bold">Nom de votre commerce : </span> <?= $listCommerce->name ?></p>
+                                <p class = "card-text"><span class = "font-weight-bold">Numéro SIRET : </span> <?= $listCommerce->siretNumber ?></p>
+                            <?php } ?>
+                            <p class="card-text"><span class="font-weight-bold">Email : </span> <?= $listUser->mail ?></p>
+                            <p class="card-text"><span class="font-weight-bold">Téléphone mobile : </span> <?= $listUser->phoneNumber ?></p>
+                            <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Voir plus d'informations</a>
+                            <div class="collapse" id="collapseExample">
+                                <p class="card-text"><span class="font-weight-bold"> Adresse : </span><?= $listUser->address ?></p>
+                                <p class="card-text"><span class="font-weight-bold"> Ville : </span><?= $listUser->city ?></p>
+                                <p class="card-text"><span class="font-weight-bold"> Code postal : </span><?= $listUser->postalCode ?></p>
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class="col-12">
+                                <a class="btn btn-md btn-block btn-profil text-white my-3" href="/profilModify.php" title="Modification du compte"><i class="fas fa-pencil-alt"></i> Modifier vos informations</a>
+                            </div>
                         </div>
                     </div>
                 </div>

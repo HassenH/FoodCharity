@@ -20,13 +20,13 @@ include 'navbar.php';
         <div class="text-center col-12 col-sm-4 col-md-4 col-lg-4 usersCard">
             <div class="shadow p-5 mb-5 bg-white rounded">
                 <i class="fas fa-heart fa-3x"></i>
-                <a href=""><h1>Commerce</h1></a>
+                <a href="inscriptionCommerce.php"><h1>Commerce</h1></a>
             </div>
         </div>
         <div class="text-center col-12 col-sm-4 col-md-4 col-lg-4 usersCard">
             <div class="shadow p-5 mb-5 bg-white rounded">
                 <i class="fas fa-heart fa-3x"></i>
-                <a href="inscriptionassociation.php"><h1>Association</h1></a>
+                <a href="inscriptionAssociation.php"><h1>Association</h1></a>
             </div>
         </div>
     </div>
