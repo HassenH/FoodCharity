@@ -5,6 +5,7 @@ require_once 'models/database.php';
 class commerce {
 
     private $db;
+    public $id = 0;
     public $name = '';
     public $siretNumber = '';
     public $id_ag4fc_users = 0;
@@ -29,7 +30,7 @@ class commerce {
      */
     public function addCommerce() {
         // Enregistrement dans la table ag4fc_enterprise de la valeur de ses attributs name et siret
-        $query = 'INSERT INTO `ag4fc_enterprise`(`name`, `siretNumber`, `id_ag4fc_users`) '
+        $query = 'INSERT INTO `ag4fc_commerce`(`name`, `siretNumber`, `id_ag4fc_users`) '
                 . 'VALUES(:name, :siretNumber, :id_ag4fc_users)';
         //$this->db->query($query) me permet d'executer ma requête (query($query)) dans ma base de données ($this->db)
         $queryExecute = $this->db->prepare($query);
@@ -43,11 +44,11 @@ class commerce {
     }
 
     public function getCommerce() {
-        $query = 'SELECT ag4fc_enterprise.name, ag4fc_enterprise.siretNumber '
-                . 'FROM ag4fc_enterprise '
-                . 'INNER JOIN ag4fc_users '
-                . 'ON ag4fc_enterprise.id_ag4fc_users = ag4fc_users.id '
-                . 'WHERE ag4fc_users.id = :id';
+        $query = 'SELECT `ag4fc_commerce`.`name`, `ag4fc_commerce`.`siretNumber` '
+                . 'FROM `ag4fc_commerce` '
+                . 'INNER JOIN `ag4fc_users` '
+                . 'ON `ag4fc_commerce`.`id_ag4fc_users` = `ag4fc_users`.`id` '
+                . 'WHERE `ag4fc_users`.`id` = :id';
         $queryExecute = $this->db->prepare($query);
 
         $queryExecute->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
@@ -58,32 +59,13 @@ class commerce {
     }
 
     public function updateCommerce() {
-        $query = 'UPDATE ag4fc_enterprise SET `name` = :name, `siretNumber` = :siretNumber, `id_ag4fc_users` = :id_ag4fc_users ';
+        $query = 'UPDATE `ag4fc_commerce` SET `ag4fc_commerce`.`name` = :name '
+                . 'WHERE `ag4fc_commerce`.`id_ag4fc_users` = :id';
         $queryExecute = $this->db->prepare($query);
         $queryExecute->bindValue(':name', $this->name, PDO::PARAM_STR);
-        $queryExecute->bindValue(':siretNumber', $this->siretNumber, PDO::PARAM_STR);
-        $queryExecute->bindValue(':id_ag4fc_users', $_SESSION['id'], PDO::PARAM_INT);
+        $queryExecute->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
 
         return $queryExecute->execute();
     }
 
 }
-
-//
-//    public function getCommerceList() {
-//
-//        $query = //'SELECT ag4fc_users.id, ag4fc_enterprise.name, ag4fc_enterprise.siretNumber FROM `ag4fc_users` INNER JOIN ag4fc_enterprise ON ag4fc_users.id = ag4fc_enterprise.`id_ag4fc_users` WHERE id_ag4fc_users = id ';
-//                $queryExecute = $this->db->prepare($query);
-//
-//        $queryExecute->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
-//
-//        $queryExecute->execute();
-//
-//        return $queryExecute->fetch(PDO::FETCH_OBJ);
-//    }
-//
-//    public function __destruct() {
-//        $this->db = NULL;
-//    }
-
-

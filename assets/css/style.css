@@ -484,16 +484,16 @@ Attribution required
 
 /* DONATION PAGE */
 .buttonOption {
-    background-color: #c11!important;
-    border-color: #c11!important;
-    border-radius: 0 .3rem .3rem 0;
+    background-color: #3C3D41;
+    border-color: #3C3D41;
+    border-radius: .3rem .3rem .3rem .3rem;
     color: #fff;
     text-transform: uppercase;
     font-weight: 500;
 }
 
 .fa-star {
-  color: #f1c40f;
+    color: #f1c40f;
 }
 
 .buttonShare {

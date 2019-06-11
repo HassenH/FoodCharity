@@ -71,10 +71,12 @@ class association {
     }
 
     public function updateAssociation() {
-        $query = 'UPDATE ag4fc_association SET `name` = :name, `id_ag4fc_users` = :id_ag4fc_users ';
+        $query = 'UPDATE `ag4fc_association` SET `ag4fc_association`.`name` = :name '
+                . 'WHERE `ag4fc_association`.`id_ag4fc_users` = :id';
         $queryExecute = $this->db->prepare($query);
         $queryExecute->bindValue(':name', $this->name, PDO::PARAM_STR);
-        $queryExecute->bindValue(':id_ag4fc_users', $_SESSION['id'], PDO::PARAM_INT);
+        $queryExecute->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
+
 
         return $queryExecute->execute();
     }

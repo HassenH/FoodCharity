@@ -100,10 +100,9 @@ class users {
      */
     public function userConnect() {
         // On va récuperer les données de la ligne contenant l'email entrée
-        $query = 'SELECT `ag4fc_users`.`id` AS `id`, `ag4fc_users`.`mail` AS mail, `ag4fc_users`.`password` AS password, `ag4fc_users`.`id_ag4fc_usersGroup` AS `idGroup`, `ag4fc_association`.`id` AS `idAssociation` '
+        $query = 'SELECT `ag4fc_users`.`id` AS `id`, `ag4fc_users`.`mail` AS `mail`, `ag4fc_users`.`password` AS `password`, `ag4fc_users`.`id_ag4fc_usersGroup` AS `idGroup`, `ag4fc_association`.`id` AS `idAssociation` '
                 . 'FROM `ag4fc_users` '
                 . 'INNER JOIN `ag4fc_association` '
-                . 'ON `ag4fc_users`.`id` = `ag4fc_association`.`id_ag4fc_users` '
                 . 'WHERE `mail` = :mail';
         $queryExecute = $this->db->prepare($query);
         // bindvalue Associe la valeur du marqueur nominatif email au paramètre string

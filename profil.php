@@ -4,7 +4,6 @@ require_once 'models/models_association.php';
 require_once 'models/models_commerce.php';
 require_once 'controllers/profilCtrl.php';
 require_once 'navbar.php';
-var_dump($_SESSION);
 ?>
 <div class="container">
     <div class="row my-5">
@@ -20,10 +19,10 @@ var_dump($_SESSION);
                             <img src="/uploads/<?= $listUser->photo ?>" class="img-fluid rounded-circle imgProfil mt-2" alt="">
                             <h2 class="card-title"><?= $listUser->lastname . ' ' . $listUser->firstname ?></h2>
                             <?php if ($_SESSION['id_ag4fc_usersGroup'] == 4) { ?>
-                                <p class = "card-text"><span class = "font-weight-bold">Nom de votre association : </span> <?= $listAssociation->name ?></p>
+                                <p class = "card-text"><span class = "font-weight-bold">Nom de votre association : </span><span class="text-uppercase"><?= $listAssociation->name ?></span></p>
                             <?php } ?>
                             <?php if ($_SESSION['id_ag4fc_usersGroup'] == 3) { ?>
-                                <p class = "card-text"><span class = "font-weight-bold">Nom de votre commerce : </span> <?= $listCommerce->name ?></p>
+                                <p class = "card-text"><span class = "font-weight-bold">Nom de votre commerce : </span><span class="text-uppercase"><?= $listCommerce->name ?></span></p>
                                 <p class = "card-text"><span class = "font-weight-bold">Numéro SIRET : </span> <?= $listCommerce->siretNumber ?></p>
                             <?php } ?>
                             <p class="card-text"><span class="font-weight-bold">Email : </span> <?= $listUser->mail ?></p>

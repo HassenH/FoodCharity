@@ -46,7 +46,6 @@ if (count($_POST) > 0 && count($formErrors) == 0) {
             $_SESSION['mail'] = $dataUser->mail;
             $_SESSION['id_ag4fc_usersGroup'] = $dataUser->idGroup;
             $_SESSION['id_ag4fc_association'] = $dataUser->idAssociation;
-
             header('location:profil.php');
         } else {
             $formErrors['password'] = 'Votre mot de passe n\'est pas disponible dans notre base de données';
@@ -56,5 +55,3 @@ if (count($_POST) > 0 && count($formErrors) == 0) {
         $formErrors['mail'] = 'Votre mail n\'est pas disponible dans notre base de données';
     }
 }
-?>
-

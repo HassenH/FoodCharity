@@ -18,7 +18,7 @@ var_dump($_SESSION);
         <div class="col-12 col-sm-9 col-md-9 col-lg-9">
             <div class="border-0">
                 <div class="card-header text-white text-center p-0 ">
-                    <h1 class="card-title mb-3">Inscription particulier</h1>
+                    <h1 class="card-title mb-3">Modification profil</h1>
                 </div>
                 <div class="card-body p0">
                     <div class="row">
@@ -76,7 +76,7 @@ var_dump($_SESSION);
                                                     <label for="name">Nom de votre association*</label>
                                                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                                         <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                                        <input type="text" required name="name" value="<?= isset($_POST['name']) ? $_POST['name'] : '' ?>" class="form-control <?= isset($formErrors['name']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="name" placeholder="" />
+                                                        <input type="text" required name="name" value="<?= isset($_POST['name']) ? $_POST['name'] : $listAssociation->name ?>" class="form-control <?= isset($formErrors['name']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="name" placeholder="" />
                                                         <?php if (isset($formErrors['name'])) { ?>
                                                             <div class="invalid-feedback"><?= $formErrors['name'] ?></div>
                                                         <?php } ?>

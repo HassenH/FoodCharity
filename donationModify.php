@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'regex.php';
 require_once 'models/models_users.php';
 require_once 'models/models_donation.php';
@@ -8,26 +9,23 @@ require_once 'models/models_delivery.php';
 require_once 'models/models_donationContent.php';
 require_once 'models/models_packages.php';
 require_once 'models/models_productCategory.php';
-require_once 'controllers/donationCtrl.php';
+require_once 'controllers/donationModifyCtrl.php';
 require_once 'navbar.php';
 
 //On inclut le fichier qui contient les regex avec un require car on en a besoin pour faire les vérification
 ?>
+
 <div class="container my-5">
     <?php if (count($_POST) == 0 || count($formErrors) > 0) { ?>
-        <form action="donation.php" method="POST">
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="card border-0" id="makeDonationPage">
-                        <div class="card-header text-white text-center p-0 border-bottom-0">
-                            <h1 class="card-title mb-3 ">Faire un don</h1>
+        <form action="donationModify.php?&id=<?= $getDonationModify->idDonation ?>" method="POST">
+            <div class="row">
+                <?php include 'profilList.php' ?>
+                <div class="col-12 col-sm-12 col-md-9 col-lg-9">
+                    <div class="card border-0">
+                        <div class="card-header text-white text-center p-0 border-bottom-0 ">
+                            <h1 class="card-title mb-3">Modification don</h1>
                         </div>
-                        <div class="card-body p-0">
-                            <div class="row justify-content-center my-4">
-                                <div class="col-12 d-flex justify-content-center">
-                                    <img src="assets/img/multistep2.png" class="multistep" alt="Descritpion">
-                                </div>
-                            </div>
+                        <div class="card-body">
                             <div class="form-group row">
                                 <div class="col-12 col-sm-8 col-md-8 col-lg-8 mt-4 px-5">
                                     <label for="title" class="font-weight-bold">Titre de l'annonce* : </label>
@@ -44,7 +42,7 @@ require_once 'navbar.php';
                                      * En cas d'erreur on crée une div invalid-feedback pour afficher le texte de l'erreur
                                      */
                                     ?>
-                                    <input type="text" name="title" value="<?= isset($_POST['title']) ? $_POST['title'] : '' ?>" class="form-control <?= isset($formErrors['title']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="title" placeholder="Titre :" required />
+                                    <input type="text" name="title" value="<?= isset($_POST['title']) ? $_POST['title'] : $getDonationModify->title ?>" class="form-control <?= isset($formErrors['title']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="title" placeholder="" required />
                                     <?php if (isset($formErrors['title'])) { ?>
                                         <div class="invalid-feedback"><?= $formErrors['title'] ?></div>
                                     <?php } ?>
@@ -65,7 +63,7 @@ require_once 'navbar.php';
                                         ?>
                                         <img src="assets/img/fruitlegume1.png" class="img-thumbnail" alt="Fruits et légumes" data-toggle="tooltip" data-placement="bottom" title="(pomme, fraise, salade...)" />
                                         <label for="form-check-label">
-                                            <input type="checkbox" name="category" value="1" <?= isset($_POST['category']) && $_POST['category'] == 1 ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['category']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="fruitsAndVegetables">
+                                            <input type="radio" name="category" value="1" <?= (isset($_POST['category']) && ($_POST['category'] == 1)) || ($getDonationModify->category) == 'Fruits et légumes' ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['category']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="fruitsAndVegetables">
                                             <p>Fruits et légumes</p></label>
                                     </div>
                                 </div>
@@ -73,35 +71,35 @@ require_once 'navbar.php';
                                     <div class="form-check text-center category-checkbox">
                                         <img src="assets/img/refregirateur.png" alt="Produits frais" width="130" data-toggle="tooltip" data-placement="bottom" title="(viande,fromage,poisson...)" />
                                         <label for="form-check-label">Produits frais</label>
-                                        <input type="checkbox" name="category" value="2" <?= isset($_POST['category']) && $_POST['category'] == 2 ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['category']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="coldProduct">
+                                        <input type="radio" name="category" value="2" <?= (isset($_POST['category']) && ($_POST['category'] == 2)) || ($getDonationModify->category) == 'Produits frais' ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['category']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="coldProduct">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-check text-center category-checkbox">
                                         <img src="assets/img/farine.png" alt="Produits secs" width="130" data-toggle="tooltip" data-placement="bottom" title="(farine,riz...)" />
                                         <label for="form-check-label">Produits secs</label>
-                                        <input type="checkbox" name="category" value="3" <?= isset($_POST['category']) && $_POST['category'] == 3 ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['category']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="dryProduct">
+                                        <input type="radio" name="category" value="3" <?= (isset($_POST['category']) && ($_POST['category'] == 3)) || ($getDonationModify->category) == 'Produits secs' ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['category']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="dryProduct">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-check text-center category-checkbox">
                                         <img src="assets/img/frozen.png" alt="Produits congelés" width="130" data-toggle="tooltip" data-placement="bottom" title="(produit congelés)" />
                                         <label for="form-check-label">Produits congelés</label>
-                                        <input type="checkbox" name="category" value="4" <?= isset($_POST['category']) && $_POST['category'] == 4 ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['category']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="frozenProduct">
+                                        <input type="radio" name="category" value="4" <?= (isset($_POST['category']) && ($_POST['category'] == 4)) || ($getDonationModify->category) == 'Produits congelés' ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['category']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="frozenProduct">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-check text-center category-checkbox">
                                         <img src="assets/img/boissons1.png" alt="Boissons" width="130" data-toggle="tooltip" data-placement="bottom" title="(boissons)" />
                                         <label for="form-check-label">Boissons</label>
-                                        <input type="checkbox" name="category" value="5" <?= isset($_POST['category']) && $_POST['category'] == 5 ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['category']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="drinkProduct">
+                                        <input type="radio" name="category" value="5" <?= (isset($_POST['category']) && ($_POST['category'] == 5)) || ($getDonationModify->category) == 'Boissons' ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['category']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="drinkProduct">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-check text-center category-checkbox">
-                                        <img src="assets/img/autresaliments.png" alt="Produits congelés" width="130" data-toggle="tooltip" data-placement="bottom" title="(boîtes de conserve, gâteaux)" />
+                                        <img src="assets/img/autresaliments.png" alt="Autres aliments" width="130" data-toggle="tooltip" data-placement="bottom" title="(boîtes de conserve, gâteaux)" />
                                         <label for="form-check-label">Autres aliments</label>
-                                        <input type="checkbox" name="category" value="6" <?= isset($_POST['category']) && $_POST['category'] == 6 ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['category']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="otherProduct">
+                                        <input type="radio" name="category" value="6" <?= (isset($_POST['category']) && ($_POST['category'] == 6)) || ($getDonationModify->category) == 'Autres aliments' ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['category']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="otherProduct">
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +109,7 @@ require_once 'navbar.php';
                             <div class="form-group row">
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 mt-2 px-5">
                                     <label for="details" class="font-weight-bold">Texte de l'annonce :</label>
-                                    <textarea name="details" class="form-control <?= isset($formErrors['details']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="details" rows="5" required placeholder="Votre texte"><?= isset($_POST['details']) ? $_POST['details'] : '' ?></textarea>
+                                    <textarea name="details" class="form-control <?= isset($formErrors['details']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="details" rows="5" required placeholder="Votre texte"><?= isset($_POST['details']) ? $_POST['details'] : $getDonationModify->details ?></textarea>
                                     <?php if (isset($formErrors['details'])) { ?>
                                         <div class="invalid-feedback"><?= $formErrors['details'] ?></div>
                                     <?php } ?>
@@ -127,7 +125,7 @@ require_once 'navbar.php';
                             </div>
                             <div class="form-group row">
                                 <div class="col-12 col-sm-3 col-md-3 col-lg-3 px-5">
-                                    <input type="number" name="quantity" value="<?= isset($_POST['quantity']) ? $_POST['quantity'] : '' ?>" class="form-control <?= isset($formErrors['quantity']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="quantity" min="0" required placeholder="0">
+                                    <input type="number" name="quantity" value="<?= isset($_POST['quantity']) ? $_POST['quantity'] : $getDonationModify->quantity ?>" class="form-control <?= isset($formErrors['quantity']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="quantity" min="0" required placeholder="0">
                                     <?php if (isset($formErrors['quantity'])) { ?>
                                         <div class="invalid-feedback"><?= $formErrors['quantity'] ?></div>
                                     <?php } ?>
@@ -150,7 +148,7 @@ require_once 'navbar.php';
                             </div>
                             <div class="form-group row">
                                 <div class="col-12 col-sm-12 col-md-3 col-lg-3 px-5">
-                                    <input type="number" name="weight" value="<?= isset($_POST['weight']) ? $_POST['weight'] : '' ?>" class="form-control <?= isset($formErrors['weight']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" step="0.1" id="weight" min="0" required placeholder="0">
+                                    <input type="number" name="weight" value="<?= isset($_POST['weight']) ? $_POST['weight'] : $getDonationModify->weight ?>" class="form-control <?= isset($formErrors['weight']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" step="0.1" id="weight" min="0" required>
                                     <?php if (isset($formErrors['weight'])) { ?>
                                         <div class="invalid-feedback"><?= $formErrors['weight'] ?></div>
                                     <?php } ?>
@@ -166,7 +164,7 @@ require_once 'navbar.php';
                             </div>
                             <div class="form-group row">
                                 <div class="col-12 col-sm-3 col-md-3 col-lg-3 px-5">
-                                    <input type="date" name="date" value="<?= isset($_POST['date']) ? $_POST['date'] : '' ?>" class="form-control <?= isset($formErrors['date']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="date" />
+                                    <input type="date" name="date" value="<?= isset($_POST['date']) ? $_POST['date'] : $getDonationModify->dateDelivery ?>" class="form-control <?= isset($formErrors['date']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="date" />
                                     <?php if (isset($formErrors['date'])) { ?>
                                         <div class="invalid-feedback"><?= $formErrors['date'] ?></div>
                                     <?php } ?>
@@ -200,53 +198,29 @@ require_once 'navbar.php';
                                     <?php } ?>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-12 mt-2 px-5">
-                                    <label for="association" class="font-weight-bold">Choissisez une association à laquelle vous voulez remettre vos produits* : </label>
+                            <input type="submit">
+                            </form>
+                            <?php
+                        } else {
+                            if (isset($formSuccess)) {
+                                ?>
+                                <div class="col-8 offset-2 alert alert-success " role="alert">
+                                    <p><?= $formSuccess; ?> </p>
+                                    <p>Vous pouvez à présent vous connecter. </p>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-12 col-sm-5 col-md-5 col-lg-5 px-5">
-                                    <select class="form-control <?= isset($formErrors['association']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="association" name="association">
-                                        <option selected disabled>---Choix---</option>
-                                        <?php foreach ($listAssociation as $association) { ?>
-                                            <option value="<?= $association->id ?>" <?= isset($_POST['association']) && $_POST['association'] == $association->id ? 'selected' : '' ?>><?= $association->name ?></option>
-                                        <?php } ?>
-                                    </select>
-                                    <?php if (isset($formErrors['association'])) { ?>
-                                        <div class="invalid-feedback"><?= $formErrors['association'] ?></div>
-                                    <?php } ?>
+                                <div class="col-12 text-center">
+                                    <img src="assets/img/donateme.png" height="400px" alt="donateme">
+                                    <a href="login.php" class="btn largeButton my-2" role="button"><h2><u>Faites votre premiers dons !</u></h2></a>
                                 </div>
-                            </div>
-                        </div>
+                            <?php } ?>
+                        <?php } ?>
                     </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 my-4 ">
-                            <a href="/index.php" class="btn btn-bg-red btn-lg btn-block text-wrap-xs"><i class="fas fa-arrow-left mr-2 mr-lg-5"></i></span>Annuler : retour accueil</a>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 my-4">
-                            <button class="btn btn-bg-red btn-lg btn-block text-wrap-xs" type="submit">Etape suivante : Adresse de remise<i class="fas fa-arrow-right ml-2 ml-lg-5"></i></button>
-                        </div>
-                    </div>
-                    </form>
-                    <?php
-                } else {
-                    if (isset($formSuccess)) {
-                        ?>
-                        <div class="col-8 offset-2 alert alert-success " role="alert">
-                            <p><?= $formSuccess; ?> </p>
-                            <p>Vous pouvez à présent vous connecter. </p>
-                        </div>
-                        <div class="col-12 text-center">
-                            <img src="assets/img/donateme.png" height="400px" alt="donateme">
-                            <a href="login.php" class="btn largeButton my-2" role="button"><h2><u>Faites votre premiers dons !</u></h2></a>
-                        </div>
-                    <?php } ?>
-                <?php }
-                ?>
+                </div>
             </div>
         </div>
 </div>
 <?php
 include 'footer.php'
 ?>
+
+

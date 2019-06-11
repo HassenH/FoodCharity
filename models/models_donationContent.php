@@ -56,4 +56,19 @@ class donationContent {
         return $queryExecute->execute();
     }
 
+    public function updateDonationContent() {
+        $query = 'UPDATE `ag4fc_donationContent` '
+                . 'SET `ag4fc_donationContent`.`quantity` = :quantity, `ag4fc_donationContent`.`weight` = :weight, `ag4fc_donationContent`.`id_ag4fc_packages` = :id_ag4fc_packages, `ag4fc_donationContent`.`id_ag4fc_productCategory` = :id_ag4fc_productCategory '
+                . 'WHERE `ag4fc_donationContent`.`id_ag4fc_donation` = :id';
+
+        $queryExecute = $this->db->prepare($query);
+        $queryExecute->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+        $queryExecute->bindValue(':quantity', $this->quantity, PDO::PARAM_STR);
+        $queryExecute->bindValue(':weight', $this->weight, PDO::PARAM_STR);
+        $queryExecute->bindValue(':id_ag4fc_packages', $this->id_ag4fc_packages, PDO::PARAM_INT);
+        $queryExecute->bindValue(':id_ag4fc_productCategory', $this->id_ag4fc_productCategory, PDO::PARAM_INT);
+
+        return $queryExecute->execute();
+    }
+
 }

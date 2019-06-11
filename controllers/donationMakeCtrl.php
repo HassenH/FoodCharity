@@ -34,7 +34,6 @@ $formErrors = array();
  */
 if (count($_POST) > 0) {
 
-    $users->id_ag4fc_users = $_SESSION['id'];
     /*
      * On vérifie que $_POST['lastName'] n'est pas vide
      * S'il est vide => on stocke l'erreur dans le tableau $formErrors
@@ -64,7 +63,7 @@ if (count($_POST) > 0) {
     }
 
     if (!empty($_POST['date'])) {
-        if (preg_match($regexBirthDate, $_POST['date'])) {
+        if (preg_match($regexDate, $_POST['date'])) {
             $donation->dateDelivery = htmlspecialchars($_POST['date']);
         } else {
             $formErrors['date'] = 'Veuillez renseignez une date valide';

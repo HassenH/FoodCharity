@@ -15,7 +15,7 @@ class Database {
      * Donc l'objet ne peut être créé en dehors de la classe.
      */
     private function __construct() {
-        $this->db = new PDO('mysql:host=localhost; dbname=foodcharity; charset=utf8', 'projet', 'hassenhad', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        $this->db = new PDO('mysql:host=localhost; dbname=titrepro; charset=utf8', 'lamanu', 'hassenhad', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     }
 
     /**
