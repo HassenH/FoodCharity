@@ -222,10 +222,10 @@ require_once 'navbar.php';
                     </div>
                     <div class="row">
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6 my-4 ">
-                            <a href="/index.php" class="btn btn-bg-red btn-lg btn-block text-wrap-xs"><i class="fas fa-arrow-left mr-2 mr-lg-5"></i></span>Annuler : retour accueil</a>
+                            <a href="/index.php" class="btn btn-bg-red btn-lg btn-block text-wrap-xs"><i class="fas fa-arrow-left mr-2 mr-lg-5"></i></span>Retour à l'accueil</a>
                         </div>
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6 my-4">
-                            <button class="btn btn-bg-red btn-lg btn-block text-wrap-xs" type="submit">Etape suivante : Adresse de remise<i class="fas fa-arrow-right ml-2 ml-lg-5"></i></button>
+                            <button class="btn btn-bg-red btn-lg btn-block text-wrap-xs" type="submit">Valider le don<i class="fas fa-arrow-right ml-2 ml-lg-5"></i></button>
                         </div>
                     </div>
                     </form>
@@ -235,11 +235,6 @@ require_once 'navbar.php';
                         ?>
                         <div class="col-8 offset-2 alert alert-success " role="alert">
                             <p><?= $formSuccess; ?> </p>
-                            <p>Vous pouvez à présent vous connecter. </p>
-                        </div>
-                        <div class="col-12 text-center">
-                            <img src="assets/img/donateme.png" height="400px" alt="donateme">
-                            <a href="login.php" class="btn largeButton my-2" role="button"><h2><u>Faites votre premiers dons !</u></h2></a>
                         </div>
                     <?php } ?>
                 <?php }

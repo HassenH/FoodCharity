@@ -66,18 +66,16 @@ $(function() {
 
                 //4.2 : Je vérifie que le tableau de résultats n'est pas vide
                 if (results.length > 0) {
-                    //4.3 : Je parcours le tableau (similaire à foreach($results as $key=>$patient). patient est un objet contenu dans le tableau
                     $.each(results, function(key, city) {
                         /*
                          * 4.4 : Je crée une variable qui contiendra la concaténation des balises servant à l'affichage (ici des cellules de tableau)
-                         * On y injecte les information du patient
                          */
                         var display = '<option value="' + city.id + '">' + city.city + ' ' + '</option >'
-                        //J'ajoute la ligne que je viens de créer au tableau, cette opération se répètera pour chaque patient dans le tableau results
+                        //J'ajoute la ligne que je viens de créer au tableau
                         $('#city').append(display);
                     });
                 } else {
-                    //4.5 : Si mon tableau est vide, je créer une alerte qui me dira que je n'ai pas de résultat et je l'insère après le tableau
+                    //4.4 : Si mon tableau est vide, je créer une alerte qui me dira que je n'ai pas de résultat et je l'insère après le tableau
                     var alert = '<div class="alert alert-danger" role="alert">Pas de résultats</div>';
                     $(alert).insertAfter('#city');
                 }

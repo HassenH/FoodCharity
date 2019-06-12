@@ -37,10 +37,13 @@ class donationContent {
         }
     }
 
+    /**
+     * Méthode permettant d'insérer les informations concernant le don alimentaire dans la base de données lors de l'envoi du formulaire
+     */
     public function addDonationContent() {
         $query = 'INSERT INTO `ag4fc_donationContent` (`quantity`, `weight`, `id_ag4fc_packages`, `id_ag4fc_donation`, `id_ag4fc_productCategory`) '
                 . 'VALUES (:quantity, :weight, :id_ag4fc_packages, :id_ag4fc_donation, :id_ag4fc_productCategory)';
-        //$this->db->query($query) me permet d'executer ma requête (query($query)) dans ma base de données ($this->db)
+
         $queryExecute = $this->db->prepare($query);
         /**
          * Bindvalue associe une valeur a un paramétre, ici a nos marqueurs nominatif.
@@ -56,6 +59,9 @@ class donationContent {
         return $queryExecute->execute();
     }
 
+    /**
+     * Méthode permettant la modification des informations concernant le don alimentaire dans la base de données
+     */
     public function updateDonationContent() {
         $query = 'UPDATE `ag4fc_donationContent` '
                 . 'SET `ag4fc_donationContent`.`quantity` = :quantity, `ag4fc_donationContent`.`weight` = :weight, `ag4fc_donationContent`.`id_ag4fc_packages` = :id_ag4fc_packages, `ag4fc_donationContent`.`id_ag4fc_productCategory` = :id_ag4fc_productCategory '

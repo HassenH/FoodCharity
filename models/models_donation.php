@@ -41,7 +41,7 @@ class donation {
     }
 
     /**
-     * Méthode permettant d'insérer les informations des utilisateurs dans la base de données lors de l'inscription
+     * Méthode permettant d'insérer les informations concernant le don alimentaire dans la base de données lors de l'envoi du formulaire
      */
     public function addDonation() {
         $query = 'INSERT INTO ag4fc_donation (`title`, `details`, `dateDelivery`, `id_ag4fc_users`, `id_ag4fc_association`, `id_ag4fc_timeSlot`, `id_ag4fc_delivery`, `id_ag4fc_status`) '
@@ -124,6 +124,9 @@ class donation {
         return $queryExecute->fetchAll(PDO::FETCH_OBJ);
     }
 
+    /**
+     * Méthode permettant l'affichage du don alimentaire
+     */
     public function getDonationPage() {
         $query = 'SELECT `ag4fc_users`.`id`, `ag4fc_users`.`firstname`, `ag4fc_users`.`lastname`, `ag4fc_users`.`address`, `ag4fc_users`.`photo`, `ag4fc_users`.`phoneNumber`, DATE_FORMAT(`ag4fc_users`.`creationDate`, \'%d/%m/%Y\' ) AS registrationDate , `ag4fc_city`.`city`, `ag4fc_city`.`postalCode`, `ag4fc_donation`.`title`, `ag4fc_donation`.`id` AS idDonation, `ag4fc_donation`.`details`, DATE_FORMAT(`ag4fc_donation`.`dateDelivery`, \'%d/%m/%Y\' ) AS `dateDelivery`, DATE_FORMAT(`ag4fc_donation`.`creationDate`, \'%d/%m/%Y %H:%i\' ) AS `creationDate`, `ag4fc_donationContent`.`quantity`, `ag4fc_donationContent`.`weight`, `ag4fc_delivery`.`deliveryOption`, `ag4fc_timeSlot`.`timeSlot`, `ag4fc_status`.`status`, `ag4fc_productCategory`.`category`, `ag4fc_packages`.`packages` '
                 . 'FROM `ag4fc_users` '
@@ -207,6 +210,9 @@ class donation {
         return $queryExecute->execute();
     }
 
+    /**
+     * Méthode permettant la modification des informations concernant le don alimentaire dans la base de données
+     */
     public function updateDonation() {
         $query = 'UPDATE `ag4fc_donation` '
                 . 'SET `ag4fc_donation`.`title` = :title, `ag4fc_donation`.`details` = :details, `ag4fc_donation`.`dateDelivery` = :dateDelivery, `ag4fc_donation`.`id_ag4fc_timeSlot` = :id_ag4fc_timeSlot, `ag4fc_donation`.`id_ag4fc_delivery` = :id_ag4fc_delivery '
@@ -239,7 +245,7 @@ class donation {
     }
 
     /**
-     * Méthode removeUser pour supprimer un utilisateur
+     * Méthode removeDonation pour supprimer une donation
      */
     public function removeDonation() {
         $query = 'DELETE FROM `ag4fc_donation` '
