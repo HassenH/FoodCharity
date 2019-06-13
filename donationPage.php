@@ -22,7 +22,7 @@ var_dump($comment);
         <div class="col-12 col-sm-12 col-md-9 col-lg-9">
             <div class="card border-0">
                 <div class="card-header text-white text-center p-0 border-bottom-0 ">
-                    <h1 class="card-title mb-3">Dons</h1>
+                    <h1 class="card-title mb-3">Don</h1>
                 </div>
                 <div class="card-body">
                     <div class="row">

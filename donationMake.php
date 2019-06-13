@@ -23,11 +23,6 @@ require_once 'navbar.php';
                             <h1 class="card-title mb-3 ">Faire un don</h1>
                         </div>
                         <div class="card-body p-0">
-                            <div class="row justify-content-center my-4">
-                                <div class="col-12 d-flex justify-content-center">
-                                    <img src="assets/img/multistep2.png" class="multistep" alt="Descritpion">
-                                </div>
-                            </div>
                             <div class="form-group row">
                                 <div class="col-12 col-sm-8 col-md-8 col-lg-8 mt-4 px-5">
                                     <label for="title" class="font-weight-bold">Titre de l'annonce* : </label>
@@ -57,13 +52,13 @@ require_once 'navbar.php';
                             </div>
                             <div class="form-group row px-5">
                                 <div class="col-12 col-sm-2 col-md-2 col-lg-2">
-                                    <div class="form-check-inline text-center category-checkbox">
+                                    <div class="form-check text-center category-checkbox">
                                         <?php
                                         /*
                                          * Pour garder la saisie utilisateur, on ajoute l'attribut checked s'il a coché l'input
                                          */
                                         ?>
-                                        <img src="assets/img/fruitlegume1.png" class="img-thumbnail" alt="Fruits et légumes" data-toggle="tooltip" data-placement="bottom" title="(pomme, fraise, salade...)" />
+                                        <img src="assets/img/fruitlegume1.png" alt="Fruits et légumes" data-toggle="tooltip" data-placement="bottom" title="(pomme, fraise, salade...)" />
                                         <label for="form-check-label">
                                             <input type="radio" name="category" value="1" <?= isset($_POST['category']) && $_POST['category'] == 1 ? 'checked' : '' ?> class="form-check-label <?= isset($formErrors['category']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="fruitsAndVegetables">
                                             <p>Fruits et légumes</p></label>
