@@ -337,8 +337,8 @@ $(function() {
          * La fonction append permet de créer un élément dans l'élément apposé devant.
          * Ici dans la div modal-body, on crée un paragraphe qui contient la question de confirmation.
          */
-        modal.find('.modal-body').append('<p>Êtes-vous sûr.e de vouloir supprimer ' + donationNumber + '?</p>');
-        modal.find('.modal-footer').append('<a href="profilDelete.php?deleteId=' + donationId + '" class="btn btn-danger">Supprimer ce don</a>');
+        modal.find('.modal-body').empty().append('<p>Êtes-vous sûr.e de vouloir supprimer ' + donationNumber + '?</p>');
+        modal.find('.modal-footer').empty().append('<a href="profilDelete.php?deleteId=' + donationId + '" class="btn btn-danger">Supprimer ce don</a>');
     })
 })
 
@@ -357,7 +357,27 @@ $(function() {
          * La fonction append permet de créer un élément dans l'élément apposé devant.
          * Ici dans la div modal-body, on crée un paragraphe qui contient la question de confirmation.
          */
-        modal.find('.modal-body').append('<p>Êtes-vous sûr.e de vouloir supprimer le commentaire ' + donationNumber + '?</p>');
-        modal.find('.modal-footer').append('<a href="profilComment.php?deleteCommentId=' + donationId + '" class="btn btn-danger">Supprimer ce don</a>');
+        modal.find('.modal-body').empty().append('<p>Êtes-vous sûr.e de vouloir supprimer le commentaire ' + donationNumber + '?</p>');
+        modal.find('.modal-footer').empty().append('<a href="profilComment.php?deleteCommentId=' + donationId + '" class="btn btn-danger">Supprimer ce don</a>');
+    })
+})
+
+/// Script pour modifier un commentaire
+$(function() {
+    //Fonction qui permet de déclencher les actions que l'on souhaite à l'affichage de la modale
+    $('#deleteCommentModal').on('show.bs.modal', function(event) {
+        //On stocke dans une variable le bouton qui appelle la modale.
+        var button = $(event.relatedTarget);
+        //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id du patient, son nom de famille et son prénom
+        var donationId = button.data('id');
+        var donationNumber = button.data('number');
+        var modal = $(this);
+        /*
+         * La fonction find trouve un élément dont l'id ou (ici) la classe est passée en paramètre.
+         * La fonction append permet de créer un élément dans l'élément apposé devant.
+         * Ici dans la div modal-body, on crée un paragraphe qui contient la question de confirmation.
+         */
+        modal.find('.modal-body').empty().append('<p>Êtes-vous sûr.e de vouloir modifier le commentaire ' + donationNumber + '?</p>');
+        modal.find('.modal-footer').empty().append('<a href="profilComment.php?modifyCommentId=' + donationId + '" class="btn btn-danger">Modifier votre commentaire</a>');
     })
 })

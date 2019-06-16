@@ -185,7 +185,7 @@ if (isset($_POST['search'])) {
             $uploadOk = 1;
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 //Vérifie si le fichier image est une image réelle ou une image factice
-            if (isset($_POST["submit"])) {
+            if (isset($_POST['submit'])) {
                 $check = getimagesize($_FILES["file"]["tmp_name"]);
                 if ($check !== false) {
                     $formErrors['file'] = "Le fichier est une image - " . $check["mime"] . ".";

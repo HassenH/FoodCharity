@@ -85,6 +85,16 @@ if (isset($_GET['id'])) {
                 $formErrors['comment'] = 'Merci de répondre à cette question';
             }
 
+            /**
+             * Je vérifie si un commentaire pour le don existe déja dans la base de données
+             * On stocke le résultat de la méthode checkUserExist qui permet de vérifier
+             * si l'adresse mail (login) de l'utilisateur a déjà été enregistré dans la base de donnée
+             */
+            $resultCount = $comment->checkIfCommentExist();
+            if ($resultCount > 0) {
+                $formErrors['message'] = 'Un commentaire existe déjà pour ce don';
+            }
+
             if (count($formErrors) == 0) {
                 if ($comment->addComment()) {
                     $formSuccess = 'Merci pour votre commentaire';

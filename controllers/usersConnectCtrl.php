@@ -15,7 +15,7 @@ if (count($_POST) > 0) {
      */
     if (!empty($_POST['mail'])) {
 
-        if (preg_match($regexMail, $_POST['mail'])) {
+        if (filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
             //On utilise la fonction htmlspecialchars pour supprimer les éventuelles balises html => on a aucun intérêt à garder une balise html dans ce champs
             $user->mail = htmlspecialchars($_POST['mail']);
         } else {

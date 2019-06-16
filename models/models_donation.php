@@ -93,12 +93,13 @@ class donation {
 
     public function getProfilDonationMade() {
         $query = 'SELECT `ag4fc_donation`.`id`, `ag4fc_donation`.`title`, DATE_FORMAT(`ag4fc_donation`.`creationDate`, \'%d/%m/%Y %H:%i\') AS `creationDate`, `ag4fc_productCategory`.`category`, `ag4fc_delivery`.`deliveryOption`, `ag4fc_status`.`status` '
-                . 'FROM `ag4fc_donation` '
+                . 'FROM `ag4fc_users` '
+                . 'INNER JOIN `ag4fc_donation` ON `ag4fc_users`.`id` = `ag4fc_donation`.`id_ag4fc_users` '
                 . 'INNER JOIN `ag4fc_donationContent` ON `ag4fc_donation`.`id` = `ag4fc_donationContent`.`id_ag4fc_donation` '
                 . 'INNER JOIN `ag4fc_productCategory` ON `ag4fc_productCategory`.`id` = `ag4fc_donationContent`.`id_ag4fc_productCategory` '
                 . 'INNER JOIN `ag4fc_delivery` ON `ag4fc_delivery`.`id` =`ag4fc_donation`.`id_ag4fc_delivery` '
                 . 'INNER JOIN `ag4fc_status` ON `ag4fc_status`.`id` = `ag4fc_donation`.`id_ag4fc_status` '
-                . 'WHERE `ag4fc_donation`.`id_ag4fc_users` = :id';
+                . 'WHERE `ag4fc_users`.`id` = :id';
 
         $queryExecute = $this->db->prepare($query);
 
@@ -110,16 +111,18 @@ class donation {
     }
 
     public function getProfilDonationCollected() {
-        $query = 'SELECT `ag4fc_donation`.`id`, `ag4fc_donation`.`title`, `ag4fc_donation`.`creationDate`, `ag4fc_productCategory`.`category`, `ag4fc_delivery`.`deliveryOption`, `ag4fc_status`.`status` '
-                . 'FROM `ag4fc_donation` '
+        $query = 'SELECT `ag4fc_donation`.`id`, `ag4fc_donation`.`title`, DATE_FORMAT(`ag4fc_donation`.`creationDate`, \'%d/%m/%Y %H:%i\') AS `creationDate`, `ag4fc_productCategory`.`category`, `ag4fc_delivery`.`deliveryOption`, `ag4fc_status`.`status` '
+                . 'FROM `ag4fc_users` '
+                . 'INNER JOIN `ag4fc_association` ON `ag4fc_users`.id = `ag4fc_association`.`id_ag4fc_users` '
+                . 'INNER JOIN `ag4fc_donation` ON `ag4fc_association`.`id` = `ag4fc_donation`.`id_ag4fc_association` '
                 . 'INNER JOIN `ag4fc_donationContent` ON `ag4fc_donation`.`id` = `ag4fc_donationContent`.`id_ag4fc_donation` '
                 . 'INNER JOIN `ag4fc_productCategory` ON `ag4fc_donationContent`.`id_ag4fc_productCategory` = `ag4fc_productCategory`.`id` '
                 . 'INNER JOIN `ag4fc_delivery` ON `ag4fc_donation`.`id_ag4fc_delivery` = `ag4fc_delivery`.`id` '
-                . 'INNER JOIN `ag4fc_status` ON `ag4fc_status`.`id` = `ag4fc_donation`.`id_ag4fc_status` '
-                . 'WHERE `ag4fc_donation`.`id_ag4fc_association` = :id';
+                . 'INNER JOIN `ag4fc_status` ON `ag4fc_donation`.`id_ag4fc_status` = `ag4fc_status`.`id` '
+                . 'WHERE `ag4fc_users`.`id` = :id ';
 
         $queryExecute = $this->db->prepare($query);
-        $queryExecute->bindValue(':id', $_SESSION['id_ag4fc_association'], PDO::PARAM_INT);
+        $queryExecute->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
         $queryExecute->execute();
         return $queryExecute->fetchAll(PDO::FETCH_OBJ);
     }

@@ -42,6 +42,7 @@ var_dump($comment);
                                     </div>
                                 </div>
                             </div>
+                            <!-- MODAL VALIDER UNE DONATION -->
                             <div class="modal fade" id="validDonationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -56,6 +57,7 @@ var_dump($comment);
                                     </div>
                                 </div>
                             </div>
+                            <!-- MODAL POUR ANNULER UNE DONATION -->
                             <div class="modal fade" id="cancelDonationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -146,13 +148,13 @@ var_dump($comment);
                                             <?php if ($getDonationPage->deliveryOption == 'Demande de collecte par une association') { ?>
                                                 <div class="col-10 align-self-center">
                                                     <p class="m-0"><?= $getDonationPage->address ?></p>
-                                                    <p class="m-0"><?= $getDonationPage->city . ' ' . $getDonationPage->postalCode ?></p>                                                                                                        </p>
+                                                    <p class="m-0"><?= $getDonationPage->city . ' ' . $getDonationPage->postalCode ?></p>
                                                 </div>
                                             <?php } else { ?>
                                                 <div class="col-10 align-self-center">
                                                     <p class="m-0 text-uppercase"><?= $getDonationAdressPage->name ?></p>
                                                     <p class="m-0"><?= $getDonationAdressPage->address ?></p>
-                                                    <p class="m-0"><?= $getDonationAdressPage->city . ' ' . $getDonationAdressPage->postalCode ?></p>                                                                                                        </p>
+                                                    <p class="m-0"><?= $getDonationAdressPage->city . ' ' . $getDonationAdressPage->postalCode ?></p>
                                                 </div>
                                             <?php } ?>
                                         </div>
@@ -199,6 +201,15 @@ var_dump($comment);
                                             <div class="invalid-feedback"><?= $formErrors['comment'] ?></div>
                                         <?php } ?>
                                     </div>
+                                </div>
+                                <!-- Si le commentaire existe déja, un message d'erreur apparait-->
+                                <div class="col-12">
+                                    <?php if (isset($formErrors['message'])) {
+                                        ?>
+                                        <div class="alert-danger">
+                                            <p><?= $formErrors['message'] ?></p>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                                 <div class="col-12 d-flex justify-content-end">
                                     <button type="submit" class="btn btn-outline-dark btn-md">Envoyer</button>
