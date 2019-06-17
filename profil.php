@@ -11,7 +11,11 @@ require_once 'navbar.php';
         <div class="col-12 col-sm-12 col-md-9 col-lg-9">
             <div class="card border-0">
                 <div class="card-header text-white text-center p-0 border-bottom-0 ">
-                    <h1 class="card-title mb-3">Mon compte</h1>
+                    <?php if ($_SESSION['id_ag4fc_usersGroup'] == 1) { ?>
+                        <h1 class="card-title mb-3">Tableau de bord</h1>
+                    <?php } else { ?>
+                        <h1 class="card-title mb-3">Mon compte</h1>
+                    <?php } ?>
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
