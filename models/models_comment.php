@@ -1,7 +1,5 @@
 <?php
 
-require_once 'models/database.php';
-
 class comment {
 
     private $db;
@@ -46,7 +44,7 @@ class comment {
     }
 
     public function getComments() {
-        $query = 'SELECT `ag4fc_comment`.`id`, `ag4fc_comment`.`opinion`, `ag4fc_comment`.`score`, `ag4fc_comment`.`creationDate`, `ag4fc_donation`.`title`, `ag4fc_donation`.`details`, `ag4fc_donation`.`id` AS `idDonation` '
+        $query = 'SELECT `ag4fc_comment`.`id`, `ag4fc_comment`.`opinion`, `ag4fc_comment`.`score`,DATE_FORMAT(`ag4fc_comment`.`creationDate`, \'%d/%m/%Y %H:%i\') AS `creationDate`, `ag4fc_donation`.`title`, `ag4fc_donation`.`details`, `ag4fc_donation`.`id` AS `idDonation` '
                 . 'FROM `ag4fc_users` '
                 . 'INNER JOIN `ag4fc_comment` ON `ag4fc_users`.`id` = `ag4fc_comment`.`id_ag4fc_users` '
                 . 'INNER JOIN `ag4fc_donation` ON `ag4fc_comment`.`id_ag4fc_donation` = `ag4fc_donation`.`id` '
@@ -62,15 +60,14 @@ class comment {
     }
 
     public function getComment() {
-        $query = 'SELECT `ag4fc_comment`.`id`, `ag4fc_comment`.`opinion`, `ag4fc_comment`.`score`, `ag4fc_comment`.`creationDate`, `ag4fc_donation`.`title`, `ag4fc_donation`.`details`, `ag4fc_donation`.`id` AS `idDonation` '
-                . 'FROM `ag4fc_users` '
-                . 'INNER JOIN `ag4fc_comment` ON `ag4fc_users`.`id` = `ag4fc_comment`.`id_ag4fc_users` '
+        $query = 'SELECT `ag4fc_comment`.`id`, `ag4fc_comment`.`opinion`, `ag4fc_comment`.`score`, `ag4fc_comment`.`creationDate` '
+                . 'FROM `ag4fc_comment` '
                 . 'INNER JOIN `ag4fc_donation` ON `ag4fc_comment`.`id_ag4fc_donation` = `ag4fc_donation`.`id` '
-                . 'WHERE `ag4fc_users`.`id` = :id';
+                . 'WHERE `ag4fc_donation`.`id` = :id';
 
         $queryExecute = $this->db->prepare($query);
 
-        $queryExecute->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
+        $queryExecute->bindValue(':id', $this->id, PDO::PARAM_INT);
 
         $queryExecute->execute();
 
@@ -116,6 +113,26 @@ class comment {
             $state = $result->count;
         }
         return $state;
+    }
+
+    /*
+     * Méthode getCommentsUser() pour récuperer les commentaires reçu par les associations
+     */
+
+    public function getCommentsUser() {
+        $query = 'SELECT `ag4fc_comment`.`id`, `ag4fc_comment`.`opinion`, `ag4fc_comment`.`score`,DATE_FORMAT(`ag4fc_comment`.`creationDate`, \'%d/%m/%Y %H:%i\') AS `creationDate`, `ag4fc_donation`.`title`, `ag4fc_donation`.`details`, `ag4fc_donation`.`id` AS `idDonation` '
+                . 'FROM `ag4fc_users` '
+                . 'INNER JOIN `ag4fc_comment` ON `ag4fc_users`.`id` = `ag4fc_comment`.`id_ag4fc_users` '
+                . 'INNER JOIN `ag4fc_donation` ON `ag4fc_comment`.`id_ag4fc_donation` = `ag4fc_donation`.`id` '
+                . 'WHERE `ag4fc_donation`.`id_ag4fc_users` = :id';
+
+        $queryExecute = $this->db->prepare($query);
+
+        $queryExecute->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
+
+        $queryExecute->execute();
+
+        return $queryExecute->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function removeComment() {

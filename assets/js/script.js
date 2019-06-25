@@ -204,7 +204,7 @@ $(function() {
 
 $(function() {
 
-    //Etape 1 : Je crée mon évènements (et je le teste)
+//Etape 1 : Je crée mon évènements (et je le teste)
     $('#search').keyup(function() {
         /**
          * Etape 2 : j'appelle la fonction ajax
@@ -254,72 +254,66 @@ $(function() {
             }
             );
     })
-
-
-/// Script pour la modal , afin de valider une donation
-
-    $(function() {
-        //Fonction qui permet de déclencher les actions que l'on souhaite à l'affichage de la modale
-        $('#deleteModal').on('show.bs.modal', function(event) {
-            //On stocke dans une variable le bouton qui appelle la modale.
-            var button = $(event.relatedTarget);
-            //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id du patient, son nom de famille et son prénom
-            var donationId = button.data('id');
-            var donationNumber = button.data('number');
-            var modal = $(this);
-            /*
-             * La fonction find trouve un élément dont l'id ou (ici) la classe est passée en paramètre.
-             * La fonction append permet de créer un élément dans l'élément apposé devant.
-             * Ici dans la div modal-body, on crée un paragraphe qui contient la question de confirmation.
-             */
-            modal.find('.modal-body').append('<p>Êtes-vous sûr.e de vouloir supprimer ' + donationNumber + '?</p>');
-            modal.find('.modal-footer').append('<a href="donationPage.php?deleteId=' + donationId + '" class="btn btn-danger">Supprimer ce don</a>');
-        })
-    })
-
-/// Script pour la modal , afin de valider une donation
-
-    $(function() {
-        //Fonction qui permet de déclencher les actions que l'on souhaite à l'affichage de la modale
-        $('#validDonationModal').on('show.bs.modal', function(event) {
-            //On stocke dans une variable le bouton qui appelle la modale.
-            var button = $(event.relatedTarget);
-            //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id du patient, son nom de famille et son prénom
-            var donationId = button.data('id');
-            var donationNumber = button.data('number');
-            var modal = $(this);
-            /*
-             * La fonction find trouve un élément dont l'id ou (ici) la classe est passée en paramètre.
-             * La fonction append permet de créer un élément dans l'élément apposé devant.
-             * Ici dans la div modal-body, on crée un paragraphe qui contient la question de confirmation.
-             */
-            modal.find('.modal-body').append('<p>Êtes-vous sûr.e de vouloir valider le don N° : ' + donationNumber + ' ?</p>');
-            modal.find('.modal-footer').append('<a href="donationPage.php?validStatusId=' + donationId + '" class="btn btn-danger">Valider le don</a>');
-        })
-    })
-
-    /// Script pour la modal , afin de valider une donation
-
-    $(function() {
-        //Fonction qui permet de déclencher les actions que l'on souhaite à l'affichage de la modale
-        $('#cancelDonationModal').on('show.bs.modal', function(event) {
-            //On stocke dans une variable le bouton qui appelle la modale.
-            var button = $(event.relatedTarget);
-            //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id du patient, son nom de famille et son prénom
-            var donationId = button.data('id');
-            var donationNumber = button.data('number');
-            var modal = $(this);
-            /*
-             * La fonction find trouve un élément dont l'id ou (ici) la classe est passée en paramètre.
-             * La fonction append permet de créer un élément dans l'élément apposé devant.
-             * Ici dans la div modal-body, on crée un paragraphe qui contient la question de confirmation.
-             */
-            modal.find('.modal-body').append('<p>Êtes-vous sûr.e de vouloir annuler le don N° : ' + donationNumber + ' ?</p>');
-            modal.find('.modal-footer').append('<a href="donationPage.php?cancelStatusId=' + donationId + '" class="btn btn-danger">Valider le don</a>');
-        })
-    })
-
 });
+
+/// Script pour la modal , afin de supprimer une donation
+
+//Fonction qui permet de déclencher les actions que l'on souhaite à l'affichage de la modale
+$('#deleteModal').on('show.bs.modal', function(event) {
+//On stocke dans une variable le bouton qui appelle la modale.
+    var button = $(event.relatedTarget);
+    //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id du patient, son nom de famille et son prénom
+    var donationId = button.data('id');
+    var modal = $(this);
+    /*
+     * La fonction find trouve un élément dont l'id ou (ici) la classe est passée en paramètre.
+     * La fonction append permet de créer un élément dans l'élément apposé devant.
+     * Ici dans la div modal-body, on crée un paragraphe qui contient la question de confirmation.
+     */
+    modal.find('.modal-body').append('<p>Êtes-vous sûr.e de vouloir supprimer ?</p>');
+    modal.find('.modal-footer').append('<a href="donationPage.php?deleteId=' + donationId + '" class="btn btn-danger">Supprimer ce don</a>');
+})
+
+/// Script pour la modal , afin de valider une donation
+
+
+//Fonction qui permet de déclencher les actions que l'on souhaite à l'affichage de la modale
+$('#validDonationModal').on('show.bs.modal', function(event) {
+//On stocke dans une variable le bouton qui appelle la modale.
+    var button = $(event.relatedTarget);
+    //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id de la donation
+    var donationId = button.data('id');
+    var donationNumber = button.data('number');
+    var modal = $(this);
+    /*
+     * La fonction find trouve un élément dont l'id ou (ici) la classe est passée en paramètre.
+     * La fonction append permet de créer un élément dans l'élément apposé devant.
+     * Ici dans la div modal-body, on crée un paragraphe qui contient la question de confirmation.
+     */
+    modal.find('.modal-body').append('<p>Êtes-vous sûr.e de vouloir valider le don N° : ' + donationNumber + ' ?</p>');
+    modal.find('.modal-footer').append('<a href="donationPage.php?validStatusId=' + donationId + '" class="btn btn-danger">Valider le don</a>');
+})
+
+
+/// Script pour la modal , afin d'annuler une donation
+
+
+//Fonction qui permet de déclencher les actions que l'on souhaite à l'affichage de la modale
+$('#cancelDonationModal').on('show.bs.modal', function(event) {
+//On stocke dans une variable le bouton qui appelle la modale.
+    var button = $(event.relatedTarget);
+    //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id de la donation
+    var donationId = button.data('id');
+    var donationNumber = button.data('number');
+    var modal = $(this);
+    /*
+     * La fonction find trouve un élément dont l'id ou (ici) la classe est passée en paramètre.
+     * La fonction append permet de créer un élément dans l'élément apposé devant.
+     * Ici dans la div modal-body, on crée un paragraphe qui contient la question de confirmation.
+     */
+    modal.find('.modal-body').append('<p>Êtes-vous sûr.e de vouloir annuler le don N° : ' + donationNumber + ' ?</p>');
+    modal.find('.modal-footer').append('<a href="donationPage.php?cancelStatusId=' + donationId + '" class="btn btn-danger">Valider le don</a>');
+})
 
 /// Script pour supprimer compte
 
@@ -362,22 +356,24 @@ $(function() {
     })
 })
 
-/// Script pour modifier un commentaire
-$(function() {
-    //Fonction qui permet de déclencher les actions que l'on souhaite à l'affichage de la modale
-    $('#deleteCommentModal').on('show.bs.modal', function(event) {
-        //On stocke dans une variable le bouton qui appelle la modale.
-        var button = $(event.relatedTarget);
-        //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id du patient, son nom de famille et son prénom
-        var donationId = button.data('id');
-        var donationNumber = button.data('number');
-        var modal = $(this);
-        /*
-         * La fonction find trouve un élément dont l'id ou (ici) la classe est passée en paramètre.
-         * La fonction append permet de créer un élément dans l'élément apposé devant.
-         * Ici dans la div modal-body, on crée un paragraphe qui contient la question de confirmation.
-         */
-        modal.find('.modal-body').empty().append('<p>Êtes-vous sûr.e de vouloir modifier le commentaire ' + donationNumber + '?</p>');
-        modal.find('.modal-footer').empty().append('<a href="profilComment.php?modifyCommentId=' + donationId + '" class="btn btn-danger">Modifier votre commentaire</a>');
-    })
+/*
+ *Modal pour supprimer un utilisateur dans la partie admin
+ */
+
+//Fonction qui permet de déclencher les actions que l'on souhaite à l'affichage de la modale
+$('#deleteUserAdmin').on('show.bs.modal', function(event) {
+//On stocke dans une variable le bouton qui appelle la modale.
+    var button = $(event.relatedTarget);
+    //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id de l'users, son nom de famille et son prénom
+    var userId = button.data('id');
+    var userLastName = button.data('lastname');
+    var userFirstName = button.data('firstname');
+    var modal = $(this);
+    /*
+     * La fonction find trouve un élément dont l'id ou (ici) la classe est passée en paramètre.
+     * La fonction append permet de créer un élément dans l'élément apposé devant.
+     * Ici dans la div modal-body, on crée un paragraphe qui contient la question de confirmation.
+     */
+    modal.find('.modal-body').empty().append('<p>Êtes-vous sûr.e de vouloir supprimer ' + userLastName + " " + userFirstName + '?</p>');
+    modal.find('.modal-footer').empty().append('<a href="profilAccounts.php?deleteUserId=' + userId + '" class="btn btn-danger">Supprimer</a>');
 })

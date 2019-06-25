@@ -11,6 +11,7 @@ h1{
 
 a {
     font-size: 1.12rem !important;
+    color : black;
 }
 
 .no-gutter {
@@ -35,6 +36,14 @@ a {
     font-family: 'Lalezar', cursive;
 }
 
+.fa-trash {
+    color : #c0392b;
+}
+
+.fa-eye {
+    color : #009432;
+}
+
 .largeButton {
     color: white;
     background-color: #d84b6b;
@@ -45,6 +54,12 @@ a {
     margin-top: 10px;
     line-height: 25px;
     font-family: 'Lalezar', cursive;
+}
+
+.nav-pills .nav-link.active {
+    background-color : #d84b6b;
+    color: #fff;
+
 }
 
 /* Image */
@@ -77,6 +92,10 @@ img {
     min-height: 18rem;
 }
 
+/* Modal */
+.modal-header {
+    background-color : #F6F6F6;
+}
 
 /* Navbar */
 .navbar {
@@ -180,13 +199,6 @@ body .navbar-dark .navbar-nav .nav-link{
     background-color: #F9F7F7;
     opacity: 0.7;
 }
-
-/*
-
-CC 2.0 License Iatek LLC 2018
-Attribution required
-
-*/
 
 
 @media (min-width: 768px) and (max-width: 991px) {

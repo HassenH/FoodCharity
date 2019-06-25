@@ -25,7 +25,7 @@ var_dump($statisticInfo);
                                 <li class="my-2">Inscrit le <?= $statisticInfo->registrationDate ?></li>
                                 <li class="my-2">
                                     <div class="form-inline">
-                                        <span class="mr-2">Dons réalisés : <?= $statisticInfo->numberDonation ?> </span>
+                                        <span class="mr-2">Dons réalisés : <?= $statisticInfo->numberDonation ?></span>
                                     </div>
                                 </li>
                                 <li class="my-2">
@@ -33,15 +33,17 @@ var_dump($statisticInfo);
                                         <span class="mr-2">Dons collectés : Aucun</span>
                                     </div>
                                 </li>
-                                <li class="my-2">
-                                    <div class="form-inline">
-                                        <span class="mr-2">Rang :
-                                            <?php if ($statisticInfo->numberDonation == 0 || $statisticInfo->numberDonation <= 10) { ?> Bon donateur <?php } ?>
-                                            <?php if ($statisticInfo->numberDonation > 10 && $statisticInfo->numberDonation <= 30) { ?> Top donateur <?php } ?>
-                                            <?php if ($statisticInfo->numberDonation > 20) { ?> Super donateur <?php } ?>
-                                        </span>
-                                    </div>
-                                </li>
+                                <?php if (($_SESSION['id_ag4fc_usersGroup'] == 2) || ($_SESSION['id_ag4fc_usersGroup'] == 3)) { ?>
+                                    <li class="my-2">
+                                        <div class="form-inline">
+                                            <span class="mr-2">
+                                                <?php if ($statisticInfo->numberDonation == 0 || $statisticInfo->numberDonation <= 10) { ?><span class="badge badge-warning"> Bon donateur </span><?php } ?>
+                                                <?php if ($statisticInfo->numberDonation > 10 && $statisticInfo->numberDonation <= 30) { ?><span class="badge badge-primary"> Top donateur </span><?php } ?>
+                                                <?php if ($statisticInfo->numberDonation > 20) { ?><span class="badge badge-success"> Super donateur </span><?php } ?>
+                                            </span>
+                                        </div>
+                                    </li>
+                                <?php } ?>
                             </ul>
                         </div>
                     </div>
@@ -54,21 +56,3 @@ var_dump($statisticInfo);
 <?php
 require_once('footer.php');
 ?>
-
-<div class="card-body p-0">
-    <div class="row my-4 justify-content-center">
-        <div class="col-12 text-center">
-            <img class="img-fluid rounded-circle imgProfil mt-2" src="/uploads/<?= $getDonationPage->photo ?>" alt="Photo profil">
-            <h2 class="card-title mt-2"> <?= $getDonationPage->lastname . ' ' . $getDonationPage->firstname ?></h2>
-            <ul class="list-unstyled ml-3">
-                <li class="my-2">Inscrit le <?= $getDonationPage->registrationDate ?></li>
-                <li class="my-2">Dons réalisés : <?= $countDonation->numberDonation ?> </i></li>
-                <li class="my-2"><i class="fas fa-phone"></i></span> <?= $getDonationPage->phoneNumber ?> </li>
-                <li class="my-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></li>
-            </ul>
-        </div>
-    </div>
-    <div class="card-footer border-0 p-0 d-flex justify-content-center rankDonation text-white">
-        <p class="pt-2 rankTitle">Super donateur</p>
-    </div>
-</div>

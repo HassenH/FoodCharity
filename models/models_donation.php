@@ -2,6 +2,7 @@
 
 require_once 'models/database.php';
 
+
 /* MODELE - MODEL */
 /*
  * Je crée ma classe users (objet) dans un dossier models
@@ -20,6 +21,7 @@ class donation {
     public $id = 0;
     public $title = '';
     public $details = '';
+    public $photo = '';
     public $dateDelivery = '1970-01-01';
     public $id_ag4fc_association = 0;
     public $id_ag4fc_users = 0;
@@ -44,8 +46,8 @@ class donation {
      * Méthode permettant d'insérer les informations concernant le don alimentaire dans la base de données lors de l'envoi du formulaire
      */
     public function addDonation() {
-        $query = 'INSERT INTO ag4fc_donation (`title`, `details`, `dateDelivery`, `id_ag4fc_users`, `id_ag4fc_association`, `id_ag4fc_timeSlot`, `id_ag4fc_delivery`, `id_ag4fc_status`) '
-                . 'VALUES (:title , :details, :dateDelivery, :id_ag4fc_users, :id_ag4fc_association, :id_ag4fc_timeSlot, :id_ag4fc_delivery, 2)';
+        $query = 'INSERT INTO ag4fc_donation (`title`, `details`, `photo`, `dateDelivery`, `id_ag4fc_users`, `id_ag4fc_association`, `id_ag4fc_timeSlot`, `id_ag4fc_delivery`, `id_ag4fc_status`) '
+                . 'VALUES (:title , :details, :photo, :dateDelivery, :id_ag4fc_users, :id_ag4fc_association, :id_ag4fc_timeSlot, :id_ag4fc_delivery, 2)';
 //$this->db->query($query) me permet d'executer ma requête (query($query)) dans ma base de données ($this->db)
         $queryExecute = $this->db->prepare($query);
         /**
@@ -55,6 +57,7 @@ class donation {
          */
         $queryExecute->bindValue(':title', $this->title, PDO::PARAM_STR);
         $queryExecute->bindValue(':details', $this->details, PDO::PARAM_STR);
+        $queryExecute->bindValue(':photo', $this->photo, PDO::PARAM_STR);
         $queryExecute->bindValue(':dateDelivery', $this->dateDelivery, PDO::PARAM_STR);
         $queryExecute->bindValue(':id_ag4fc_users', $_SESSION['id'], PDO::PARAM_INT);
         $queryExecute->bindValue(':id_ag4fc_association', $this->id_ag4fc_association, PDO::PARAM_INT);
@@ -127,11 +130,27 @@ class donation {
         return $queryExecute->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function getProfilDonationAdmin() {
+        $query = 'SELECT `ag4fc_donation`.`id`, `ag4fc_donation`.`title`, DATE_FORMAT(`ag4fc_donation`.`creationDate`, \'%d/%m/%Y %H:%i\') AS `creationDate`, `ag4fc_productCategory`.`category`, `ag4fc_delivery`.`deliveryOption`, `ag4fc_status`.`status` '
+                . 'FROM `ag4fc_users` '
+                . 'INNER JOIN `ag4fc_association` ON `ag4fc_users`.id = `ag4fc_association`.`id_ag4fc_users` '
+                . 'INNER JOIN `ag4fc_donation` ON `ag4fc_association`.`id` = `ag4fc_donation`.`id_ag4fc_association` '
+                . 'INNER JOIN `ag4fc_donationContent` ON `ag4fc_donation`.`id` = `ag4fc_donationContent`.`id_ag4fc_donation` '
+                . 'INNER JOIN `ag4fc_productCategory` ON `ag4fc_donationContent`.`id_ag4fc_productCategory` = `ag4fc_productCategory`.`id` '
+                . 'INNER JOIN `ag4fc_delivery` ON `ag4fc_donation`.`id_ag4fc_delivery` = `ag4fc_delivery`.`id` '
+                . 'INNER JOIN `ag4fc_status` ON `ag4fc_donation`.`id_ag4fc_status` = `ag4fc_status`.`id` '
+                . 'ORDER BY `ag4fc_donation`.`id`';
+
+        $queryExecute = $this->db->query($query);
+        $queryExecute->execute();
+        return $queryExecute->fetchAll(PDO::FETCH_OBJ);
+    }
+
     /**
      * Méthode permettant l'affichage du don alimentaire
      */
     public function getDonationPage() {
-        $query = 'SELECT `ag4fc_users`.`id`, `ag4fc_users`.`firstname`, `ag4fc_users`.`lastname`, `ag4fc_users`.`address`, `ag4fc_users`.`photo`, `ag4fc_users`.`phoneNumber`, DATE_FORMAT(`ag4fc_users`.`creationDate`, \'%d/%m/%Y\' ) AS registrationDate , `ag4fc_city`.`city`, `ag4fc_city`.`postalCode`, `ag4fc_donation`.`title`, `ag4fc_donation`.`id` AS idDonation, `ag4fc_donation`.`details`, DATE_FORMAT(`ag4fc_donation`.`dateDelivery`, \'%d/%m/%Y\' ) AS `dateDelivery`, DATE_FORMAT(`ag4fc_donation`.`creationDate`, \'%d/%m/%Y %H:%i\' ) AS `creationDate`, `ag4fc_donationContent`.`quantity`, `ag4fc_donationContent`.`weight`, `ag4fc_delivery`.`deliveryOption`, `ag4fc_timeSlot`.`timeSlot`, `ag4fc_status`.`status`, `ag4fc_productCategory`.`category`, `ag4fc_packages`.`packages` '
+        $query = 'SELECT `ag4fc_users`.`id`, `ag4fc_users`.`firstname`, `ag4fc_users`.`lastname`, `ag4fc_users`.`address`, `ag4fc_users`.`photo`, `ag4fc_users`.`phoneNumber`, DATE_FORMAT(`ag4fc_users`.`creationDate`, \'%d/%m/%Y\' ) AS registrationDate , `ag4fc_city`.`city`, `ag4fc_city`.`postalCode`, `ag4fc_donation`.`title`, `ag4fc_donation`.`id` AS idDonation, `ag4fc_donation`.`details`, `ag4fc_donation`.`photo`, DATE_FORMAT(`ag4fc_donation`.`dateDelivery`, \'%d/%m/%Y\' ) AS `dateDelivery`, DATE_FORMAT(`ag4fc_donation`.`creationDate`, \'%d/%m/%Y %H:%i\' ) AS `creationDate`, `ag4fc_donationContent`.`quantity`, `ag4fc_donationContent`.`weight`, `ag4fc_delivery`.`deliveryOption`, `ag4fc_timeSlot`.`timeSlot`, `ag4fc_status`.`status`, `ag4fc_productCategory`.`category`, `ag4fc_packages`.`packages` '
                 . 'FROM `ag4fc_users` '
                 . 'INNER JOIN `ag4fc_city` ON `ag4fc_users`.`id_ag4fc_city` = `ag4fc_city`.`id` '
                 . 'INNER JOIN`ag4fc_donation` ON `ag4fc_donation`.`id_ag4fc_users` = `ag4fc_users`.`id` '
@@ -182,6 +201,27 @@ class donation {
                 . 'INNER JOIN `ag4fc_timeSlot` ON `ag4fc_donation`.`id_ag4fc_timeSlot` = `ag4fc_timeSlot`.`id` '
                 . 'INNER JOIN `ag4fc_productCategory` ON `ag4fc_donationContent`.`id_ag4fc_productCategory` = `ag4fc_productCategory`.`id` '
                 . 'INNER JOIN  `ag4fc_packages` ON `ag4fc_donationContent`.`id_ag4fc_packages` = `ag4fc_packages`.`id` '
+                . 'WHERE `ag4fc_donation`.`id` = :id';
+
+        $queryExecute = $this->db->prepare($query);
+
+        $queryExecute->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+        $queryExecute->execute();
+
+        return $queryExecute->fetch(PDO::FETCH_OBJ);
+    }
+
+    /**
+     * Methode pour récupérer les informations lié a un don dans la page Admin.
+     */
+    public function getAdminDonationModify() {
+        $query = 'SELECT `ag4fc_donation`.`id`, `ag4fc_donation`.`title`, `ag4fc_donation`.`dateDelivery`, `ag4fc_delivery`.`deliveryOption`, `ag4fc_timeSlot`.`timeSlot`, `ag4fc_productCategory`.`category` '
+                . 'FROM `ag4fc_donation` '
+                . 'INNER JOIN `ag4fc_donationContent` ON `ag4fc_donation`.`id` = `ag4fc_donationContent`.`id_ag4fc_donation` '
+                . 'INNER JOIN `ag4fc_delivery` ON `ag4fc_delivery`.`id` = `ag4fc_donation`.`id_ag4fc_delivery` '
+                . 'INNER JOIN `ag4fc_timeSlot` ON `ag4fc_donation`.`id_ag4fc_timeSlot` = `ag4fc_timeSlot`.`id` '
+                . 'INNER JOIN `ag4fc_productCategory` ON `ag4fc_donationContent`.`id_ag4fc_productCategory` = `ag4fc_productCategory`.`id` '
                 . 'WHERE `ag4fc_donation`.`id` = :id';
 
         $queryExecute = $this->db->prepare($query);

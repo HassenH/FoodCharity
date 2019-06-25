@@ -6,9 +6,6 @@ require_once 'models/models_association.php';
 require_once 'models/models_commerce.php';
 require_once 'controllers/profilCtrl.php';
 require_once 'navbar.php';
-var_dump($_POST);
-var_dump($users);
-var_dump($_SESSION);
 ?>
 
 
@@ -36,9 +33,8 @@ var_dump($_SESSION);
                                                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                         <select class="form-control <?= isset($formErrors['civility']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="civility" name="civility">
-                                                            <option selected disabled>---Choix---</option>
-                                                            <option value="Madame" <?= isset($_POST['civility']) && $_POST['civility'] == 'Madame' ? 'selected' : '' ?>>Madame</option>
-                                                            <option value="Monsieur" <?= isset($_POST['civility']) && $_POST['civility'] == 'Monsieur' ? 'selected' : '' ?>>Monsieur</option>
+                                                            <option value="Madame" <?= (isset($_POST['civility']) && $_POST['civility']) || ($listUser->civility) == 'Madame' ? 'selected' : '' ?>>Madame</option>
+                                                            <option value="Monsieur" <?= (isset($_POST['civility']) && $_POST['civility']) || ($listUser->civility) == 'Monsieur' ? 'selected' : '' ?>>Monsieur</option>
                                                         </select>
                                                         <?php if (isset($formErrors['civility'])) { ?>
                                                             <div class="invalid-feedback"><?= $formErrors['civility'] ?></div>
@@ -183,7 +179,7 @@ var_dump($_SESSION);
                                                 <label for="password">Mot de passe*</label>
                                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                                    <input type="password" required name="password" value="<?= isset($_POST['password']) ? $_POST['password'] : '' ?>" class="form-control <?= isset($formErrors['password']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="password" placeholder="" />
+                                                    <input type="password" name="password" value="<?= isset($_POST['password']) ? $_POST['password'] : '' ?>" class="form-control <?= isset($formErrors['password']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="password" placeholder="" />
                                                     <?php if (isset($formErrors['password'])) { ?>
                                                         <div class="invalid-feedback"><?= $formErrors['password'] ?></div>
                                                     <?php } ?>
@@ -193,7 +189,7 @@ var_dump($_SESSION);
                                                 <label for="passwordConfirm">Confirmer votre mot de passe*</label>
                                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                                    <input type="password" required name="passwordConfirm" value="<?= isset($_POST['passwordConfirm']) ? $_POST['passwordConfirm'] : '' ?>" class="form-control <?= isset($formErrors['passwordConfirm']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="passwordConfirm" placeholder="" />
+                                                    <input type="password" name="passwordConfirm" value="<?= isset($_POST['passwordConfirm']) ? $_POST['passwordConfirm'] : '' ?>" class="form-control <?= isset($formErrors['passwordConfirm']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="passwordConfirm" placeholder="" />
                                                     <?php if (isset($formErrors['passwordConfirm'])) { ?>
                                                         <div class="invalid-feedback"><?= $formErrors['passwordConfirm'] ?></div>
                                                     <?php } ?>

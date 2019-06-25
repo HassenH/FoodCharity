@@ -20,19 +20,19 @@ require_once 'navbar.php';
             <img src="assets/img/Gateau.png" class="card-img" alt="Gâteau">
             <h2 class="my-3">Comment ca marche ?</h2>
             <p>Agissez contre le gaspillage alimentaire en donnant vos invendus ou des denrées alimentaires dont vous ne savez que faire a une association. Choissisez l'association à laquelle vous voulez donner et convenez d'un rendez-vous pour remettre vos produits.</p>
-            <a href="" class="btn roundButton my-2" role="button">En savoir plus</a>
+            <a href="howitworks.php" class="btn roundButton my-2" role="button">En savoir plus</a>
         </div>
         <div class="col-12 col-sm-4 col-md-4 col-lg-4 text-center mt-2">
             <img src="assets/img/pasteque.png" class="card-img" alt="Pastèque">
             <h2 class=" my-2">Pourquoi, pour qui ?</h2>
             <p>Foodcharity a pour mission de réduire le gaspillage alimentaire, en aidant les grandes surfaces et les particuliers à faire des dons alimentaire directement aux associations. Plus encore, le rôle de Foodcharity est de sensibiliser et d'éduquer les consommateurs pour lutter plus efficacement et durablement contre le gaspillage alimentaire, tous les jours !</p></p>
-            <a href="" class="btn roundButton my-2" role="button">En savoir plus</a>
+            <a href="why.php" class="btn roundButton my-2" role="button">En savoir plus</a>
         </div>
         <div class="col-12 col-sm-4 col-md-4 col-lg-4 text-center mt-2">
             <img src="assets/img/Cupcake.png" class="card-img" alt="Cupcake">
             <h2 class="my-2">Nos valeurs ?</h2>
-            <p>Agissez contre le gaspillage alimentaire en donnant sur Optimiam</p>
-            <a href="" class="btn roundButton my-2" role="button">En savoir plus</a>
+            <p>Agissez contre le gaspillage alimentaire en donnant sur FoodCharity</p>
+            <a href="ourValues.php" class="btn roundButton my-2" role="button">En savoir plus</a>
         </div>
     </div>
 </div>
@@ -94,7 +94,7 @@ require_once 'navbar.php';
     <div class="row">
         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
             <p>Chez FoodCharity, on oeuvre pour un monde avec du sens, où la nourriture produite est consommée et ne finit pas tragiquement gaspillée. Notre ambition c'est d'y arriver ensemble, parce qu'on croit fort au pouvoir qui réside en chacun de nous.</p>
-            <p>Toutes nos petites actions, mises bout à bout, peuvent avoir un impact immense ! Alors rejoins la grande famille des TooGoodeurs et deviens le héros 2 en 1 des temps modernes.</p>
+            <p>Toutes nos petites actions, mises bout à bout, peuvent avoir un impact immense ! Alors rejoins la grande famille et deviens le héros 2 en 1 des temps modernes.</p>
             <a href="" class="btn roundButton" role="button">En savoir plus</a>
         </div>
         <div class="col-12 col-sm-6 col-md-6 col-lg-6 embed-responsive embed-responsive-16by9">
@@ -120,11 +120,11 @@ require_once 'navbar.php';
         <div class="row">
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 border-right mt-2 mb-4">
                 <h1>Passe a l'action</h1>
-                <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. </p>
+                <p></p>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-2 mb-4">
                 <h1>Vous êtes commercant</h1>
-                <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. </p>
+                <p>Vous êtes invités à rejoindre notre démarche anti gaspillage en proposant les produits encore consommables que vous n’utiliserez pas à travers notre plateforme, qu’il s’agisse de petites quantités ou de gros volumes.</p>
             </div>
             <div class="col-2 mt-2">
                 <img src="assets/img/kawaiilove.png" alt="">

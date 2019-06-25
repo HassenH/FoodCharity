@@ -30,25 +30,23 @@
                             <a class="nav-link" href="index.php"><img src="assets/img/logotransparent.png" class="logo" alt="logo"></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#top" class="nav-link"> <i class="fa fa-home nav-link-icon"></i></a>
+                            <a href="index.php" class="nav-link"> <i class="fa fa-home nav-link-icon"></i></a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Le concept
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Qu'est-ce que c'est ?</a>
-                                <a class="dropdown-item" href="/pourquoi.php">Pourquoi, pour qui ?</a>
+                                <a class="dropdown-item" href="/why.php">Pourquoi, pour qui ?</a>
                                 <a class="dropdown-item" href="/howitworks.php">Comment ça marche ?</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">L'aventure</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/notrehistoire.php">Notre histoire</a>
-                                <a class="dropdown-item" href="#">Notre vision</a>
+                                <a class="dropdown-item" href="/history.php">Notre histoire</a>
+                                <a class="dropdown-item" href="/ourValues.php">Nos valeurs</a>
                                 <a class="dropdown-item" href="#">Nos engagements</a>
-                                <a class="dropdown-item" href="">Nos valeurs</a>
                                 <a class="dropdown-item" href="#">Nos partenaires</a>
                             </div>
                         </li>

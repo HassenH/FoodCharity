@@ -46,7 +46,7 @@ if (count($_POST) > 0) {
          * Si tout va bien => on stocke dans la variable qui nous servira à afficher
          * Sinon => on stocke l'erreur dans le tableau $formErrors
          */
-        if (preg_match($regexName, $_POST['title'])) {
+        if (preg_match($regexEts, $_POST['title'])) {
             //Ici on utilise htmlspecialchars car on veut garder MAIS désactiver les éventuelles balises html (attention : différent de strip_tags)
             $donation->title = htmlspecialchars($_POST['title']);
         } else {
@@ -155,12 +155,34 @@ if (count($_POST) > 0) {
         $formErrors['category'] = 'Merci de répondre à cette question';
     }
 
-    if (count($formErrors) == 0) {
-        /**
-         * On appelle la méthode getInstance, qui se trouve dans la classe database
-         * Puisque cette methode est static il n'est pas nécessaire d'instancier un nouvel objet
-         * getInstance() me retourne l'objet instancié de la classe Database
-         */
+    $successDoc = false;
+
+    if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
+        if ($_FILES['file']['size'] <= 5000000) {
+            $infoFIle = pathinfo($_FILES['file']['name']);
+            $fileExtend = $infoFIle['extension'];
+            $authExtend = ['jpg', 'png', 'jpeg'];
+            if (in_array($fileExtend, $authExtend)) {
+                $successDoc = true;
+            } else {
+                $formErrors['file'] = 'Veuillez insérer un fichier jpg, jpeg, png';
+            }
+        } else {
+            $formErrors['file'] = 'Le fichier est trop volumineux';
+        }
+    } else {
+        $formErrors['file'] = 'Une erreur est survenue';
+    }
+
+    /*
+     * S'il n'y a pas d'erreur on upload la photo dans le dossier /uploads
+     * et on appelle la méthode addUsers pour ajouter un utilisateur
+     */
+
+    if (count($formErrors) == 0 && $successDoc === true) {
+        $donation->photo = 'file' . time();
+        //Les fichiers sont enregistrés dans le répertoire uploads
+        move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/' . basename($donation->photo));
         $database = Database::getInstance();
         // On fais appelle a setAttribute qui est une méthode de PDO, pour gérer les erreurs
         $database->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

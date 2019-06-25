@@ -5,10 +5,6 @@ require_once 'models/models_users.php';
 require_once 'models/models_association.php';
 require_once 'controllers/associationCtrl.php';
 require_once 'navbar.php';
-
-var_dump($_POST);
-var_dump($association);
-var_dump($users);
 ?>
 <?php if (count($_POST) == 0 || count($formErrors) > 0) { ?>
     <div class="container-fluid">
@@ -135,6 +131,8 @@ var_dump($users);
                                                     <?php } ?>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
                                             <div class="form-group">
                                                 <label for="city">Ville*</label>
                                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
@@ -145,8 +143,6 @@ var_dump($users);
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-sm-6">
                                             <div class="form-group">
                                                 <label for="phoneNumber">Numéro de téléphone*</label>
                                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">

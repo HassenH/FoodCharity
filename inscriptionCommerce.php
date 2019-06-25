@@ -145,19 +145,19 @@ var_dump($commerce);
                                                     <?php } ?>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="city">Ville*</label>
-                                                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                                                    <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                                    <select class="form-control <?= isset($formErrors['city']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="city" name="city">
-                                                        <option selected disabled>Saisir votre code postal</option>
-
-                                                    </select>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <div class="form-group">
+                                                <div class="form-group">
+                                                    <label for="city">Ville*</label>
+                                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                        <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                                        <select class="form-control <?= isset($formErrors['city']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="city" name="city">
+                                                            <option selected disabled>Saisir votre code postal</option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 <label for="phoneNumber">Numéro de téléphone*</label>
                                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>

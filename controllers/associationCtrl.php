@@ -1,13 +1,10 @@
 <?php
 
-session_start();
-
+// Appel de l'AJAX
 if (isset($_POST['search'])) {
-//je ne charge pas l'autoloader car il risque de rentrer en conflit
-//avec les chemins pour l'appel à Ajax
-//appel à la database qui est le singleton
+    //Appel à la database qui est le singleton
     require_once '../models/database.php';
-
+    // Instanciation de l'objet $city de la classe city
     $city = new city();
 
     if (preg_match($regexSearch, $_POST['search'])) {
@@ -16,8 +13,9 @@ if (isset($_POST['search'])) {
         echo $_POST['search'];
     }
 } else {
-
+    // Instanciation de l'objet $users de la classe users
     $users = new users();
+    // Instanciation de l'objet $association de la classe association
     $association = new association();
 
 //On initialise un tableau d'erreurs vide
@@ -29,9 +27,9 @@ if (isset($_POST['search'])) {
      */
     if (count($_POST) > 0) {
         /*
-         * On vérifie que $_POST['title'] n'est pas vide
+         * On vérifie que $_POST['civility'] n'est pas vide
          * S'il est vide => on stocke l'erreur dans le tableau $formErrors
-         * S'il n'est pas vide => on stocke dans la variable $title qui nous servira à afficher
+         * S'il n'est pas vide => on stocke dans la variable $civility qui nous servira à afficher
          */
         if (!empty($_POST['civility'])) {
             if ($_POST['civility'] === 'Madame' || $_POST['civility'] === 'Monsieur') {
@@ -43,7 +41,7 @@ if (isset($_POST['search'])) {
             $formErrors['civility'] = 'Merci de renseigner votre civilité';
         }
         /*
-         * On vérifie que $_POST['lastName'] n'est pas vide
+         * On vérifie que $_POST['lastname'] n'est pas vide
          * S'il est vide => on stocke l'erreur dans le tableau $formErrors
          * S'il n'est pas vide => on vérifie si la saisie utilisateur correspond à la regex
          */
@@ -54,7 +52,7 @@ if (isset($_POST['search'])) {
              * Sinon => on stocke l'erreur dans le tableau $formErrors
              */
             if (preg_match($regexName, $_POST['lastname'])) {
-//On utilise la fonction htmlspecialchars pour supprimer les éventuelles balises html => on a aucun intérêt à garder une balise html dans ce champs
+                //On utilise la fonction htmlspecialchars pour supprimer les éventuelles balises html => on a aucun intérêt à garder une balise html dans ce champs
                 $users->lastname = htmlspecialchars($_POST['lastname']);
             } else {
                 $formErrors['lastname'] = 'Merci de renseigner un nom de famille valide';
@@ -84,7 +82,7 @@ if (isset($_POST['search'])) {
         }
 
         if (!empty($_POST['name'])) {
-            if (preg_match($regexName, $_POST['name'])) {
+            if (preg_match($regexEts, $_POST['name'])) {
                 $association->name = htmlspecialchars($_POST['name']);
             } else {
                 $formErrors['name'] = 'Merci de renseigner un commerce valide';
@@ -135,7 +133,7 @@ if (isset($_POST['search'])) {
         }
 
         if (!empty($_POST['mail'])) {
-            if (preg_match($regexMail, $_POST['mail'])) {
+            if (filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
                 if ($_POST['mail'] == $_POST['mailConfirm']) {
                     $users->mail = htmlspecialchars($_POST['mail']);
                     /**
@@ -158,7 +156,7 @@ if (isset($_POST['search'])) {
         }
 
         if (!empty($_POST['mailConfirm'])) {
-            if (preg_match($regexMail, $_POST['mailConfirm'])) {
+            if (filter_var($_POST['mailConfirm'], FILTER_VALIDATE_EMAIL)) {
                 if ($_POST['mailConfirm'] == $_POST['mail']) {
                     $users->mail = htmlspecialchars($_POST['mailConfirm']);
                 } else {
@@ -191,56 +189,39 @@ if (isset($_POST['search'])) {
             $formErrors['passwordConfirm'] = 'Veuillez entrer un mot de passe';
         }
 
-        if (isset($_FILES['file'])) {
-            $target_dir = "uploads/";
-            $target_file = $target_dir . basename($_FILES["file"]["name"]);
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-//Vérifie si le fichier image est une image réelle ou une image factice
-            if (isset($_POST["submit"])) {
-                $check = getimagesize($_FILES["file"]["tmp_name"]);
-                if ($check !== false) {
-                    $formErrors['file'] = "Le fichier est une image - " . $check["mime"] . ".";
-                    $uploadOk = 1;
+        $successDoc = false;
+
+        if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
+            if ($_FILES['file']['size'] <= 5000000) {
+                $infoFIle = pathinfo($_FILES['file']['name']);
+                $fileExtend = $infoFIle['extension'];
+                $authExtend = ['jpg', 'png', 'jpeg'];
+                if (in_array($fileExtend, $authExtend)) {
+                    $successDoc = true;
                 } else {
-                    $formErrors['file'] = "Le fichier n'est pas une image.";
-                    $uploadOk = 0;
+                    $formErrors['file'] = 'Veuillez insérer un fichier jpg, jpeg, png';
                 }
-            }
-// Vérifie si le fichier existe déjà
-            if (file_exists($target_file)) {
-                $formErrors['file'] = "Désolé, le fichier existe déjà.";
-                $uploadOk = 0;
-            }
-// Vérifie la taille du fichier
-            if ($_FILES["file"]["size"] > 5000000) {
-                $formErrors['file'] = "Désolé, votre fichier est trop volumineux.";
-                $uploadOk = 0;
-            }
-// Autoriser certains formats de fichier
-            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-                $formErrors['file'] = "Désolé, seuls les fichiers JPG, JPEG, PNG et GIF sont autorisés.";
-                $uploadOk = 0;
-            }
-// Vérifie si $ uploadOk est défini sur 0 par une erreur
-            if ($uploadOk == 0) {
-                $formErrors['img'] = "Désolé, votre fichier n'a pas été téléchargé.";
-// Si tout va bien, l'upload du fichier peut commencé
             } else {
-                if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-                    $users->photo = basename($_FILES["file"]["name"]);
-                } else {
-                    $formErrors['file'] = "Désolé, une erreur s'est produite lors de l'envoi de votre fichier.";
-                }
+                $formErrors['file'] = 'Le fichier est trop volumineux';
             }
+        } else {
+            $formErrors['file'] = 'Une erreur est survenue';
         }
 
+        /*
+         * S'il n'y a pas d'erreur on upload la photo dans le dossier /uploads
+         * et on démarre la transaction
+         */
+
         if (count($formErrors) == 0) {
-// On appelle la méthode getInstance, qui se trouve dans la classe database
-// Puisque cette methode est static il n'est pas nécessaire de l'instancier un nouvel objet par rapport a la classe database
-// getInstance() me retourne l'objet instancié de la classe Database
+            $users->photo = 'file' . time();
+            //Les fichiers sont enregistrés dans le répertoire uploads
+            move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/' . basename($users->photo));
+            // On appelle la méthode getInstance, qui se trouve dans la classe database
+            // Puisque cette methode est static il n'est pas nécessaire de l'instancier un nouvel objet par rapport a la classe database
+            // getInstance() me retourne l'objet instancié de la classe Database
             $database = Database::getInstance();
-// On fais appelle a setAttribute qui est une méthode de PDO, pour gérer les erreurs
+            // On fais appelle a setAttribute qui est une méthode de PDO, pour gérer les erreurs
             $database->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             try {
                 $database->db->beginTransaction();

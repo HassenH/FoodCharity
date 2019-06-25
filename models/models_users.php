@@ -129,6 +129,22 @@ class users {
         return $queryExecute->fetch(PDO::FETCH_OBJ);
     }
 
+    /**
+     * Méthode qui permet à l'administrateur d'afficher les données des utilisateurs
+     */
+    public function getAdminListUser() {
+
+        $query = 'SELECT `ag4fc_users`.`id`,`ag4fc_users`.`civility`, `ag4fc_users`.`firstname`, `ag4fc_users`.`lastname`, `ag4fc_users`.`mail`, `ag4fc_users`.`phoneNumber`, `ag4fc_users`.`id_ag4fc_usersGroup` '
+                . 'FROM `ag4fc_users` '
+                . 'ORDER BY `ag4fc_users`.`id`';
+        $queryExecute = $this->db->query($query);
+
+        return $queryExecute->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    /**
+     * Méthode updateUsers pour ajouter un utilisateur
+     */
     public function updateUsers() {
         $query = 'UPDATE ag4fc_users '
                 . 'SET `civility` = :civility, `firstname` = :firstname, `lastname` = :lastname, `address` = :address, `phoneNumber` = :phoneNumber, `mail` = :mail, `password` = :password, `id_ag4fc_city` = :id_ag4fc_city '
@@ -149,13 +165,23 @@ class users {
 
     /**
      * Méthode removeUser pour supprimer un utilisateur
-     * @return string
      */
     public function removeUser() {
         $query = 'DELETE FROM `ag4fc_users` '
                 . 'WHERE `id` = :id';
         $delete = $this->db->prepare($query);
         $delete->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
+        return $delete->execute();
+    }
+
+    /**
+     * Méthode removeUserAdmin pour supprimer un utilisateur dans la partie Administrateur
+     */
+    public function removeUserAdmin() {
+        $query = 'DELETE FROM `ag4fc_users` '
+                . 'WHERE `id` = :id';
+        $delete = $this->db->prepare($query);
+        $delete->bindValue(':id', $this->id, PDO::PARAM_INT);
         return $delete->execute();
     }
 

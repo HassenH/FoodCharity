@@ -59,13 +59,13 @@ if (isset($_POST['search'])) {
         }
 
         if (!empty($_POST['name'])) {
-            if (preg_match($regexName, $_POST['name'])) {
+            if (preg_match($regexEts, $_POST['name'])) {
                 $commerce->name = htmlspecialchars($_POST['name']);
             } else {
-                $formErrors['name'] = 'Merci de renseigner une association valide';
+                $formErrors['name'] = 'Merci de renseigner un nom d\'entreprise valide';
             }
         } else {
-            $formErrors['name'] = 'Merci de renseigner votre association';
+            $formErrors['name'] = 'Merci de renseigner votre entreprise';
         }
 
         if (!empty($_POST['siretNumber'])) {
@@ -201,51 +201,37 @@ if (isset($_POST['search'])) {
             $formErrors['passwordConfirm'] = 'Veuillez entrer un mot de passe';
         }
 
-        if (isset($_FILES['file'])) {
-            $target_dir = "uploads/";
-            $target_file = $target_dir . basename($_FILES["file"]["name"]);
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-//Vérifie si le fichier image est une image réelle ou une image factice
-            if (isset($_POST["submit"])) {
-                $check = getimagesize($_FILES["file"]["tmp_name"]);
-                if ($check !== false) {
-                    $formErrors['file'] = "Le fichier est une image - " . $check["mime"] . ".";
-                    $uploadOk = 1;
+        $successDoc = false;
+
+        if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
+            // Vérifie la taille du fichier
+            if ($_FILES['file']['size'] <= 5000000) {
+                $infoFIle = pathinfo($_FILES['file']['name']);
+                $fileExtend = $infoFIle['extension'];
+                // Autorise certains formats de fichier
+                $authExtend = ['jpg', 'png', 'jpeg'];
+                if (in_array($fileExtend, $authExtend)) {
+                    $successDoc = true;
                 } else {
-                    $formErrors['file'] = "Le fichier n'est pas une image.";
-                    $uploadOk = 0;
+                    $formErrors['file'] = 'Veuillez insérer un fichier jpg, jpeg, png';
                 }
-            }
-// Vérifie si le fichier existe déjà
-            if (file_exists($target_file)) {
-                $formErrors['file'] = "Désolé, le fichier existe déjà.";
-                $uploadOk = 0;
-            }
-// Vérifie la taille du fichier
-            if ($_FILES["file"]["size"] > 5000000) {
-                $formErrors['file'] = "Désolé, votre fichier est trop volumineux.";
-                $uploadOk = 0;
-            }
-// Autoriser certains formats de fichier
-            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-                $formErrors['file'] = "Désolé, seuls les fichiers JPG, JPEG, PNG et GIF sont autorisés.";
-                $uploadOk = 0;
-            }
-// Vérifie si $ uploadOk est défini sur 0 par une erreur
-            if ($uploadOk == 0) {
-                $formErrors['img'] = "Désolé, votre fichier n'a pas été téléchargé.";
-// Si tout va bien, l'upload du fichier peut commencé
             } else {
-                if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-                    $users->photo = basename($_FILES["file"]["name"]);
-                } else {
-                    $formErrors['file'] = "Désolé, une erreur s'est produite lors de l'envoi de votre fichier.";
-                }
+                $formErrors['file'] = 'Le fichier est trop volumineux';
             }
+        } else {
+            $formErrors['file'] = 'Une erreur est survenue';
         }
 
-        if (count($formErrors) == 0) {
+        /*
+         * S'il n'y a pas d'erreur on upload la photo dans le dossier /uploads
+         * et on démarre la transaction
+         */
+
+        if (count($formErrors) == 0 && $successDoc === true) {
+            $users->photo = 'file' . time();
+            //Les fichiers sont enregistrés dans le répertoire uploads
+            move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/' . basename($users->photo));
+            chmod('uploads/' . basename($users->photo), 0755);
             // On appelle la méthode getInstance, qui se trouve dans la classe database
             // Puisque cette methode est static il n'est pas nécessaire de l'instancier un nouvel objet par rapport a la classe database
             // getInstance() me retourne l'objet instancié de la classe Database

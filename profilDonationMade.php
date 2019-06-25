@@ -18,7 +18,7 @@ require_once 'navbar.php';
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="card-body">
                             <a class="cursor-pointer" href="donationMake.php" title="Faire un don"><i class="fas fa-plus m-3"></i>Faire un don</a>
-                            <table class="table table-bordered">
+                            <table class="table table-bordered table-responsive-sm">
                                 <thead>
                                     <tr>
                                         <th class="text-center">N°</th>

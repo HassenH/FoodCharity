@@ -8,31 +8,27 @@
             <div class="col-12 col-sm-12 col-md-3 col-lg-2">
                 <h5>Le concept</h5>
                 <ul>
-                    <li><a href="#">Qu'est ce que c'est ?</a></li>
-                    <li><a href="#">Pourquoi, pour qui ?</a></li>
-                    <li><a href="#">Comment ça marche ?</a></li>
-                    <li><a href="#">Comment adhérer ?</a></li>
+                    <li><a href="why.php">Pourquoi, pour qui ?</a></li>
+                    <li><a href="howitworks.php">Comment ça marche ?</a></li>
                 </ul>
             </div>
             <div class="col-12 col-sm-12 col-md-3 col-lg-2">
                 <h5>L'aventure</h5>
                 <ul>
-                    <li><a href="#">Notre histoire</a></li>
-                    <li><a href="#">Notre vision</a></li>
+                    <li><a href="history.php">Notre histoire</a></li>
+                    <li><a href="ourValues.php">Nos valeurs</a></li>
                     <li><a href="#">Nos engagements</a></li>
-                    <li><a href="#">Nos valeurs</a></li>
                     <li><a href="#">Nos partenaires</a></li>
-                    <li><a href="#">Gaspillage alimentaire</a></li>
                 </ul>
             </div>
             <div class="col-12 col-sm-12 col-md-3 col-lg-2">
                 <h5>Pratique</h5>
                 <ul>
                     <li><a href="#">Blog</a></li>
+                    <li><a href="guidedesdons.php">Guide des dons</a></li>
                     <li><a href="#">Nous contacter</a></li>
-                    <li><a href="#">Newsletter</a></li>
                     <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Mentions légales</a></li>
+                    <li><a href="legalnotice.php">Mentions légales</a></li>
                 </ul>
             </div>
             <div class="col-12 col-sm-12 col-md-3 col-lg-3">

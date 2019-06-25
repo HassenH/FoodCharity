@@ -18,7 +18,7 @@ var_dump($_SESSION);
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="card-body">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered table-responsive-sm">
                                 <thead>
                                     <tr>
                                         <th class="text-center">N°</th>
@@ -40,13 +40,10 @@ var_dump($_SESSION);
                                             <td class="text-center"><?= $donation->deliveryOption ?></td>
                                             <td class="text-center"><?= $donation->status ?></td>
                                             <td class="text-center"><?= $donation->creationDate ?></td>
-                                            <?php if ($donation->status == 'Validé') { ?>
-                                                <td></td>
-                                            <?php } ?>
+                                            <td class="text-center"></td>
                                             <td> <a href="donationPage.php?&id=<?= $donation->id ?>" title="Intervenir"><i class="fas fa-pencil-alt d-flex justify-content-center"></i></a></td>
                                         </tr>
                                     <?php } ?>
-
                                 </tbody>
                             </table>
                         </div>

@@ -24,7 +24,9 @@ $listProductCategory = $productCategory->getProductCategoryList();
 $countDonation = $donation->getStatisticDonation();
 
 $comment = new comment();
-$getComments = $comment->getComments();
+
+$resultCount = $comment->checkIfCommentExist();
+
 
 $formErrors = array();
 
@@ -65,7 +67,7 @@ if (isset($_GET['id'])) {
         $donation->id = strip_tags($_GET['id']);
         $getDonationPage = $donation->getDonationPage();
         $getDonationAdressPage = $donation->getDonationAdressPage();
-
+        $getComment = $comment->getComment();
 
         if (count($_POST) > 0) {
 
@@ -90,7 +92,6 @@ if (isset($_GET['id'])) {
              * On stocke le résultat de la méthode checkUserExist qui permet de vérifier
              * si l'adresse mail (login) de l'utilisateur a déjà été enregistré dans la base de donnée
              */
-            $resultCount = $comment->checkIfCommentExist();
             if ($resultCount > 0) {
                 $formErrors['message'] = 'Un commentaire existe déjà pour ce don';
             }

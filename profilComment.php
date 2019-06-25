@@ -39,65 +39,74 @@ require_once 'navbar.php';
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal fade" id="modifyCommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Suppression</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <?php if (count($_POST) == 0 || count($formErrors) > 0) { ?>
-                                                <form action="" method="POST">
-                                                    <div class="form-group">
-                                                        <label for="score">Veuillez noter le don sur 5 :</label>
-                                                        <select class="form-control <?= isset($formErrors['score']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="score" name="score">
-                                                            <option value="1" <?= isset($_POST['score']) && $_POST['score'] == '1' ? 'selected' : '' ?>>1</option>
-                                                            <option value="2" <?= isset($_POST['score']) && $_POST['score'] == '2' ? 'selected' : '' ?>>2</option>
-                                                            <option value="3" <?= isset($_POST['score']) && $_POST['score'] == '3' ? 'selected' : '' ?>>3</option>
-                                                            <option value="4" <?= isset($_POST['score']) && $_POST['score'] == '4' ? 'selected' : '' ?>>4</option>
-                                                            <option value="5" <?= isset($_POST['score']) && $_POST['score'] == '5' ? 'selected' : '' ?>>5</option>
-                                                        </select>
-                                                        <?php if (isset($formErrors['score'])) { ?>
-                                                            <div class="invalid-feedback"><?= $formErrors['score'] ?></div>
-                                                        <?php } ?>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="comment">Commentaire : </label>
-                                                            <textarea required name="comment"  class="form-control <?= isset($formErrors['comment']) ? 'is-invalid' : (isset($comment) ? 'is-valid' : '') ?>" id="comment" rows="5" placeholder=""><?= isset($_POST['comment']) ? $_POST['comment'] : $getComment->opinion ?></textarea>
-                                                            <?php if (isset($formErrors['comment'])) { ?>
-                                                                <div class="invalid-feedback"><?= $formErrors['comment'] ?></div>
-                                                            <?php } ?>
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
-                                        </div>
-                                        <div class="modal-footer">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php foreach ($getComments as $comment) { ?>
-                                <div class="card my-2">
-                                    <div class="card-header">
-                                        <p class="text-white no-border"><?= $comment->title ?></p>
-                                    </div>
-                                    <div class="card-body">
-                                        <blockquote class="blockquote mb-0">
-                                            <p>Don N° : <?= $comment->idDonation ?></p>
-                                            <p>Note :<?= $comment->score ?></p>
-                                            <p><?= $comment->opinion ?></p>
-                                            <p><a class="dropdown-item" href="" title="Supprimer le don" data-target="#deleteCommentModal" data-toggle="modal" data-id="<?= $comment->id ?>" ><i class="fas fa-trash text-primary"></i></span></a></p>
-                                            <p><a class="dropdown-item" href="profilComment.php?modifyCommentId='<?= $comment->id ?>" title="Modifier le commentaire" data-target="#modifyCommentModal" data-toggle="modal"><i class="fas fa-pencil-alt"></i></a</p>
-                                            <footer class="blockquote-footer"><?= $comment->creationDate ?></footer>
-                                        </blockquote>
-                                    </div>
-                                </div>
-                            <?php } ?>
+                            <table class="table table-bordered table-responsive-sm">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">N°</th>
+                                        <th class="text-center">Titre</th>
+                                        <th class="text-center">Commentaire</th>
+                                        <th class="text-center">Note</th>
+                                        <th class="text-center">Date de création</th>
+                                        <?php if ($_SESSION['id_ag4fc_usersGroup'] == 4) { ?>
+                                            <th class="text-center">Action</th>
+                                        <?php } ?>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($getComments as $comment) { ?>
+                                        <tr>
+                                            <th class="text-center"><?= $comment->idDonation ?></th>
+                                            <td class="text-center"><?= $comment->title ?></td>
+                                            <td class="text-center font-weight-bold"><?= $comment->opinion ?></td>
+                                            <?php if ($comment->score == 1) { ?>
+                                                <td class="text-center"><i class="fas fa-star"></i> </td>
+                                            <?php } ?>
+                                            <?php if ($comment->score == 2) { ?>
+                                                <td class="text-center"><i class="fas fa-star"></i><i class="fas fa-star"></i> </td>
+                                            <?php } ?>
+                                            <?php if ($comment->score == 3) { ?>
+                                                <td class="text-center"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                                            <?php } ?>
+                                            <?php if ($comment->score == 4) { ?>
+                                                <td class="text-center"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                                            <?php } ?>
+                                            <?php if ($comment->score == 5) { ?>
+                                                <td class="text-center"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                                            <?php } ?>
+                                            <td class="text-center"><?= $comment->creationDate ?></td>
+                                            <td class="text-center"><a href="profilCommentModify.php?id=<?= $comment->idDonation ?>" title="Modifier un commentaire"><i class="fas fa-eye"></i></a> <a href="" title="Supprimer un commentaire" data-target="#deleteCommentModal" data-toggle="modal" data-id="<?= $comment->id ?>" data-lastname="" data-firstname=""><i class="fas fa-trash"></i></a></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                                <tbody>
+                                    <?php foreach ($getCommentsUser as $comment) { ?>
+                                        <tr>
+                                            <th class="text-center"><?= $comment->idDonation ?></th>
+                                            <td class="text-center"><?= $comment->title ?></td>
+                                            <td class="text-center font-weight-bold"><?= $comment->opinion ?></td>
+                                            <?php if ($comment->score == 1) { ?>
+                                                <td class="text-center"><i class="fas fa-star"></i> </td>
+                                            <?php } ?>
+                                            <?php if ($comment->score == 2) { ?>
+                                                <td class="text-center"><i class="fas fa-star"></i><i class="fas fa-star"></i> </td>
+                                            <?php } ?>
+                                            <?php if ($comment->score == 3) { ?>
+                                                <td class="text-center"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                                            <?php } ?>
+                                            <?php if ($comment->score == 4) { ?>
+                                                <td class="text-center"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                                            <?php } ?>
+                                            <?php if ($comment->score == 5) { ?>
+                                                <td class="text-center"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                                            <?php } ?>
+                                            <td class="text-center"><?= $comment->creationDate ?></td>
+                                            <?php if ($_SESSION['id_ag4fc_usersGroup'] == 4) { ?>
+                                                <td class="text-center"><a href="profilCommentModify.php?id=<?= $comment->idDonation ?>" title="Modifier un commentaire"><i class="fas fa-eye"></i></a> <a href="" title="Supprimer un commentaire" data-target="#deleteCommentModal" data-toggle="modal" data-id="<?= $comment->id ?>" data-lastname="" data-firstname=""><i class="fas fa-trash"></i></a></td>
+                                                    <?php } ?>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -105,7 +114,6 @@ require_once 'navbar.php';
         </div>
     </div>
 </div>
-
 <?php
 require_once 'footer.php';
 ?>

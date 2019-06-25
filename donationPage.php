@@ -12,9 +12,6 @@ require_once 'models/models_comment.php';
 require_once 'models/models_productCategory.php';
 require_once 'controllers/donationPageCtrl.php';
 require_once 'navbar.php';
-
-var_dump($_POST);
-var_dump($comment);
 ?>
 <div class="container my-5">
     <div class="row">
@@ -62,7 +59,7 @@ var_dump($comment);
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Valider</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Annuler</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -86,7 +83,7 @@ var_dump($comment);
                                     </div>
                                 </div>
                             </div>
-                            <img class="custom-border-img border border-dark" src="/assets/img/panierfraise.jpg" width="270" alt="Donation Image">
+                            <img class="custom-border-img border border-dark" src="/uploads/<?= $getDonationPage->photo ?>" width="270" alt="Donation Image">
                             <div class="form-inline">
                                 <p class="text-uppercase my-3 font-weight-bold"><?= $getDonationPage->title ?></p>
                             </div>
@@ -110,7 +107,7 @@ var_dump($comment);
                                             Intervenir
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-left w-100" aria-labelledby="dropdownMenuButton">
-                                            <?php if (($_SESSION['id_ag4fc_usersGroup'] == 2) || ($_SESSION['id_ag4fc_usersGroup'] == 3)) { ?>
+                                            <?php if (($_SESSION['id_ag4fc_usersGroup'] == 1) || ($_SESSION['id_ag4fc_usersGroup'] == 2) || ($_SESSION['id_ag4fc_usersGroup'] == 3)) { ?>
                                                 <a class = "dropdown-item" href ="donationModify.php?&id=<?= $getDonationPage->idDonation ?>" title = "Modifier le don"><i class = "fas fa-pen"></i> Modifier le don</a>
                                                 <a class="dropdown-item" href="" title="Supprimer le don" data-target="#deleteModal" data-toggle="modal" data-id="<?= $getDonationPage->idDonation ?>" data-number="<?= $getDonationPage->idDonation ?>"><i class="fas fa-trash-alt"></i></span> Supprimer le don</a>
                                             <?php } ?>
@@ -124,7 +121,7 @@ var_dump($comment);
                             </div>
                             <div class="row">
                                 <div class="col-6 my-3">
-                                    <button class="btn btn-lg buttonShare"  data-toggle="modal" data-target="#shareDonation">
+                                    <button class="btn btn-lg buttonShare"  data-toggle="modal" data-target="">
                                         <span class="oi oi-envelope-closed mr-2"></span>Envoyer à un ami</button>
                                 </div>
                             </div>
@@ -196,7 +193,7 @@ var_dump($comment);
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="comment">Commentaire : </label>
-                                        <textarea required name="comment"  class="form-control <?= isset($formErrors['comment']) ? 'is-invalid' : (isset($comment) ? 'is-valid' : '') ?>" id="comment" rows="5" placeholder="Si j'étais un super-héros je serai ... parce que ..."><?= isset($_POST['comment']) ? $_POST['comment'] : '' ?></textarea>
+                                        <textarea required name="comment"  class="form-control <?= isset($formErrors['comment']) ? 'is-invalid' : (count($_POST) > 0 ? 'is-valid' : '') ?>" id="comment" rows="5" placeholder="Votre commentaire ..."><?= isset($_POST['comment']) ? $_POST['comment'] : '' ?></textarea>
                                         <?php if (isset($formErrors['comment'])) { ?>
                                             <div class="invalid-feedback"><?= $formErrors['comment'] ?></div>
                                         <?php } ?>
@@ -220,11 +217,6 @@ var_dump($comment);
                                     ?>
                                     <div class="col-8 offset-2 alert alert-success " role="alert">
                                         <p><?= $formSuccess; ?> </p>
-                                        <p>Vous pouvez à présent vous connecter. </p>
-                                    </div>
-                                    <div class="col-12 text-center">
-                                        <img src="assets/img/donateme.png" height="400px" alt="donateme">
-                                        <a href="login.php" class="btn largeButton my-2" role="button"><h2><u>Faites votre premiers dons !</u></h2></a>
                                     </div>
                                 <?php } ?>
                             <?php }

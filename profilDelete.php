@@ -3,7 +3,6 @@ require_once 'regex.php';
 require_once 'models/models_users.php';
 require_once 'controllers/usersDeleteCtrl.php';
 require_once 'navbar.php';
-var_dump($_POST);
 ?>
 
 <div class="container">
@@ -18,7 +17,7 @@ var_dump($_POST);
                     <div class="row">
                         <div class="col-12 card border-0 bg-transparent">
                             <div class="card-header text-center border-bottom-0 bg-light">
-                                <h2 class="ml-4 mb-0 card-title d-inline-block">Voulez-vous vraiment supprimer votre compte ?</h2>
+                                <h2 class="ml-4 mb-0 card-title d-inline-block">Voulez-vous vraiment supprimer votre compte <?= $getUser->lastname . ' ' . $getUser->firstname ?> ?</h2>
                                 <div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -40,7 +39,7 @@ var_dump($_POST);
             </div>
             <div class="row">
                 <div class="col-12 my-4">
-                    <input class="btn btn-bg-red btn-lg btn-block text-wrap-xs btn-submit" type="submit" value="Transmettre ma demande" data-target="#deleteUser" data-toggle="modal" data-id="<?= $getUser->id ?>" data-number="" />
+                    <input class="btn btn-bg-red btn-lg btn-block text-wrap-xs btn-submit" type="submit" value="Valider" data-target="#deleteUser" data-toggle="modal" data-id="<?= $getUser->id ?>" data-number="" />
                 </div>
             </div>
         </div>

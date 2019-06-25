@@ -4,7 +4,7 @@
  * Si id_ag4fc_usersGroup(id de la table usersGroup) est différent de 2 (Particulier) ou  différent de 3 (Commerce)
  * on redirige vers le profil
  */
-if (($_SESSION['id_ag4fc_usersGroup'] != 2) && ($_SESSION['id_ag4fc_usersGroup'] != 3)) {
+if (($_SESSION['id_ag4fc_usersGroup'] != 1) && ($_SESSION['id_ag4fc_usersGroup'] != 2) && ($_SESSION['id_ag4fc_usersGroup'] != 3)) {
     header('location: profil.php');
 // Si la page est redirigée, exit permet de s'assurer que la suite du code ne soit pas exécuté
     exit;
@@ -51,7 +51,7 @@ if (isset($_GET['id'])) {
                  * Si tout va bien => on stocke dans la variable qui nous servira à afficher
                  * Sinon => on stocke l'erreur dans le tableau $formErrors
                  */
-                if (preg_match($regexName, $_POST['title'])) {
+                if (preg_match($regexEts, $_POST['title'])) {
                     // On utilise htmlspecialchars car on veut garder MAIS désactiver les éventuelles balises html (attention : différent de strip_tags)
                     $donation->title = htmlspecialchars($_POST['title']);
                 } else {
@@ -87,7 +87,7 @@ if (isset($_GET['id'])) {
                      */
                     $resultCount = $donation->checkIfTimeSlotExist();
                     if ($resultCount > 0) {
-                        $formErrors['hour'] = 'Un compte avec ce mail existe déjà. Veuillez modifier l\'adresse mail';
+                        $formErrors['hour'] = 'Un rendez-vous existe déja, veuillez prendre une autre heure de rendez-vous pour la remise du don !';
                     }
                 } else {
                     $formErrors['hour'] = 'Veuillez renseignez une heure valide';
@@ -151,7 +151,7 @@ if (isset($_GET['id'])) {
                 $formErrors['category'] = 'Merci de répondre à cette question';
             }
 
-            if (($_SESSION['id_ag4fc_usersGroup'] == 2) || ($_SESSION['id_ag4fc_usersGroup'] == 3)) {
+            if (($_SESSION['id_ag4fc_usersGroup'] == 1) || ($_SESSION['id_ag4fc_usersGroup'] == 2) || ($_SESSION['id_ag4fc_usersGroup'] == 3)) {
 //// On appelle la méthode getInstance, qui se trouve dans la classe database
                 // Puisque cette methode est static il n'est pas nécessaire de l'instancier un nouvel objet par rapport a la classe database
                 // getInstance() me retourne l'objet instancié de la classe Database
@@ -163,7 +163,7 @@ if (isset($_GET['id'])) {
                     $donation->updateDonation();
                     $donationContent->id_ag4fc_donation = $database->db->lastInsertId();
                     $updateDonation = $donationContent->updateDonationContent();
-                    $formSuccess = 'Votre modification a été validé';
+                    $formSuccess = 'Votre don a été modifié.';
                     $database->db->commit();
                 } catch (\Exception $e) {
                     $database->db->rollback();
