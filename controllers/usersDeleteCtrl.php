@@ -8,6 +8,7 @@ if (isset($_GET['deleteId'])) {
         $users->id = strip_tags($_GET['deleteId']);
         $users->removeUser();
         header('location:index.php');
+        session_destroy();
     }
 }
 

@@ -1,4 +1,6 @@
 <?php
+//On inclut le fichier qui contient les regex avec un require car on en a besoin pour faire les vérification
+
 require_once 'regex.php';
 require_once 'models/models_users.php';
 require_once 'models/models_donation.php';
@@ -10,8 +12,6 @@ require_once 'models/models_packages.php';
 require_once 'models/models_productCategory.php';
 require_once 'controllers/donationMakeCtrl.php';
 require_once 'navbar.php';
-
-//On inclut le fichier qui contient les regex avec un require car on en a besoin pour faire les vérification
 ?>
 <div class="container my-5">
     <?php if (count($_POST) == 0 || count($formErrors) > 0) { ?>

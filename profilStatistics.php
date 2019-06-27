@@ -4,7 +4,6 @@ require_once 'regex.php';
 require_once 'models/models_donation.php';
 require_once 'controllers/profilStatisticCtrl.php';
 require_once 'navbar.php';
-var_dump($statisticInfo);
 ?>
 <div class="container">
     <div class="row my-5">

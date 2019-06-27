@@ -5,9 +5,6 @@ require_once 'models/models_association.php';
 require_once 'models/models_users.php';
 require_once 'controllers/associationUpdateCtrl.php';
 require_once 'navbar.php';
-var_dump($_POST);
-var_dump($users);
-var_dump($association);
 ?>
 <div class="container">
     <div class="row my-5">

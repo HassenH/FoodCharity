@@ -8,7 +8,6 @@ require_once 'models/models_timeSlot.php';
 require_once 'models/models_delivery.php';
 require_once 'controllers/adminCtrl.php';
 require_once 'navbar.php';
-$page = 'profilDonationAdmin.php';
 ?>
 
 <div class="container">

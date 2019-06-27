@@ -262,7 +262,7 @@ $(function() {
 $('#deleteModal').on('show.bs.modal', function(event) {
 //On stocke dans une variable le bouton qui appelle la modale.
     var button = $(event.relatedTarget);
-    //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id du patient, son nom de famille et son prénom
+    //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id, son nom de famille et son prénom
     var donationId = button.data('id');
     var modal = $(this);
     /*
@@ -312,7 +312,7 @@ $('#cancelDonationModal').on('show.bs.modal', function(event) {
      * Ici dans la div modal-body, on crée un paragraphe qui contient la question de confirmation.
      */
     modal.find('.modal-body').append('<p>Êtes-vous sûr.e de vouloir annuler le don N° : ' + donationNumber + ' ?</p>');
-    modal.find('.modal-footer').append('<a href="donationPage.php?cancelStatusId=' + donationId + '" class="btn btn-danger">Valider le don</a>');
+    modal.find('.modal-footer').append('<a href="donationPage.php?cancelStatusId=' + donationId + '" class="btn btn-danger">Annuler le don</a>');
 })
 
 /// Script pour supprimer compte
@@ -322,7 +322,7 @@ $(function() {
     $('#deleteUser').on('show.bs.modal', function(event) {
         //On stocke dans une variable le bouton qui appelle la modale.
         var button = $(event.relatedTarget);
-        //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id du patient, son nom de famille et son prénom
+        //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id, son nom de famille et son prénom
         var donationId = button.data('id');
         var donationNumber = button.data('number');
         var modal = $(this);
@@ -332,7 +332,7 @@ $(function() {
          * Ici dans la div modal-body, on crée un paragraphe qui contient la question de confirmation.
          */
         modal.find('.modal-body').empty().append('<p>Êtes-vous sûr.e de vouloir supprimer ' + donationNumber + '?</p>');
-        modal.find('.modal-footer').empty().append('<a href="profilDelete.php?deleteId=' + donationId + '" class="btn btn-danger">Supprimer ce don</a>');
+        modal.find('.modal-footer').empty().append('<a href="profilDelete.php?deleteId=' + donationId + '" class="btn btn-danger">Supprimer</a>');
     })
 })
 
@@ -342,7 +342,7 @@ $(function() {
     $('#deleteCommentModal').on('show.bs.modal', function(event) {
         //On stocke dans une variable le bouton qui appelle la modale.
         var button = $(event.relatedTarget);
-        //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id du patient, son nom de famille et son prénom
+        //On récupère les attributs data- du bouton qui a appelé la modale. On récupère donc l'id
         var donationId = button.data('id');
         var donationNumber = button.data('number');
         var modal = $(this);
@@ -352,7 +352,7 @@ $(function() {
          * Ici dans la div modal-body, on crée un paragraphe qui contient la question de confirmation.
          */
         modal.find('.modal-body').empty().append('<p>Êtes-vous sûr.e de vouloir supprimer le commentaire ' + donationNumber + '?</p>');
-        modal.find('.modal-footer').empty().append('<a href="profilComment.php?deleteCommentId=' + donationId + '" class="btn btn-danger">Supprimer ce don</a>');
+        modal.find('.modal-footer').empty().append('<a href="profilComment.php?deleteCommentId=' + donationId + '" class="btn btn-danger">Supprimer</a>');
     })
 })
 

@@ -5,9 +5,6 @@ require_once 'models/models_users.php';
 require_once 'models/models_commerce.php';
 require_once 'controllers/commerceCtrl.php';
 require_once 'navbar.php';
-
-var_dump($_POST);
-var_dump($commerce);
 ?>
 <!-- BANNER -->
 <?php if (count($_POST) == 0 || count($formErrors) > 0) { ?>

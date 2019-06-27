@@ -2,14 +2,7 @@
 session_start();
 require_once 'navbar.php';
 ?>
-<!-- BANNER -->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 no-gutter">
-            <img src="assets/img/account.png" class="no-gutter" alt="Banniere">
-        </div>
-    </div>
-</div>
+
 <!-- LEARNMORE -->
 <div class="container">
     <div class="row">
@@ -108,12 +101,12 @@ require_once 'navbar.php';
     </div>
     <div class="row">
         <div class="col-12 col-sm-5 offset-sm-1 col-md-5 offset-md-1 text-center">
-            <h5 class="mt-3">Tonnes de nourriture sauvée :</h5>
+            <h5 class="mt-3">Dons réalisés :</h5>
             <p class="number">160</p>
         </div>
         <div class="col-12 col-sm-5 offset-sm-1 col-md-5 offset-md-1 text-center">
             <h5 class="mt-3">Produits sauvés :</h5>
-            <p class="number">10000</p>
+            <p class="number">1000</p>
         </div>
     </div>
     <div class="">

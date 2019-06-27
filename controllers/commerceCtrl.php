@@ -3,8 +3,7 @@
 session_start();
 
 if (isset($_POST['search'])) {
-    //je ne charge pas l'autoloader car il risque de rentrer en conflit
-    //avec les chemins pour l'appel à Ajax
+
 //appel à la database qui est le singleton
     require_once '../models/database.php';
 

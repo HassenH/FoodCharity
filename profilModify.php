@@ -209,11 +209,9 @@ require_once 'navbar.php';
                                             ?>
                                             <div class="col-8 offset-2 alert alert-success " role="alert">
                                                 <p><?= $formSuccess; ?> </p>
-                                                <p>Vous pouvez à présent vous connecter. </p>
                                             </div>
                                             <div class="col-12 text-center">
                                                 <img src="assets/img/donateme.png" height="400px" alt="donateme">
-                                                <a href="login.php" class="btn largeButton my-2" role="button"><h2><u>Faites votre premiers dons !</u></h2></a>
                                             </div>
                                         <?php } ?>
                                     <?php }

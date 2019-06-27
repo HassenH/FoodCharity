@@ -1,73 +1,27 @@
 <?php
 
-$users = new users();
-// Instanciation de la class
+// Instanciation de l'objet $donation de la classe donation
 $donation = new donation();
-$donationContent = new donationContent();
 
-$timeSlot = new timeSlot();
-$listTimeSlot = $timeSlot->getTimeSlotList();
-
-$association = new association();
-$listAssociation = $association->getAssociationList();
-
-$delivery = new delivery();
-$listDelivery = $delivery->getDeliveryList();
-
-$package = new packages();
-$listPackage = $package->getPackagesList();
-//On initialise un tableau d'erreurs vide
-
-$productCategory = new productCategory();
-$listProductCategory = $productCategory->getProductCategoryList();
-
-$countDonation = $donation->getStatisticDonation();
-
+// Instanciation de l'objet $comment de la classe comment
 $comment = new comment();
 
-$resultCount = $comment->checkIfCommentExist();
 
-
+//On initialise un tableau d'erreurs vide pour les erreurs
 $formErrors = array();
 
-if (isset($_GET['deleteId'])) {
-    if (preg_match($regexId, $_GET['deleteId'])) {
-        $donation->id = strip_tags($_GET['deleteId']);
-        $donation->removeDonation();
-        header('location:profil.php');
-    }
-}
-
-if (isset($_GET['validStatusId'])) {
-    if (preg_match($regexId, $_GET['validStatusId'])) {
-        $donation->id = strip_tags($_GET['validStatusId']);
-        $donation->validDonationStatus();
-        header('location:profilDonationCollected.php');
-    }
-}
-
-if (isset($_GET['cancelStatusId'])) {
-    if (preg_match($regexId, $_GET['cancelStatusId'])) {
-        $donation->id = strip_tags($_GET['cancelStatusId']);
-        $donation->cancelDonationStatus();
-        header('location:profilDonationCollected.php');
-    }
-}
-
-if (isset($_GET['deleteCommentId'])) {
-    if (preg_match($regexId, $_GET['deleteCommentId'])) {
-        $comment->id = strip_tags($_GET['deleteCommentId']);
-        $comment->removeComment();
-        header('location:profil.php');
-    }
-}
-
+// Récupération de la valeur de l'id dans le paramètre de l'url
 if (isset($_GET['id'])) {
     if (preg_match($regexId, $_GET['id'])) {
+        /**
+         * On récupère l'id dans l'attribut id de l'objet $donation
+         */
         $donation->id = strip_tags($_GET['id']);
         $getDonationPage = $donation->getDonationPage();
         $getDonationAdressPage = $donation->getDonationAdressPage();
         $getComment = $comment->getComment();
+        $resultCount = $comment->checkIfCommentExist();
+
 
         if (count($_POST) > 0) {
 
@@ -102,5 +56,38 @@ if (isset($_GET['id'])) {
                 }
             }
         }
+    }
+}
+
+// Récupération de la valeur de l'id dans le paramètre de l'url
+if (isset($_GET['deleteId'])) {
+    if (preg_match($regexId, $_GET['deleteId'])) {
+        $donation->id = strip_tags($_GET['deleteId']);
+        $donation->removeDonation();
+        header('location:profil.php');
+    }
+}
+
+if (isset($_GET['validStatusId'])) {
+    if (preg_match($regexId, $_GET['validStatusId'])) {
+        $donation->id = strip_tags($_GET['validStatusId']);
+        $donation->validDonationStatus();
+        header('location:profilDonationCollected.php');
+    }
+}
+
+if (isset($_GET['cancelStatusId'])) {
+    if (preg_match($regexId, $_GET['cancelStatusId'])) {
+        $donation->id = strip_tags($_GET['cancelStatusId']);
+        $donation->cancelDonationStatus();
+        header('location:profilDonationCollected.php');
+    }
+}
+
+if (isset($_GET['deleteCommentId'])) {
+    if (preg_match($regexId, $_GET['deleteCommentId'])) {
+        $comment->id = strip_tags($_GET['deleteCommentId']);
+        $comment->removeComment();
+        header('location:profil.php');
     }
 }

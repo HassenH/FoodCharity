@@ -32,6 +32,7 @@ $formErrors = array();
 if (isset($_GET['id'])) {
     if (preg_match($regexId, $_GET['id'])) {
         $donation->id = strip_tags($_GET['id']);
+        // On appelle la méthode getDonationModify pour afficher les données d'un don alimentaire
         $getDonationModify = $donation->getDonationModify();
         $listTimeSlot = $timeSlot->getTimeSlotList();
         $listDelivery = $delivery->getDeliveryList();
@@ -151,23 +152,25 @@ if (isset($_GET['id'])) {
                 $formErrors['category'] = 'Merci de répondre à cette question';
             }
 
-            if (($_SESSION['id_ag4fc_usersGroup'] == 1) || ($_SESSION['id_ag4fc_usersGroup'] == 2) || ($_SESSION['id_ag4fc_usersGroup'] == 3)) {
-//// On appelle la méthode getInstance, qui se trouve dans la classe database
-                // Puisque cette methode est static il n'est pas nécessaire de l'instancier un nouvel objet par rapport a la classe database
-                // getInstance() me retourne l'objet instancié de la classe Database
-                $database = Database::getInstance();
-                // On fais appelle a setAttribute qui est une méthode de PDO, pour gérer les erreurs
-                $database->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                try {
-                    $database->db->beginTransaction();
-                    $donation->updateDonation();
-                    $donationContent->id_ag4fc_donation = $database->db->lastInsertId();
-                    $updateDonation = $donationContent->updateDonationContent();
-                    $formSuccess = 'Votre don a été modifié.';
-                    $database->db->commit();
-                } catch (\Exception $e) {
-                    $database->db->rollback();
-                    die('error : ' . $e->getMessage());
+            if (count($formErrors) == 0) {
+                if (($_SESSION['id_ag4fc_usersGroup'] == 1) || ($_SESSION['id_ag4fc_usersGroup'] == 2) || ($_SESSION['id_ag4fc_usersGroup'] == 3)) {
+                    // On appelle la méthode getInstance, qui se trouve dans la classe database
+                    // Puisque cette methode est static il n'est pas nécessaire de l'instancier un nouvel objet par rapport a la classe database
+                    // getInstance() me retourne l'objet instancié de la classe Database
+                    $database = Database::getInstance();
+                    // On fais appelle a setAttribute qui est une méthode de PDO, pour gérer les erreurs
+                    $database->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    try {
+                        $database->db->beginTransaction();
+                        $donation->updateDonation();
+                        $donationContent->id_ag4fc_donation = $database->db->lastInsertId();
+                        $updateDonation = $donationContent->updateDonationContent();
+                        $formSuccess = 'Votre don a été modifié.';
+                        $database->db->commit();
+                    } catch (\Exception $e) {
+                        $database->db->rollback();
+                        die('error : ' . $e->getMessage());
+                    }
                 }
             }
         }

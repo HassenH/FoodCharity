@@ -44,6 +44,7 @@ class donationContent {
         $query = 'INSERT INTO `ag4fc_donationContent` (`quantity`, `weight`, `id_ag4fc_packages`, `id_ag4fc_donation`, `id_ag4fc_productCategory`) '
                 . 'VALUES (:quantity, :weight, :id_ag4fc_packages, :id_ag4fc_donation, :id_ag4fc_productCategory)';
 
+        // On prépare la requête à l'exécution et on retourne un objet $queryExecute
         $queryExecute = $this->db->prepare($query);
         /**
          * Bindvalue associe une valeur a un paramétre, ici a nos marqueurs nominatif.
@@ -74,6 +75,7 @@ class donationContent {
         $queryExecute->bindValue(':id_ag4fc_packages', $this->id_ag4fc_packages, PDO::PARAM_INT);
         $queryExecute->bindValue(':id_ag4fc_productCategory', $this->id_ag4fc_productCategory, PDO::PARAM_INT);
 
+        // Execute la requête préparée et retourne le résultat dans la bdd
         return $queryExecute->execute();
     }
 

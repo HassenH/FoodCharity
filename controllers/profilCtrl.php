@@ -4,8 +4,7 @@ session_start();
 
 
 if (isset($_POST['search'])) {
-//je ne charge pas l'autoloader car il risque de rentrer en conflit
-//avec les chemins pour l'appel à Ajax
+
 //appel à la database qui est le singleton
     require_once '../models/database.php';
 // appel
@@ -31,8 +30,8 @@ if (isset($_POST['search'])) {
     $commerce = new commerce();
     $listCommerce = $commerce->getCommerce();
 
-//instance de la classe commerce
-//On initialise un tableau d'erreurs vide pour les erreurs
+    //instance de la classe commerce
+    //On initialise un tableau d'erreurs vide pour les erreurs
     $formErrors = array();
 
     if (count($_POST) > 0) {
@@ -213,7 +212,7 @@ if (isset($_POST['search'])) {
         if (count($formErrors) == 0) {
             if ($_SESSION['id_ag4fc_usersGroup'] == 2) {
                 $users->updateUsers();
-                $formSuccess = 'Votre inscription a été validé';
+                $formSuccess = 'Votre modification a été validé';
             }
         }
 

@@ -4,7 +4,6 @@ require_once 'regex.php';
 require_once 'models/models_donation.php';
 require_once 'controllers/profilDonationCtrl.php';
 require_once 'navbar.php';
-var_dump($_SESSION);
 ?>
 
 <div class="container">
